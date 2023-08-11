@@ -1,37 +1,49 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:portafolio/styles/Responsive/responsive.dart';
 import 'package:portafolio/styles/themes/styles.dart';
-import 'package:flutter/services.dart';
+import 'components/Header.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-              // statusBarColor is used to set Status bar color in Android devices.
-              statusBarColor: Colors.transparent,
-        
-              // To make Status bar icons color white in Android devices.
-              statusBarIconBrightness: Brightness.dark,
-        
-              // statusBarBrightness is used to set Status bar icon color in iOS.
-              statusBarBrightness: Brightness.dark,
-              // Here light means dark icon color for Status bar.
-            ));
-
     Widget body = Responsive(context: context).getDevice();
+    double height = Responsive(context: context).getDeviceHeight();
+    double width = Responsive(context: context).getDeviceWidth();
 
-    bool isDarkMode = false;
+    bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
 
     return MaterialApp(
-      theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: body
-    );
+        theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
+        home: Scaffold(
+          appBar: Header(height: height, width: width),
+          body: body,
+        ));
+  }
+}
+
+class ThemeProvider with ChangeNotifier {
+  bool _isDarkMode = false;
+
+  bool get isDarkMode => _isDarkMode;
+
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
   }
 }

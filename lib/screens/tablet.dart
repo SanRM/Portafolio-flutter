@@ -11,7 +11,7 @@ class _TabletState extends State<Tablet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tablet')),
+      appBar: AppBar(title: const Text('Tablet')),
     );
   }
 }

@@ -27,11 +27,11 @@ class Responsive {
     double actualWidth = MediaQuery.of(getContext()).size.width;
 
     if (actualWidth < 450) {
-      return Mobile();
+      return const Mobile();
     } else if (actualWidth > 450 && actualWidth < 1440) {
-      return Tablet();
+      return const Tablet();
     } else {
-      return Desktop();
+      return const Desktop();
     }
 
   }

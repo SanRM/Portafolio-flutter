@@ -1,8 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
-import 'package:portafolio/components/bottomAppBar.dart';
-import 'package:portafolio/components/Header.dart';
+//import 'package:portafolio/components/bottom_app_bar.dart';
 import 'package:portafolio/styles/Responsive/responsive.dart';
 import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/widgets/InitialInformation.dart';
+import 'package:portafolio/widgets/ProjectBoard.dart';
 
 class Mobile extends StatefulWidget {
   const Mobile({super.key});
@@ -12,166 +14,187 @@ class Mobile extends StatefulWidget {
 }
 
 class _MobileState extends State<Mobile> {
-  
+  ScrollController _scrollController = ScrollController();
+
+  Color? _color1 = tertiary;
+  Color? _color2;
+  Color? _color3;
+  bool _backgroundColorSelected1 = true;
+  bool _backgroundColorSelected2 = true;
+  bool _backgroundColorSelected3 = true;
+
+  scrollToPage(double pageNumber) {
+    _scrollController.animateTo(
+      pageNumber * MediaQuery.of(context).size.height, // Altura de cada página
+      duration: Duration(milliseconds: 500), // Duración de la animación
+      curve: Curves.easeInOut, // Curva de la animación
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = Responsive(context: context).getDeviceHeight();
     double width = Responsive(context: context).getDeviceWidth();
 
+    _InicioColor() {
+      setState(() {
+        _backgroundColorSelected1 = true;
+        _backgroundColorSelected2 = false;
+        _backgroundColorSelected3 = false;
+        _color1 = tertiary;
+        _color2 = null;
+        _color3 = null;
+        //print('Inicio seleccionado');
+      });
+    }
+
+    _ProyectosColor() {
+      setState(() {
+        _backgroundColorSelected1 = false;
+        _backgroundColorSelected2 = true;
+        _backgroundColorSelected3 = false;
+        _color1 = null;
+        _color2 = tertiary;
+        _color3 = null;
+        //print('Proyecto seleccionado');
+      });
+    }
+
+    _SobreMiColor() {
+      setState(() {
+        _backgroundColorSelected1 = false;
+        _backgroundColorSelected2 = false;
+        _backgroundColorSelected3 = true;
+        _color1 = null;
+        _color2 = null;
+        _color3 = tertiary;
+        //print('Proyectos seleccionado');
+      });
+    }
+
     return Scaffold(
-      appBar: Header(height: height, width: width),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              PrincipaImage(width: width, height: height),
-              InitialInformation(width: width, height: height),
-              projectBoard(width: width, height: height),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: MobileBottomAppBar(height: height, width: width),
-    );
-  }
-}
-
-class projectBoard extends StatelessWidget {
-  const projectBoard({
-    super.key,
-    required this.width,
-    required this.height,
-  });
-
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      color: Color.fromRGBO(162, 195, 195, 1),
-    );
-  }
-}
-
-class PrincipaImage extends StatelessWidget {
-  const PrincipaImage({
-    super.key,
-    required this.width,
-    required this.height,
-  });
-
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: paddingSymetricMiddle,
-      child: Container(
-        padding: paddingSymetricMiddle,
-        width: width,
-        height: height / 4,
-        //color: Colors.red,
-        child: Image.asset('assets/images/PrincipaImage.png'),
-      ),
-    );
-  }
-}
-
-class InitialInformation extends StatelessWidget {
-  final double width;
-  final double height;
-
-  const InitialInformation({
-    required this.width,
-    required this.height,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: paddingSymetricMiddle,
-          child: Container(
-              alignment: Alignment.center,
-              width: width,
-              height: height / 10,
-              //color: const Color.fromARGB(255, 54, 244, 139),
-              child: Text('PORTAFOLIO',
-                  style: TextStyle(fontSize: width / 15, letterSpacing: 6))),
-        ),
-        Padding(
-          padding: paddingSymetricMiddle,
-          child: Container(
-            width: width,
-            height: height / 150,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        Padding(
-          padding: paddingSymetricMiddle,
-          child: Container(
-            padding: paddingAll,
-            alignment: Alignment.center,
-            //color: Color.fromARGB(255, 54, 105, 244),
-            child: Text('Santiago Rodriguez Morales',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: width / 10)),
-          ),
-        ),
-        Padding(
-          padding: paddingSymetricMiddle,
-          child: Container(
-              alignment: Alignment.center,
-              height: height / 20,
-              //color: Color.fromARGB(255, 255, 121, 255),
-              child: Text(
-                'Desarrollador de software',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: width / 18),
-              )),
-        ),
-        Padding(
-          padding: paddingSymetricMiddle,
-          child: Container(
-            width: width / 1.5,
-            height: height / 6,
-            //color: Colors.red,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: SafeArea(
+          child: ListView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.normal),
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                    width: width / 4,
-                    child: Image.asset('assets/images/github-mark-white.png',
-                        scale: width / 70),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color.fromRGBO(50, 50, 50, 1),
-                    ),
-                  ),
+                Column(
+                  children: [
+                    InitialInformation(width: width, height: height),
+                    ProjectBoard(width: width, height: height)
+                  ],
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                    width: width / 4,
-                    child: Image.asset('assets/images/linkedin.png', scale: width / 40),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color.fromRGBO(1, 120, 180, 1),
-                    ),
-                  ),
-                ),
-              ],
+              ]),
+        ),
+        bottomNavigationBar: ClipRRect(
+          child: BottomAppBar(
+            height: height / 10,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  border: Border(
+                      top: BorderSide(
+                          width: 2,
+                          color: Theme.of(context).colorScheme.onPrimary))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: width * sizedBoxWidth),
+                  InkWell(
+                      onTap: () {
+                        scrollToPage(0);
+                        _InicioColor();
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Container(
+                          color: _color1,
+                          padding: EdgeInsets.symmetric(horizontal: width / 50),
+                          alignment: Alignment.center,
+                          height: height / 20,
+                          child: BottomAppBarButtons(
+                              width: width,
+                              height: height,
+                              label: 'Inicio',
+                              bgIsSelected: _backgroundColorSelected1),
+                        ),
+                      )),
+                  InkWell(
+                      onTap: () {
+                        scrollToPage(0.3);
+                        _ProyectosColor();
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Container(
+                          color: _color2,
+                          padding: EdgeInsets.symmetric(horizontal: width / 50),
+                          alignment: Alignment.center,
+                          height: height / 20,
+                          child: BottomAppBarButtons(
+                            width: width,
+                            height: height,
+                            label: 'Proyectos',
+                            bgIsSelected: _backgroundColorSelected2,
+                          ),
+                        ),
+                      )),
+                  InkWell(
+                      onTap: () {
+                        scrollToPage(0.3);
+                        _SobreMiColor();
+                      },
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Container(
+                            color: _color3,
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width / 50),
+                            alignment: Alignment.center,
+                            height: height / 20,
+                            child: BottomAppBarButtons(
+                              width: width,
+                              height: height,
+                              label: 'Sobre mi',
+                              bgIsSelected: _backgroundColorSelected3,
+                            ),
+                          ))),
+                  SizedBox(width: width * sizedBoxWidth),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ));
+  }
+}
+
+class BottomAppBarButtons extends StatelessWidget {
+  const BottomAppBarButtons({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.label,
+    required this.bgIsSelected,
+  });
+
+  final double width;
+  final double height;
+  final String label;
+  final bool bgIsSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: TextStyle(
+          fontSize: width / 20,
+          color: bgIsSelected
+              ? primaryBlack
+              : Theme.of(context).colorScheme.onPrimary),
     );
   }
 }
+
+
+
