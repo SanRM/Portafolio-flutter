@@ -76,7 +76,20 @@ class LightTheme {
 
 //3. Modo oscuro de la App
 class DarkTheme {
+  
   static ThemeData themeData = ThemeData.light().copyWith(
+
+    textTheme: const TextTheme(
+      bodyMedium: TextStyle(fontWeight: FontWeight.bold),
+    ),
+
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            overlayColor: const MaterialStatePropertyAll(tertiary),
+            backgroundColor: const MaterialStatePropertyAll(primaryLight),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50))))),
+
     scaffoldBackgroundColor: primaryBlack,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
@@ -93,8 +106,6 @@ class DarkTheme {
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(27, 33, 48, 1),
     ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(fontWeight: FontWeight.bold),
-    ),
+
   );
 }
