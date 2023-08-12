@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 //import 'package:portafolio/components/bottom_app_bar.dart';
 import 'package:portafolio/styles/Responsive/responsive.dart';
 import 'package:portafolio/styles/themes/styles.dart';
-import 'package:portafolio/widgets/InitialInformation.dart';
-import 'package:portafolio/widgets/ProjectBoard.dart';
+import 'package:portafolio/widgets/initial_information.dart';
+import 'package:portafolio/widgets/project_board.dart';
 
 class Mobile extends StatefulWidget {
   const Mobile({super.key});
@@ -14,7 +14,7 @@ class Mobile extends StatefulWidget {
 }
 
 class _MobileState extends State<Mobile> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   Color? _color1 = tertiary;
   Color? _color2;
@@ -26,7 +26,7 @@ class _MobileState extends State<Mobile> {
   scrollToPage(double pageNumber) {
     _scrollController.animateTo(
       pageNumber * MediaQuery.of(context).size.height, // Altura de cada página
-      duration: Duration(milliseconds: 500), // Duración de la animación
+      duration: const Duration(milliseconds: 500), // Duración de la animación
       curve: Curves.easeInOut, // Curva de la animación
     );
   }
@@ -36,7 +36,7 @@ class _MobileState extends State<Mobile> {
     double height = Responsive(context: context).getDeviceHeight();
     double width = Responsive(context: context).getDeviceWidth();
 
-    _InicioColor() {
+    inicioColor() {
       setState(() {
         _backgroundColorSelected1 = true;
         _backgroundColorSelected2 = false;
@@ -48,7 +48,7 @@ class _MobileState extends State<Mobile> {
       });
     }
 
-    _ProyectosColor() {
+    proyectosColor() {
       setState(() {
         _backgroundColorSelected1 = false;
         _backgroundColorSelected2 = true;
@@ -60,7 +60,7 @@ class _MobileState extends State<Mobile> {
       });
     }
 
-    _SobreMiColor() {
+    sobreMiColor() {
       setState(() {
         _backgroundColorSelected1 = false;
         _backgroundColorSelected2 = false;
@@ -104,7 +104,7 @@ class _MobileState extends State<Mobile> {
                   InkWell(
                       onTap: () {
                         scrollToPage(0);
-                        _InicioColor();
+                        inicioColor();
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(25),
@@ -123,7 +123,7 @@ class _MobileState extends State<Mobile> {
                   InkWell(
                       onTap: () {
                         scrollToPage(0.3);
-                        _ProyectosColor();
+                        proyectosColor();
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(25),
@@ -143,7 +143,7 @@ class _MobileState extends State<Mobile> {
                   InkWell(
                       onTap: () {
                         scrollToPage(0.3);
-                        _SobreMiColor();
+                        sobreMiColor();
                       },
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(25),

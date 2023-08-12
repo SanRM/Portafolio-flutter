@@ -91,7 +91,7 @@ class TituloMarca extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width / 4,
       //color: const Color.fromARGB(255, 7, 123, 255),
       child: Text(

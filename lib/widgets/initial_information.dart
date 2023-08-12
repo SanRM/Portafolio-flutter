@@ -1,6 +1,10 @@
+// ignore: file_names
+
 import 'package:flutter/material.dart';
 import 'package:portafolio/styles/themes/styles.dart';
+// ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InitialInformation extends StatelessWidget {
   final double width;
@@ -93,28 +97,50 @@ class InitialInformation extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                    width: width / 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: const Color.fromRGBO(47, 59, 82, 1),
+                InkWell(
+                    onTap: () async {
+
+                    final Uri url = Uri.parse('https://github.com/SanRM');
+
+                    if (!await launchUrl(url)) {
+                      throw Exception('No se pudo cargar $url');
+                    }
+                    
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      width: width / 4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: const Color.fromRGBO(47, 59, 82, 1),
+                      ),
+                      child: Image.asset('assets/images/github-mark-white.png',
+                          scale: width / 70),
                     ),
-                    child: Image.asset('assets/images/github-mark-white.png',
-                        scale: width / 70),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                    width: width / 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: const Color.fromRGBO(1, 120, 180, 1),
+                InkWell(
+                  onTap: () async {
+
+                    final Uri url = Uri.parse('https://www.linkedin.com/in/santiagorodriguezmorales');
+
+                    if (!await launchUrl(url)) {
+                      throw Exception('No se pudo cargar $url');
+                    }
+                    
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      width: width / 4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: const Color.fromRGBO(1, 120, 180, 1),
+                      ),
+                      child: Image.asset('assets/images/linkedin.png',
+                          scale: width / 40),
                     ),
-                    child: Image.asset('assets/images/linkedin.png',
-                        scale: width / 40),
                   ),
                 ),
               ],
