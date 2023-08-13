@@ -126,7 +126,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(borderRadiusSecondary),
                 child: Container(
-                    padding: EdgeInsets.only(bottom: widget.height / 30),
+                    padding: EdgeInsets.only(bottom: widget.height / 50),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
@@ -298,7 +298,8 @@ class _ProjectBoardState extends State<ProjectBoard> {
                               padding: EdgeInsets.only(
                                   left: widget.width / 20,
                                   right: widget.width / 20,
-                                  top: widget.height / 50),
+                                  top: widget.height / 50,
+                                  bottom: widget.height / 100),
                               child: Row(
                                 children: [
                                   Container(
@@ -463,7 +464,7 @@ class _ProjectManagerState extends State<ProjectManager> {
 
     return Padding(
       padding: EdgeInsets.only(
-          left: width / 20, right: width / 20, top: height / 20),
+          left: width / 20, right: width / 20, bottom: height / 20),
       child: InkWell(
         onTap: () {
           _onPressAnimation();
