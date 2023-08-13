@@ -31,13 +31,14 @@ const Color primaryBlack = Color.fromRGBO(27, 33, 48, 1);
 const Color primaryLight = Color.fromRGBO(232, 232, 232, 1);
 const Color secondary = Color.fromRGBO(41, 41, 41, 1);
 const Color secondaryVariation = Color.fromRGBO(70, 70, 70, 1);
-const Color tertiary = Color.fromRGBO(151, 217, 255, 1);
+const Color tertiary = Color.fromRGBO(167, 223, 255, 1);
 
 //7. ProjectBoard Widget
 const Color principalButton = Color.fromRGBO(81, 235, 255, 1);
 const Color labelOutline = Color.fromARGB(255, 131, 131, 131);
 const Color labelTextColor = Color.fromARGB(255, 82, 82, 82);
 const Color projectBoardDescription = Color.fromARGB(255, 82, 82, 82);
+
 
 //5. Modo claro de la App
 class LightTheme {

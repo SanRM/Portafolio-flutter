@@ -21,7 +21,7 @@ class ProjectBoard extends StatefulWidget {
 class _ProjectBoardState extends State<ProjectBoard> {
   List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
 
-  // List<Widget> projectSelected = proyectos;
+  bool buttonOnPressed = false;
 
   static List<ProjectManager> proyectos = [
     const ProjectManager(
@@ -59,14 +59,15 @@ class _ProjectBoardState extends State<ProjectBoard> {
 
   List<Widget> projectSelected = proyectos;
 
-  _selectButton(labelSelected, projects) {
+  _selectButtonLabel(labelSelected, projects) {
     setState(() {
       projectSelected = [];
     });
 
     Future.delayed(Duration(microseconds: 1000), () {
       setState(() {
-        projectSelected = ProjectFilter(projects: projects).getSimilitudes(labelSelected);
+        projectSelected =
+            ProjectFilter(projects: projects).getSimilitudes(labelSelected);
         print(projectSelected);
       });
     });
@@ -80,14 +81,34 @@ class _ProjectBoardState extends State<ProjectBoard> {
     Future.delayed(Duration(microseconds: 1000), () {
       setState(() {
         projectSelected = proyectos;
-        print(projectSelected);
+        //print(projectSelected);
       });
+    });
+  }
+
+  int _selectedIndex = -1;
+  bool _mostrarTodosIsSelected = false;
+
+  void _selectLabel(int index) {
+    setState(() {
+      _selectedIndex = index;
+      _mostrarTodosIsSelected = false;
+    });
+  }
+
+  String _setActualFilter = '';
+
+  void _mostrarTodosSelected() {
+    setState(() {
+      _mostrarTodosIsSelected == false
+          ? _mostrarTodosIsSelected = true
+          : _mostrarTodosIsSelected = false;
+      _setActualFilter = '';
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
         width: widget.width,
         color: const Color.fromRGBO(162, 195, 195, 1),
@@ -118,59 +139,198 @@ class _ProjectBoardState extends State<ProjectBoard> {
                           child: Container(
                               width: widget.width,
                               //color: Colors.red,
-                              child: Wrap(children: [
-                                ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: 1,
-                                  itemBuilder: (context, index) {
-                                    List<Widget> botones = [];
-
-                                    for (var i = 0; i < labels.length; i++) {
-                                      var count = labels[i];
-
-                                      botones.add(
-                                        TextButton(
-                                          onPressed: () {
-                                            _selectButton(labels[i], proyectos);
-                                          },
-                                          child: Text(
-                                            '$count',
-                                            style: TextStyle(
-                                                color: primaryBlack,
-                                                fontWeight: FontWeight.bold),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: widget.height / 100,
+                                        bottom: widget.height / 500),
+                                    child: Container(
+                                      width: widget.width,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: containerPadding),
+                                            child: Container(
+                                              //color: Colors.amber,
+                                              child: Icon(
+                                                Icons.filter_alt_rounded,
+                                                size: widget.width / 15,
+                                                color: Color.fromARGB(
+                                                    255, 253, 247, 167),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ); // Agrega widgets a la lista
-                                    }
-
-                                    return Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: botones,
-                                    );
-                                  },
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(right: widget.width / 40),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      //print('proyectos seleccionados: $projectSelected');
-
-                                      setState(() {
-                                        _mostrarTodos();
-                                      });
-                                    },
-                                    child: const Text(
-                                      'Mostrar todos',
-                                      style: TextStyle(
-                                        color: primaryBlack,
-                                        fontWeight: FontWeight.bold,
+                                          Padding(
+                                            padding: const EdgeInsets.all(
+                                                containerPadding),
+                                            child: Container(
+                                                //color: Colors.red,
+                                                width: widget.width / 1.7,
+                                                child: Wrap(children: [
+                                                  Text(
+                                                      'Filtrar proyectos según tecnologías usadas',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              widget.width /
+                                                                  20)),
+                                                ])),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                )
-                              ]))),
+                                  Wrap(children: [
+                                    ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: 1,
+                                      itemBuilder: (context, index) {
+                                        List<Widget> botones = [];
+
+                                        for (var i = 0;
+                                            i < labels.length;
+                                            i++) {
+                                          var label = labels[i];
+
+                                          botones.add(
+                                            TextButton(
+                                                onPressed: () {
+                                                  _selectButtonLabel(
+                                                      labels[i], proyectos);
+                                                  _selectLabel(i);
+                                                  setState(() {
+                                                    _setActualFilter =
+                                                        labels[i];
+                                                  });
+                                                },
+                                                //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
+                                                style: _selectedIndex == i
+                                                    ? ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll(
+                                                          tertiary,
+                                                        ),
+                                                      )
+                                                    : ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll(
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .secondary,
+                                                        ),
+                                                        shape: MaterialStatePropertyAll(
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            borderRadiusPrimary),
+                                                                side: BorderSide(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            139,
+                                                                            139,
+                                                                            139))))),
+                                                child: _selectedIndex == i
+                                                    ? Text(
+                                                        '$label',
+                                                        style: TextStyle(
+                                                          color: primaryBlack,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    : Text(
+                                                        '$label',
+                                                        style: TextStyle(
+                                                          color: primaryLight,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )),
+                                          ); // Agrega widgets a la lista
+                                        }
+
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: botones,
+                                        );
+                                      },
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          right: widget.width / 40),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _mostrarTodos();
+                                            _selectedIndex = -1;
+                                            _mostrarTodosSelected();
+                                          });
+                                        },
+                                        style: _mostrarTodosIsSelected == true
+                                            ? ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStatePropertyAll(
+                                                        tertiary))
+                                            : ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStatePropertyAll(
+                                                        Color.fromRGBO(
+                                                            168, 167, 255, 1))),
+                                        child: const Text(
+                                          'Mostrar todo',
+                                          style: TextStyle(
+                                            color: primaryBlack,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                                ],
+                              ))),
+                      _setActualFilter != ''
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                  left: widget.width / 20,
+                                  right: widget.width / 20,
+                                  top: widget.height / 50),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    //color: Colors.amber,
+                                    child: Icon(
+                                      Icons.star_rate_rounded,
+                                      size: widget.width / 15,
+                                      color: Color.fromARGB(255, 255, 125, 255),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.all(containerPadding),
+                                    child: Container(
+                                      //color: Colors.red,
+                                      width: widget.width / 1.7,
+                                      child: Wrap(
+                                        children: [
+                                          Text(
+                                            'Proyectos realizados con $_setActualFilter',
+                                            style: TextStyle(
+                                              fontSize: widget.width / 20,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(),
                       ListView(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -430,9 +590,11 @@ class _ProjectManagerState extends State<ProjectManager> {
                             children: List.generate(
                               projectLabels.length,
                               (index) {
-                                var project = projectLabels[index]; // Cambiado projectLabels[1] a projectLabels[index]
+                                var project = projectLabels[
+                                    index]; // Cambiado projectLabels[1] a projectLabels[index]
                                 return Chip(
-                                    backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 243, 243, 243),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
                                           borderRadiusPrimary),

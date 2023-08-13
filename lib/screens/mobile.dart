@@ -20,8 +20,8 @@ class _MobileState extends State<Mobile> {
   Color? _color2;
   Color? _color3;
   bool _backgroundColorSelected1 = true;
-  bool _backgroundColorSelected2 = true;
-  bool _backgroundColorSelected3 = true;
+  bool _backgroundColorSelected2 = false;
+  bool _backgroundColorSelected3 = false;
 
   scrollToPage(double pageNumber) {
     _scrollController.animateTo(

@@ -97,17 +97,15 @@ class InitialInformation extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
+                ClipRRect(
+                  child: InkWell(
                     onTap: () async {
+                      final Uri url = Uri.parse('https://github.com/SanRM');
 
-                    final Uri url = Uri.parse('https://github.com/SanRM');
-
-                    if (!await launchUrl(url)) {
-                      throw Exception('No se pudo cargar $url');
-                    }
-                    
-                  },
-                  child: ClipRRect(
+                      if (!await launchUrl(url)) {
+                        throw Exception('No se pudo cargar $url');
+                      }
+                    },
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
                       width: width / 4,
@@ -120,17 +118,17 @@ class InitialInformation extends StatelessWidget {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () async {
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: InkWell(
+                    onTap: () async {
+                      final Uri url = Uri.parse(
+                          'https://www.linkedin.com/in/santiagorodriguezmorales');
 
-                    final Uri url = Uri.parse('https://www.linkedin.com/in/santiagorodriguezmorales');
-
-                    if (!await launchUrl(url)) {
-                      throw Exception('No se pudo cargar $url');
-                    }
-                    
-                  },
-                  child: ClipRRect(
+                      if (!await launchUrl(url)) {
+                        throw Exception('No se pudo cargar $url');
+                      }
+                    },
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
                       width: width / 4,
