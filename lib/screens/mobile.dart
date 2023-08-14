@@ -5,6 +5,10 @@ import 'package:portafolio/styles/Responsive/responsive.dart';
 import 'package:portafolio/styles/themes/styles.dart';
 import 'package:portafolio/widgets/initial_information.dart';
 import 'package:portafolio/widgets/project_board.dart';
+import 'package:provider/provider.dart';
+import 'package:portafolio/main.dart';
+import 'package:portafolio/widgets/about_me.dart';
+import 'package:portafolio/widgets/Skills.dart';
 
 class Mobile extends StatefulWidget {
   const Mobile({super.key});
@@ -31,8 +35,11 @@ class _MobileState extends State<Mobile> {
     );
   }
 
+  double currentPage = 0.1;
+
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
     double height = Responsive(context: context).getDeviceHeight();
     double width = Responsive(context: context).getDeviceWidth();
 
@@ -72,7 +79,103 @@ class _MobileState extends State<Mobile> {
       });
     }
 
+    //double _currentPage = currentPage;
+
+    _multAumentCurrentPage(increase){
+      setState(() {
+
+        if (currentPage > 10) {
+          currentPage = currentPage - currentPage;
+        } else {
+          currentPage = currentPage * increase;
+        }
+
+        print(currentPage);
+      });
+    };
+
+    _SumAumentCurrentPage(increase){
+      setState(() {
+
+        if (currentPage > currentPage) {
+          currentPage = currentPage;
+        } else {
+          currentPage = currentPage + increase;
+        }
+
+        
+        print(currentPage);
+      });
+    };
+
     return Scaffold(
+        // appBar: Header(height: height, width: width),
+        appBar: AppBar(
+          toolbarHeight: height / 8,
+          elevation: 0,
+          title: Container(
+            //color: Colors.red,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    'Horizon \n SanTech',
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(
+                        fontSize: width / 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  //color: Colors.pink,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: width / 20),
+                        child: InkWell(
+                            customBorder: CircleBorder(),
+                            onTap: () {
+                              context.read<ThemeProvider>().toggleTheme();
+                            },
+                            child: Container(
+                                width: width / 9,
+                                height: height / 19,
+                                child: Icon(
+                                    isDarkMode
+                                        ? Icons.light_mode
+                                        : Icons.dark_mode_outlined,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    size: width / 12))),
+                      ),
+                      ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(borderRadiusPrimary)),
+                        child: Container(
+                          padding: EdgeInsets.all(height / 50),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(borderRadiusPrimary),
+                              color: Theme.of(context).colorScheme.onPrimary),
+                          child: Center(
+                              child: Text(
+                            'Contacto',
+                            style: TextStyle(
+                                fontSize: width / 25,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary),
+                          )),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
         body: SafeArea(
           child: ListView(
               controller: _scrollController,
@@ -82,7 +185,9 @@ class _MobileState extends State<Mobile> {
                 Column(
                   children: [
                     InitialInformation(width: width, height: height),
-                    ProjectBoard(width: width, height: height)
+                    ProjectBoard(width: width, height: height),
+                    AboutMe(width: width, height: height),
+                    Skills(width: width, height: height),
                   ],
                 ),
               ]),
@@ -95,7 +200,7 @@ class _MobileState extends State<Mobile> {
                   color: Theme.of(context).colorScheme.primary,
                   border: Border(
                       top: BorderSide(
-                          width: 2,
+                          width: 0,
                           color: Theme.of(context).colorScheme.onPrimary))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,7 +208,8 @@ class _MobileState extends State<Mobile> {
                   SizedBox(width: width * sizedBoxWidth),
                   InkWell(
                       onTap: () {
-                        scrollToPage(0);
+                        _multAumentCurrentPage(0);
+                        scrollToPage(currentPage);
                         inicioColor();
                       },
                       child: ClipRRect(
@@ -122,7 +228,9 @@ class _MobileState extends State<Mobile> {
                       )),
                   InkWell(
                       onTap: () {
-                        scrollToPage(0.3);
+                        _SumAumentCurrentPage(2);
+                       
+                        scrollToPage(currentPage);
                         proyectosColor();
                       },
                       child: ClipRRect(
@@ -142,7 +250,9 @@ class _MobileState extends State<Mobile> {
                       )),
                   InkWell(
                       onTap: () {
-                        scrollToPage(0.3);
+                        _multAumentCurrentPage(2);
+                       
+                        scrollToPage(currentPage);
                         sobreMiColor();
                       },
                       child: ClipRRect(
@@ -168,6 +278,7 @@ class _MobileState extends State<Mobile> {
         ));
   }
 }
+
 
 class BottomAppBarButtons extends StatelessWidget {
   const BottomAppBarButtons({
@@ -195,6 +306,3 @@ class BottomAppBarButtons extends StatelessWidget {
     );
   }
 }
-
-
-

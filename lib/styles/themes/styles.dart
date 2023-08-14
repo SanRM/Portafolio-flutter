@@ -33,12 +33,29 @@ const Color secondary = Color.fromRGBO(41, 41, 41, 1);
 const Color secondaryVariation = Color.fromRGBO(70, 70, 70, 1);
 const Color tertiary = Color.fromRGBO(167, 223, 255, 1);
 
+//8. Degradees
+List<Color> principalDegradee = [
+  Color.fromARGB(255, 24, 194, 216),
+  Color.fromARGB(255, 23, 164, 207),
+  Color.fromARGB(255, 24, 194, 216),
+  Color.fromARGB(255, 23, 164, 207),
+  Color.fromARGB(255, 24, 194, 216),
+];
+
+List<Color> secondaryDegradee = [
+  Color.fromARGB(255, 53, 221, 243),
+  Color.fromARGB(255, 42, 199, 247),
+  Color.fromARGB(255, 53, 221, 243),
+  Color.fromARGB(255, 42, 199, 247),
+  Color.fromARGB(255, 53, 221, 243),
+];
+
+
 //7. ProjectBoard Widget
 const Color principalButton = Color.fromRGBO(81, 235, 255, 1);
 const Color labelOutline = Color.fromARGB(255, 131, 131, 131);
-const Color labelTextColor = Color.fromARGB(255, 82, 82, 82);
+const Color labelTextColor = Color.fromARGB(255, 41, 41, 41);
 const Color projectBoardDescription = Color.fromARGB(255, 82, 82, 82);
-
 
 //5. Modo claro de la App
 class LightTheme {
@@ -52,7 +69,7 @@ class LightTheme {
 
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            overlayColor: const MaterialStatePropertyAll(tertiary),
+            padding: MaterialStatePropertyAll(paddingAll),
             backgroundColor: const MaterialStatePropertyAll(primaryLight),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
@@ -77,20 +94,16 @@ class LightTheme {
 
 //3. Modo oscuro de la App
 class DarkTheme {
-  
   static ThemeData themeData = ThemeData.light().copyWith(
-
     textTheme: const TextTheme(
       bodyMedium: TextStyle(fontWeight: FontWeight.bold),
     ),
-
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
             overlayColor: const MaterialStatePropertyAll(tertiary),
             backgroundColor: const MaterialStatePropertyAll(primaryLight),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
-
     scaffoldBackgroundColor: primaryBlack,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
@@ -107,6 +120,5 @@ class DarkTheme {
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(27, 33, 48, 1),
     ),
-
   );
 }

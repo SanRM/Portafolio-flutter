@@ -147,150 +147,184 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                         bottom: widget.height / 500),
                                     child: Container(
                                       width: widget.width,
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: containerPadding),
-                                            child: Container(
-                                              //color: Colors.amber,
-                                              child: Icon(
-                                                Icons.filter_alt_rounded,
-                                                size: widget.width / 15,
-                                                color: Color.fromARGB(
-                                                    255, 253, 247, 167),
+                                      child: Container(
+                                        //color: Colors.blue,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical:
+                                                          containerPadding),
+                                              child: Container(
+                                                //color: Colors.amber,
+                                                child: Icon(
+                                                  Icons.filter_alt_rounded,
+                                                  size: widget.width / 15,
+                                                  color: Color.fromARGB(
+                                                    255,
+                                                    253,
+                                                    247,
+                                                    167,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(
-                                                containerPadding),
-                                            child: Container(
-                                                //color: Colors.red,
-                                                width: widget.width / 1.7,
-                                                child: Wrap(children: [
-                                                  Text(
-                                                      'Filtrar proyectos según tecnologías usadas',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              widget.width /
-                                                                  20)),
-                                                ])),
-                                          ),
-                                        ],
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                    containerPadding),
+                                                child: Container(
+                                                  //color: Colors.red,
+                                                  child: Wrap(
+                                                    children: [
+                                                      Text(
+                                                          'Filtrar proyectos según tecnologías usadas',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  widget.width /
+                                                                      20)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  Wrap(children: [
-                                    ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: 1,
-                                      itemBuilder: (context, index) {
-                                        List<Widget> botones = [];
+                                  Wrap(
+                                      runSpacing: widget.height / 100,
+                                      children: [
+                                        ListView.builder(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) {
+                                            List<Widget> botones = [];
 
-                                        for (var i = 0;
-                                            i < labels.length;
-                                            i++) {
-                                          var label = labels[i];
+                                            for (var i = 0;
+                                                i < labels.length;
+                                                i++) {
+                                              var label = labels[i];
 
-                                          botones.add(
-                                            TextButton(
-                                                onPressed: () {
-                                                  _selectButtonLabel(
-                                                      labels[i], proyectos);
-                                                  _selectLabel(i);
-                                                  setState(() {
-                                                    _setActualFilter =
-                                                        labels[i];
-                                                  });
-                                                },
-                                                //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
-                                                style: _selectedIndex == i
-                                                    ? ButtonStyle(
-                                                        backgroundColor:
-                                                            MaterialStatePropertyAll(
-                                                          tertiary,
-                                                        ),
-                                                      )
-                                                    : ButtonStyle(
-                                                        backgroundColor:
-                                                            MaterialStatePropertyAll(
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .secondary,
-                                                        ),
-                                                        shape: MaterialStatePropertyAll(
+                                              botones.add(
+                                                TextButton(
+                                                  onPressed: () {
+                                                    _selectButtonLabel(
+                                                        labels[i], proyectos);
+                                                    _selectLabel(i);
+                                                    setState(() {
+                                                      _setActualFilter =
+                                                          labels[i];
+                                                    });
+                                                  },
+                                                  //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
+                                                  style: _selectedIndex == i
+                                                      ? const ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStatePropertyAll(
+                                                            tertiary,
+                                                          ),
+                                                        )
+                                                      : ButtonStyle(
+                                                          
+                                                          backgroundColor:
+                                                              MaterialStatePropertyAll(
+                                                            Theme.of(context)
+                                                                .colorScheme
+                                                                .secondary,
+                                                          ),
+                                                          shape:
+                                                              MaterialStatePropertyAll(
                                                             RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            borderRadiusPrimary),
-                                                                side: BorderSide(
-                                                                    color: Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            139,
-                                                                            139,
-                                                                            139))))),
-                                                child: _selectedIndex == i
-                                                    ? Text(
-                                                        '$label',
-                                                        style: TextStyle(
-                                                          color: primaryBlack,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          borderRadiusPrimary),
+                                                              side:
+                                                                  const BorderSide(
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        139,
+                                                                        139,
+                                                                        139),
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      )
-                                                    : Text(
-                                                        '$label',
-                                                        style: TextStyle(
-                                                          color: primaryLight,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                  child: _selectedIndex == i
+                                                      ? Text(
+                                                          '$label',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  primaryBlack,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize:
+                                                                  widget.width /
+                                                                      30),
+                                                        )
+                                                      : Text(
+                                                          '$label',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  primaryLight,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize:
+                                                                  widget.width /
+                                                                      30),
                                                         ),
-                                                      )),
-                                          ); // Agrega widgets a la lista
-                                        }
+                                                ),
+                                              ); // Agrega widgets a la lista
+                                            }
 
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: botones,
-                                        );
-                                      },
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          right: widget.width / 40),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _mostrarTodos();
-                                            _selectedIndex = -1;
-                                            _mostrarTodosSelected();
-                                          });
-                                        },
-                                        style: _mostrarTodosIsSelected == true
-                                            ? ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        tertiary))
-                                            : ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Color.fromRGBO(
-                                                            168, 167, 255, 1))),
-                                        child: const Text(
-                                          'Mostrar todo',
-                                          style: TextStyle(
-                                            color: primaryBlack,
-                                            fontWeight: FontWeight.bold,
+                                            return Wrap(
+                                              runSpacing: widget.height / 100,
+                                              alignment:
+                                                  WrapAlignment.spaceBetween,
+                                              children: botones,
+                                            );
+                                          },
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              right: widget.width / 40,
+                                              bottom: widget.width / 25),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                _mostrarTodos();
+                                                _selectedIndex = -1;
+                                                _mostrarTodosSelected();
+                                              });
+                                            },
+                                            style: _mostrarTodosIsSelected == true
+                                                ? ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStatePropertyAll(
+                                                            tertiary))
+                                                : ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStatePropertyAll(
+                                                            Color.fromRGBO(168,
+                                                                167, 255, 1))),
+                                            child: Text(
+                                              'Mostrar todo',
+                                              style: TextStyle(
+                                                  color: primaryBlack,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: widget.width / 30),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ]),
+                                      ]),
                                 ],
                               ))),
                       _setActualFilter != ''
@@ -298,9 +332,9 @@ class _ProjectBoardState extends State<ProjectBoard> {
                               padding: EdgeInsets.only(
                                   left: widget.width / 20,
                                   right: widget.width / 20,
-                                  top: widget.height / 50,
                                   bottom: widget.height / 100),
-                              child: Row(
+                              child: projectSelected.isNotEmpty 
+                              ? Row(
                                 children: [
                                   Container(
                                     //color: Colors.amber,
@@ -310,26 +344,30 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                       color: Color.fromARGB(255, 255, 125, 255),
                                     ),
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.all(containerPadding),
-                                    child: Container(
-                                      //color: Colors.red,
-                                      width: widget.width / 1.7,
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            'Proyectos realizados con $_setActualFilter',
-                                            style: TextStyle(
-                                              fontSize: widget.width / 20,
-                                            ),
-                                          ),
-                                        ],
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(
+                                          containerPadding),
+                                      child: Container(
+                                        //color: Colors.red,
+                                        width: widget.width / 1.7,
+                                        child: Wrap(
+                                          children: [
+                                              Text(
+                                              'Proyectos realizados con $_setActualFilter',
+                                              style: TextStyle(
+                                                fontSize: widget.width / 20,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   )
                                 ],
-                              ),
+                              )
+                              : Container()
+                              ,
                             )
                           : Container(),
                       ListView(
@@ -338,34 +376,6 @@ class _ProjectBoardState extends State<ProjectBoard> {
                         children: projectSelected,
                       ),
                     ])))));
-  }
-}
-
-class LabelsManager extends StatelessWidget {
-  LabelsManager(
-      {super.key,
-      required this.width,
-      required this.height,
-      required this.labelName,
-      required this.projects});
-
-  final double width;
-  final double height;
-  final String labelName;
-  final List<ProjectManager> projects;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: width / 40),
-      child: TextButton(
-          onPressed: () {
-            print('Boton filtro de $labelName presionado');
-          },
-          child: Text(labelName,
-              style:
-                  TextStyle(color: primaryBlack, fontWeight: FontWeight.bold))),
-    );
   }
 }
 
@@ -552,7 +562,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                           padding: EdgeInsets.only(
                               left: width / 20,
                               right: width / 20,
-                              top: height / 50),
+                              top: height / 20),
                           child: Text(projectTitle,
                               style: TextStyle(
                                   fontSize: width / 20,
@@ -582,12 +592,13 @@ class _ProjectManagerState extends State<ProjectManager> {
                           padding: EdgeInsets.only(
                             left: width / 20,
                             right: width / 20,
-                            top: height / 150,
-                            bottom: height / 50,
+                            top: height / 50,
+                            bottom: height / 20,
                           ),
                           child: Wrap(
                             alignment: WrapAlignment.start,
                             spacing: width / 40,
+                            runSpacing: height / 30,
                             children: List.generate(
                               projectLabels.length,
                               (index) {
@@ -604,8 +615,9 @@ class _ProjectManagerState extends State<ProjectManager> {
                                     ),
                                     label: Text(
                                       project,
-                                      style: const TextStyle(
-                                          color: labelTextColor),
+                                      style: TextStyle(
+                                          color: labelTextColor,
+                                          fontSize: width / 30),
                                     ));
                               },
                             ),

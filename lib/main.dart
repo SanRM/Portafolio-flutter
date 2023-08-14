@@ -1,10 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:portafolio/screens/mobile.dart';
 import 'package:provider/provider.dart';
 import 'package:portafolio/styles/Responsive/responsive.dart';
 import 'package:portafolio/styles/themes/styles.dart';
-import 'components/Header.dart';
 
 void main() {
   runApp(
@@ -21,8 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget body = Responsive(context: context).getDevice();
-    double height = Responsive(context: context).getDeviceHeight();
-    double width = Responsive(context: context).getDeviceWidth();
 
     bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
 
@@ -31,8 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         home: Scaffold(
-          appBar: Header(height: height, width: width),
-          body: body,
+          body: Mobile(),
         ));
   }
 }

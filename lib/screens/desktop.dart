@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portafolio/components/Header.dart';
+import 'package:portafolio/styles/Responsive/responsive.dart';
 
 class Desktop extends StatefulWidget {
   const Desktop({super.key});
@@ -10,8 +12,13 @@ class Desktop extends StatefulWidget {
 class _DesktopState extends State<Desktop> {
   @override
   Widget build(BuildContext context) {
+
+    double height = Responsive(context: context).getDeviceHeight();
+    double width = Responsive(context: context).getDeviceWidth();
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Desktop')),
-    );
+      appBar: Header(height: height, width: width)
+      );
+    
   }
 }
