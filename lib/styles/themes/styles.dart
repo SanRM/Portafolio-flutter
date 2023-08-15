@@ -61,6 +61,8 @@ const Color projectBoardDescription = Color.fromARGB(255, 82, 82, 82);
 class LightTheme {
   static ThemeData themeData = ThemeData().copyWith(
     //6. Estilo Scaffold
+
+
     scaffoldBackgroundColor: primaryLight,
 
     textTheme: const TextTheme(
@@ -70,7 +72,6 @@ class LightTheme {
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
             padding: MaterialStatePropertyAll(paddingAll),
-            backgroundColor: const MaterialStatePropertyAll(primaryLight),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
 
@@ -84,7 +85,7 @@ class LightTheme {
       onError: Color.fromRGBO(245, 51, 86, 100),
       background: Color.fromRGBO(27, 33, 48, 100),
       onBackground: Color.fromRGBO(27, 33, 48, 100),
-      surface: Color.fromRGBO(135, 211, 255, 100),
+      surface: Color.fromARGB(255, 9, 224, 81),
       onSurface: Color.fromRGBO(0, 77, 112, 100),
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(232, 232, 232, 1),
@@ -95,16 +96,18 @@ class LightTheme {
 //3. Modo oscuro de la App
 class DarkTheme {
   static ThemeData themeData = ThemeData.light().copyWith(
+
+    scaffoldBackgroundColor: primaryBlack,
+
     textTheme: const TextTheme(
       bodyMedium: TextStyle(fontWeight: FontWeight.bold),
     ),
+
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            overlayColor: const MaterialStatePropertyAll(tertiary),
-            backgroundColor: const MaterialStatePropertyAll(primaryLight),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
-    scaffoldBackgroundColor: primaryBlack,
+
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: primaryBlack,
@@ -115,7 +118,7 @@ class DarkTheme {
       onError: Color.fromRGBO(245, 51, 86, 100),
       background: Color.fromRGBO(27, 33, 48, 100),
       onBackground: Color.fromRGBO(27, 33, 48, 100),
-      surface: Color.fromRGBO(135, 211, 255, 100),
+      surface: Color.fromARGB(255, 32, 238, 159),
       onSurface: Color.fromRGBO(0, 77, 112, 100),
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(27, 33, 48, 1),

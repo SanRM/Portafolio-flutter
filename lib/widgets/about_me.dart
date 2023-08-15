@@ -21,9 +21,9 @@ class AboutMe extends StatelessWidget {
       width: width,
       color: const Color.fromRGBO(0, 54, 93, 1),
       child: Padding(
-        padding: EdgeInsets.all(width / 10),
+        padding: EdgeInsets.only(left: width / 10, right: width / 10, bottom: width / 20, top: width / 10),
         child: Container(
-          //color: Colors.red,
+          //color: Colors.green,
           child: Column(
             children: [
               Container(

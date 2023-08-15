@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio/screens/mobile.dart';
 import 'package:provider/provider.dart';
-import 'package:portafolio/styles/Responsive/responsive.dart';
 import 'package:portafolio/styles/themes/styles.dart';
 
 void main() {
@@ -20,17 +19,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget body = Responsive(context: context).getDevice();
-
     bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
 
     return MaterialApp(
-        theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
-        debugShowCheckedModeBanner: false,
-        title: 'Material App',
-        home: Scaffold(
-          body: Mobile(),
-        ));
+      //theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
+      debugShowCheckedModeBanner: false,
+      title: 'Material App',
+      home: Scaffold(
+        body: AnimatedTheme(
+          data: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
+          duration: Duration(microseconds: 1),
+          child: Mobile()
+        ),
+      ),
+    );
   }
 }
 

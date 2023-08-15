@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:portafolio/main.dart';
 import 'package:portafolio/widgets/about_me.dart';
 import 'package:portafolio/widgets/Skills.dart';
+import 'package:portafolio/widgets/SendMessagePage.dart';
 
 class Mobile extends StatefulWidget {
   const Mobile({super.key});
@@ -27,18 +28,25 @@ class _MobileState extends State<Mobile> {
   bool _backgroundColorSelected2 = false;
   bool _backgroundColorSelected3 = false;
 
-  scrollToPage(double pageNumber) {
-    _scrollController.animateTo(
-      pageNumber * MediaQuery.of(context).size.height, // Altura de cada página
-      duration: const Duration(milliseconds: 500), // Duración de la animación
-      curve: Curves.easeInOut, // Curva de la animación
-    );
-  }
-
-  double currentPage = 0.1;
-
   @override
   Widget build(BuildContext context) {
+    scrollToPage(double pageNumber) {
+      _scrollController.animateTo(
+        pageNumber *
+            MediaQuery.of(context).size.height, // Altura de cada página
+        duration: const Duration(milliseconds: 500), // Duración de la animación
+        curve: Curves.easeInOut, // Curva de la animación
+      );
+    }
+
+    scrollToPageSecondPart(double pageNumber) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent / pageNumber,
+        duration: const Duration(milliseconds: 500), // Duración de la animación
+        curve: Curves.easeInOut, // Curva de la animación
+      );
+    }
+
     bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
     double height = Responsive(context: context).getDeviceHeight();
     double width = Responsive(context: context).getDeviceWidth();
@@ -79,34 +87,34 @@ class _MobileState extends State<Mobile> {
       });
     }
 
-    //double _currentPage = currentPage;
+    double currentPage = 0.1;
+    bool? pressed;
 
-    _multAumentCurrentPage(increase){
+    _multAumentCurrentPage(double increase) {
       setState(() {
-
-        if (currentPage > 10) {
-          currentPage = currentPage - currentPage;
-        } else {
-          currentPage = currentPage * increase;
+        print(pressed);
+        if (pressed == true) {
+          print(increase);
+          currentPage = increase;
+          pressed == false;
+          print('$currentPage, $pressed');
         }
-
-        print(currentPage);
       });
-    };
+    }
 
-    _SumAumentCurrentPage(increase){
+    ;
+
+    _SumAumentCurrentPage(double increase) {
       setState(() {
-
-        if (currentPage > currentPage) {
-          currentPage = currentPage;
-        } else {
-          currentPage = currentPage + increase;
+        if (pressed == true) {
+          currentPage = increase;
+          pressed = false;
+          print('$currentPage, $pressed');
         }
-
-        
-        print(currentPage);
       });
-    };
+    }
+
+    ;
 
     return Scaffold(
         // appBar: Header(height: height, width: width),
@@ -134,25 +142,33 @@ class _MobileState extends State<Mobile> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(right: width / 20),
-                        child: InkWell(
-                            customBorder: CircleBorder(),
-                            onTap: () {
-                              context.read<ThemeProvider>().toggleTheme();
-                            },
-                            child: Container(
-                                width: width / 9,
-                                height: height / 19,
-                                child: Icon(
-                                    isDarkMode
-                                        ? Icons.light_mode
-                                        : Icons.dark_mode_outlined,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    size: width / 12))),
+                        child: Tooltip(
+                          message: isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
+                          decoration: BoxDecoration(gradient: LinearGradient(colors: [Color.fromARGB(255, 7, 196, 230), Color.fromARGB(255, 63, 158, 236)])),
+                          child: InkWell(
+                              customBorder: CircleBorder(),
+                              onTap: () {
+                                context.read<ThemeProvider>().toggleTheme();
+                              },
+                              child: Container(
+                                  width: width / 9,
+                                  height: height / 19,
+                                  child: Icon(
+                                      isDarkMode
+                                          ? Icons.light_mode
+                                          : Icons.dark_mode_outlined,
+                                      color:
+                                          Theme.of(context).colorScheme.onPrimary,
+                                      size: width / 12))),
+                        ),
                       ),
-                      ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(borderRadiusPrimary)),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            currentPage = 1 * 1.07;
+                          });
+                          scrollToPageSecondPart(currentPage);
+                        },
                         child: Container(
                           padding: EdgeInsets.all(height / 50),
                           decoration: BoxDecoration(
@@ -168,7 +184,7 @@ class _MobileState extends State<Mobile> {
                                 color: Theme.of(context).colorScheme.primary),
                           )),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )
@@ -188,6 +204,7 @@ class _MobileState extends State<Mobile> {
                     ProjectBoard(width: width, height: height),
                     AboutMe(width: width, height: height),
                     Skills(width: width, height: height),
+                    SendMessagePage(height: height, width: width)
                   ],
                 ),
               ]),
@@ -208,6 +225,9 @@ class _MobileState extends State<Mobile> {
                   SizedBox(width: width * sizedBoxWidth),
                   InkWell(
                       onTap: () {
+                        setState(() {
+                          pressed = true;
+                        });
                         _multAumentCurrentPage(0);
                         scrollToPage(currentPage);
                         inicioColor();
@@ -228,8 +248,10 @@ class _MobileState extends State<Mobile> {
                       )),
                   InkWell(
                       onTap: () {
-                        _SumAumentCurrentPage(2);
-                       
+                        setState(() {
+                          pressed = true;
+                        });
+                        _SumAumentCurrentPage(currentPage * (height * 0.008));
                         scrollToPage(currentPage);
                         proyectosColor();
                       },
@@ -250,9 +272,12 @@ class _MobileState extends State<Mobile> {
                       )),
                   InkWell(
                       onTap: () {
-                        _multAumentCurrentPage(2);
-                       
-                        scrollToPage(currentPage);
+                        setState(() {
+                          pressed = true;
+                        });
+                        _multAumentCurrentPage(currentPage = 1);
+                        scrollToPageSecondPart(
+                            currentPage * 1.73);
                         sobreMiColor();
                       },
                       child: ClipRRect(
@@ -278,7 +303,6 @@ class _MobileState extends State<Mobile> {
         ));
   }
 }
-
 
 class BottomAppBarButtons extends StatelessWidget {
   const BottomAppBarButtons({
