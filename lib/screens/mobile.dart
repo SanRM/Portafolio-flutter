@@ -285,7 +285,7 @@ class _MobileState extends State<Mobile> {
                         _multAumentCurrentPage(currentPage = 1);
                         scrollToPageSecondPart(currentPage * 1.73);
                         sobreMiColor();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(dismissDirection: DismissDirection.down, behavior: SnackBarBehavior.floating, padding: EdgeInsets.all(height/40), backgroundColor: const Color.fromARGB(255, 54, 244, 155), content: Text('¡Mensaje enviado correctamente!', style: TextStyle(color: primaryBlack, fontWeight: FontWeight.bold, fontSize: width/25)),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(dismissDirection: DismissDirection.down, behavior: SnackBarBehavior.floating, padding: EdgeInsets.all(height/40), backgroundColor: Color.fromARGB(255, 54, 244, 181), content: Text('¡Mensaje enviado correctamente!', style: TextStyle(color: primaryBlack, fontWeight: FontWeight.bold, fontSize: width/25)),
                         ));
                       },
                       child: ClipRRect(
