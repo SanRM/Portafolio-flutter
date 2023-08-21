@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+class Styles extends StatefulWidget {
+  const Styles({super.key});
+
+  @override
+  State<Styles> createState() => _StylesState();
+}
+
+
 //2. Estilos globales de la App:
 
 const double containerBorderWidth = 3;
@@ -32,6 +40,7 @@ const Color primaryLight = Color.fromRGBO(232, 232, 232, 1);
 const Color secondary = Color.fromRGBO(41, 41, 41, 1);
 const Color secondaryVariation = Color.fromRGBO(70, 70, 70, 1);
 const Color tertiary = Color.fromRGBO(167, 223, 255, 1);
+const Color errorFormBorder = Color.fromARGB(255, 255, 88, 138);
 
 //8. Degradees
 List<Color> principalDegradee = [
@@ -50,7 +59,6 @@ List<Color> secondaryDegradee = [
   Color.fromARGB(255, 53, 221, 243),
 ];
 
-
 //7. ProjectBoard Widget
 const Color principalButton = Color.fromRGBO(81, 235, 255, 1);
 const Color labelOutline = Color.fromARGB(255, 131, 131, 131);
@@ -60,13 +68,42 @@ const Color projectBoardDescription = Color.fromARGB(255, 82, 82, 82);
 //5. Modo claro de la App
 class LightTheme {
   static ThemeData themeData = ThemeData().copyWith(
+
+    inputDecorationTheme: const InputDecorationTheme(
+      floatingLabelAlignment: FloatingLabelAlignment.start,
+      hintStyle: TextStyle(color: primaryBlack),
+      counterStyle: TextStyle(color: Color.fromARGB(255, 71, 71, 71)),
+      labelStyle: TextStyle(color: primaryBlack),
+      errorStyle: TextStyle(color: Color.fromARGB(255, 255, 7, 81)),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: errorFormBorder)),     
+      focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: errorFormBorder)),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: Color.fromARGB(255, 25, 204, 106))),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: primaryBlack)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: primaryBlack)),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: primaryBlack)),
+    ),
+
     //6. Estilo Scaffold
-
-
     scaffoldBackgroundColor: primaryLight,
 
     textTheme: const TextTheme(
-      bodyMedium: TextStyle(fontWeight: FontWeight.bold),
+      //displayLarge: TextStyle(fontWeight: FontWeight.bold),
+      
+      bodyMedium: TextStyle(fontWeight: FontWeight.bold, color: primaryBlack),
+      bodyLarge: TextStyle(color: primaryBlack),
+      titleMedium: TextStyle(color: primaryBlack)
     ),
 
     textButtonTheme: TextButtonThemeData(
@@ -74,6 +111,13 @@ class LightTheme {
             padding: MaterialStatePropertyAll(paddingAll),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
+
+    filledButtonTheme: FilledButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 32, 238, 159)),
+      )
+    ),
+
 
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
@@ -96,17 +140,47 @@ class LightTheme {
 //3. Modo oscuro de la App
 class DarkTheme {
   static ThemeData themeData = ThemeData.light().copyWith(
+    inputDecorationTheme: const InputDecorationTheme(
+      labelStyle: TextStyle(color: primaryLight),
+      counterStyle: TextStyle(color: Color.fromARGB(255, 158, 158, 158)),
+      errorStyle: TextStyle(color: Color.fromARGB(255, 255, 77, 130)),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: errorFormBorder)),     
+      focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: errorFormBorder)),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: Color.fromARGB(255, 16, 240, 135))),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: primaryLight)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: primaryBlack)),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(width: 2, color: primaryBlack)),
+    ),
 
     scaffoldBackgroundColor: primaryBlack,
 
     textTheme: const TextTheme(
-      bodyMedium: TextStyle(fontWeight: FontWeight.bold),
+      bodyMedium: TextStyle(fontWeight: FontWeight.bold, color: primaryBlack),
+      titleMedium: TextStyle(color: primaryLight)
     ),
 
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
+
+    filledButtonTheme: FilledButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 32, 238, 159)),
+      )
+    ),
 
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
@@ -124,4 +198,11 @@ class DarkTheme {
       primaryContainer: Color.fromRGBO(27, 33, 48, 1),
     ),
   );
+}
+
+class _StylesState extends State<Styles> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }

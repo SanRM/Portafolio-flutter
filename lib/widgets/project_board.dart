@@ -179,6 +179,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                                 Text(
                                                     'Filtrar proyectos según tecnologías usadas',
                                                     style: TextStyle(
+                                                        color: primaryLight,
                                                         fontSize:
                                                             widget.width / 20)),
                                               ],
@@ -335,6 +336,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                               'Proyectos realizados con $_setActualFilter',
                                               style: TextStyle(
                                                 fontSize: widget.width / 20,
+                                                color: primaryLight
                                               ),
                                             )
                                           ],

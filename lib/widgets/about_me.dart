@@ -46,7 +46,7 @@ class AboutMe extends StatelessWidget {
                 child: Text(
                   AboutMeDescription,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: width / 20),
+                  style: TextStyle(color: primaryLight, fontSize: width / 20),
                 ),
               ),
               

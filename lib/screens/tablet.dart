@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio/components/header.dart';
 import 'package:portafolio/styles/Responsive/responsive.dart';
 
 class Tablet extends StatefulWidget {
@@ -17,7 +16,6 @@ class _TabletState extends State<Tablet> {
     double width = Responsive(context: context).getDeviceWidth();
 
     return Scaffold(
-      appBar: Header(height: height, width: width)
       );
     
   }

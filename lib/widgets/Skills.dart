@@ -22,7 +22,7 @@ class Skills extends StatelessWidget {
         width: width,
         //color: Colors.red,
         child: Column(children: [
-          SkillsTitle(height: width),
+          SkillsTitle(height: height, width: width,),
           Container(
             //color: Color.fromARGB(255, 0, 118, 122),
             child: GridView(
@@ -121,7 +121,7 @@ class BadgesGrid extends StatelessWidget {
               ),
               Text(
                 title,
-                style: TextStyle(fontSize: width / 25),
+                style: TextStyle(color: primaryLight, fontSize: width / 25),
               )
             ],
           ),
@@ -135,22 +135,24 @@ class SkillsTitle extends StatelessWidget {
   const SkillsTitle({
     super.key,
     required this.height,
+    required this.width,
   });
 
   final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: height,
+      width: width,
       //color: Color.fromARGB(255, 187, 32, 166),
-      padding: EdgeInsets.symmetric(vertical: height/20),
+      padding: EdgeInsets.only(bottom: height/50),
       child: GradientText(
         'Habilidades',
         textAlign: TextAlign.center,
         colors: secondaryDegradee,
         style: TextStyle(
-            fontSize: height / 8,
+            fontSize: width / 8,
             color: Theme.of(context).colorScheme.secondary),
       ),
     );

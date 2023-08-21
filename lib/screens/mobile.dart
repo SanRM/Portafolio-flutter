@@ -92,12 +92,12 @@ class _MobileState extends State<Mobile> {
 
     _multAumentCurrentPage(double increase) {
       setState(() {
-        print(pressed);
+        //print(pressed);
         if (pressed == true) {
-          print(increase);
+          //print(increase);
           currentPage = increase;
           pressed == false;
-          print('$currentPage, $pressed');
+          //print('$currentPage, $pressed');
         }
       });
     }
@@ -109,7 +109,7 @@ class _MobileState extends State<Mobile> {
         if (pressed == true) {
           currentPage = increase;
           pressed = false;
-          print('$currentPage, $pressed');
+          //print('$currentPage, $pressed');
         }
       });
     }
@@ -117,7 +117,6 @@ class _MobileState extends State<Mobile> {
     ;
 
     return Scaffold(
-        // appBar: Header(height: height, width: width),
         appBar: AppBar(
           toolbarHeight: height / 8,
           elevation: 0,
@@ -143,8 +142,14 @@ class _MobileState extends State<Mobile> {
                       Padding(
                         padding: EdgeInsets.only(right: width / 20),
                         child: Tooltip(
-                          message: isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
-                          decoration: BoxDecoration(gradient: LinearGradient(colors: [Color.fromARGB(255, 7, 196, 230), Color.fromARGB(255, 63, 158, 236)])),
+                          message: isDarkMode
+                              ? 'Cambiar a modo claro'
+                              : 'Cambiar a modo oscuro',
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [
+                            Color.fromARGB(255, 7, 196, 230),
+                            Color.fromARGB(255, 63, 158, 236)
+                          ])),
                           child: InkWell(
                               customBorder: CircleBorder(),
                               onTap: () {
@@ -157,12 +162,14 @@ class _MobileState extends State<Mobile> {
                                       isDarkMode
                                           ? Icons.light_mode
                                           : Icons.dark_mode_outlined,
-                                      color:
-                                          Theme.of(context).colorScheme.onPrimary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                       size: width / 12))),
                         ),
                       ),
                       InkWell(
+                        customBorder: CircleBorder(),
                         onTap: () {
                           setState(() {
                             currentPage = 1 * 1.07;
@@ -276,9 +283,10 @@ class _MobileState extends State<Mobile> {
                           pressed = true;
                         });
                         _multAumentCurrentPage(currentPage = 1);
-                        scrollToPageSecondPart(
-                            currentPage * 1.73);
+                        scrollToPageSecondPart(currentPage * 1.73);
                         sobreMiColor();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(dismissDirection: DismissDirection.down, behavior: SnackBarBehavior.floating, padding: EdgeInsets.all(height/40), backgroundColor: const Color.fromARGB(255, 54, 244, 155), content: Text('¡Mensaje enviado correctamente!', style: TextStyle(color: primaryBlack, fontWeight: FontWeight.bold, fontSize: width/25)),
+                        ));
                       },
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(25),

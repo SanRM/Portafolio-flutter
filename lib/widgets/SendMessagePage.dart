@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/themes/styles.dart';
 
 class SendMessagePage extends StatefulWidget {
@@ -17,6 +18,24 @@ class _SendMessagePageState extends State<SendMessagePage> {
 
   _SendMessagePageState(this.height, this.width);
 
+  TextEditingController nameController = TextEditingController(text: "");
+  TextEditingController emailController = TextEditingController(text: "");
+  TextEditingController messageController = TextEditingController(text: "");
+
+  enviarMensaje() async {
+    await addBandejaDeEntrada(
+            nameController.text, emailController.text, messageController.text)
+        .then((value) {
+      value
+          ? ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('exito'), ))
+          : ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('No exito')));
+    });
+  }
+
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,150 +46,105 @@ class _SendMessagePageState extends State<SendMessagePage> {
               padding: EdgeInsets.all(width / 20),
               width: width,
               //color: const Color.fromARGB(255, 54, 244, 155),
-              child: Column(
-                children: [
-                  Container(
-                    //color: Colors.amber,
-                    alignment: Alignment.center,
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      'Escribe un mensaje',
-                      style: TextStyle(
-                          fontSize: height / 20,
-                          color: Theme.of(context).colorScheme.onPrimary),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Container(
+                      //color: Colors.amber,
+                      alignment: Alignment.center,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'Escribe un mensaje',
+                        style: TextStyle(
+                            fontSize: height / 20,
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: height / 30),
-                    //color: Color.fromARGB(255, 7, 255, 110),
-                    alignment: Alignment.center,
-                    child: TextFormField(
-                      cursorColor: Theme.of(context).colorScheme.onPrimary,
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary),
-                      decoration: InputDecoration(
-                          labelText: 'Nombre',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
-                          floatingLabelStyle: TextStyle(
-                              fontSize: height / 40,
-                              color: Theme.of(context).colorScheme.onPrimary),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            //borderSide: BorderSide(width: 3, color: Theme.of(context).colorScheme.surface),
-                            borderSide: BorderSide(
-                                width: 3,
-                                color: Theme.of(context).colorScheme.surface),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
-                                width: 3,
-                                color: Theme.of(context).colorScheme.onPrimary),
+                    Container(
+                      padding: EdgeInsets.only(top: height / 30),
+                      //color: Color.fromARGB(255, 7, 255, 110),
+                      alignment: Alignment.center,
+                      child: TextFormField(
+                        controller: nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo de texto obligatorio';
+                          }
+                          return null;
+                        },
+                        decoration:
+                            InputDecoration(labelText: 'Ingresa tu nombre'),
+                        keyboardType: TextInputType.name,
+                        cursorColor: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: height / 30),
+                      //color: Color.fromARGB(255, 7, 123, 255),
+                      alignment: Alignment.center,
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo de texto obligatorio';
+                          } else if (value.contains('@') == false) {
+                            return 'Ingresa un email valido';
+                          }
+                          return null;
+                        },
+                        decoration:
+                            InputDecoration(labelText: 'Ingresa tu email'),
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        cursorColor: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: height / 30),
+                      //color: Color.fromARGB(255, 7, 123, 255),
+                      alignment: Alignment.center,
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo de texto obligatorio';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Ingresa el texto que desas enviarme',
+                          alignLabelWithHint: true,
+                        ),
+                        controller: messageController,
+                        keyboardType: TextInputType.text,
+                        cursorColor: Theme.of(context).colorScheme.onPrimary,
+                        maxLength: 100,
+                        textAlignVertical: TextAlignVertical.top,
+                        maxLines: (height / 100).toInt(),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: height / 80),
+                      child: FilledButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              enviarMensaje();
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(height / 100),
+                            width: width,
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Enviar',
+                              style: TextStyle(
+                                  color: primaryBlack,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: height / 50),
+                            ),
                           )),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: height / 30),
-                    //color: Color.fromARGB(255, 7, 123, 255),
-                    alignment: Alignment.center,
-                    child: TextFormField(
-                      cursorColor: Theme.of(context).colorScheme.onPrimary,
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary),
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                        floatingLabelStyle: TextStyle(
-                            fontSize: height / 40,
-                            color: Theme.of(context).colorScheme.onPrimary),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          //borderSide: BorderSide(width: 3, color: Theme.of(context).colorScheme.surface),
-                          borderSide: BorderSide(
-                              width: 3,
-                              color: Theme.of(context).colorScheme.surface),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                              width: 3,
-                              color: Theme.of(context).colorScheme.onPrimary),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: height / 30),
-                    //color: Color.fromARGB(255, 7, 123, 255),
-                    alignment: Alignment.center,
-                    child: TextFormField(
-                      cursorColor: Theme.of(context).colorScheme.onPrimary,
-                      maxLength: 100,
-                      textAlignVertical: TextAlignVertical.top,
-                      maxLines: (height / 100).toInt(),
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary),
-                      decoration: InputDecoration(
-                        counterStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary),
-                        labelText: 'Mensaje',
-                        alignLabelWithHint: true,
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                        floatingLabelStyle: TextStyle(
-                            fontSize: height / 40,
-                            color: Theme.of(context).colorScheme.onPrimary),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          //borderSide: BorderSide(width: 3, color: Theme.of(context).colorScheme.surface),
-                          borderSide: BorderSide(
-                              width: 3,
-                              color: Theme.of(context).colorScheme.surface),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                              width: 3,
-                              color: Theme.of(context).colorScheme.onPrimary),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: height / 50),
-                    //color: Color.fromARGB(255, 7, 123, 255),
-                    alignment: Alignment.center,
-                    child: TextButton(
-                      onPressed: () {
-                        print('a');
-                      },
-                      style: ButtonStyle(
-                        padding: MaterialStatePropertyAll(
-                            EdgeInsets.all(height / 80)),
-                        backgroundColor: const MaterialStatePropertyAll(
-                          Color.fromARGB(255, 32, 238, 159),
-                        ),
-                      ),
-                      child: Container(
-                        width: width,
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Enviar',
-                          style: TextStyle(
-                            color: primaryBlack,
-                            fontSize: height / 50,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               )),
           Container(
             width: width,
