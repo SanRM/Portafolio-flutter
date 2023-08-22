@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio/screens/desktop.dart';
-import 'package:portafolio/screens/tablet.dart';
 import 'package:portafolio/screens/mobile.dart';
 
 class Responsive {
@@ -24,16 +23,23 @@ class Responsive {
   }
 
   Widget getDevice() {
-    double actualWidth = MediaQuery.of(getContext()).size.width;
 
-    if (actualWidth < 450) {
+    if (getDeviceHeight() > getDeviceWidth()) {
       return const Mobile();
-    } else if (actualWidth > 450 && actualWidth < 1440) {
-      return const Tablet();
     } else {
       return const Desktop();
     }
 
   }
+
+  // String getDevice() {
+
+  //   if (getDeviceHeight() > getDeviceWidth()) {
+  //     return 'Mobile';
+  //   } else {
+  //     return 'Desktop';
+  //   }
+
+  // }
 
 }

@@ -63,18 +63,22 @@ List<Color> secondaryDegradee = [
 const Color principalButton = Color.fromRGBO(81, 235, 255, 1);
 const Color labelOutline = Color.fromARGB(255, 131, 131, 131);
 const Color labelTextColor = Color.fromARGB(255, 41, 41, 41);
-const Color projectBoardDescription = Color.fromARGB(255, 82, 82, 82);
+const Color projectBoardDescription = Color.fromARGB(255, 90, 90, 90);
 
+//10. Fontfamily
+const String principalFontFamily = 'DMSans';
+
+//fontFamily: 'DMSans',
 //5. Modo claro de la App
 class LightTheme {
   static ThemeData themeData = ThemeData().copyWith(
 
     inputDecorationTheme: const InputDecorationTheme(
       floatingLabelAlignment: FloatingLabelAlignment.start,
-      hintStyle: TextStyle(color: primaryBlack),
-      counterStyle: TextStyle(color: Color.fromARGB(255, 71, 71, 71)),
-      labelStyle: TextStyle(color: primaryBlack),
-      errorStyle: TextStyle(color: Color.fromARGB(255, 255, 7, 81)),
+      hintStyle: TextStyle(fontFamily: principalFontFamily, color: primaryBlack),
+      counterStyle: TextStyle(fontFamily: principalFontFamily, color: Color.fromARGB(255, 71, 71, 71)),
+      labelStyle: TextStyle(fontFamily: principalFontFamily, color: primaryBlack),
+      errorStyle: TextStyle(fontFamily: principalFontFamily, color: Color.fromARGB(255, 255, 7, 81)),
       errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide(width: 2, color: errorFormBorder)),     
@@ -99,11 +103,9 @@ class LightTheme {
     scaffoldBackgroundColor: primaryLight,
 
     textTheme: const TextTheme(
-      //displayLarge: TextStyle(fontWeight: FontWeight.bold),
-      
-      bodyMedium: TextStyle(fontWeight: FontWeight.bold, color: primaryBlack),
-      bodyLarge: TextStyle(color: primaryBlack),
-      titleMedium: TextStyle(color: primaryBlack)
+      bodyMedium: TextStyle(fontFamily: principalFontFamily, fontWeight: FontWeight.bold, color: primaryBlack),
+      bodyLarge: TextStyle(fontFamily: principalFontFamily, color: primaryBlack),
+      titleMedium: TextStyle(fontFamily: principalFontFamily, color: primaryBlack)
     ),
 
     textButtonTheme: TextButtonThemeData(
@@ -141,9 +143,9 @@ class LightTheme {
 class DarkTheme {
   static ThemeData themeData = ThemeData.light().copyWith(
     inputDecorationTheme: const InputDecorationTheme(
-      labelStyle: TextStyle(color: primaryLight),
-      counterStyle: TextStyle(color: Color.fromARGB(255, 158, 158, 158)),
-      errorStyle: TextStyle(color: Color.fromARGB(255, 255, 77, 130)),
+      labelStyle: TextStyle(fontFamily: principalFontFamily, color: primaryLight),
+      counterStyle: TextStyle(fontFamily: principalFontFamily, color: Color.fromARGB(255, 158, 158, 158)),
+      errorStyle: TextStyle(fontFamily: principalFontFamily, color: Color.fromARGB(255, 255, 77, 130)),
       errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide(width: 2, color: errorFormBorder)),     
@@ -167,8 +169,8 @@ class DarkTheme {
     scaffoldBackgroundColor: primaryBlack,
 
     textTheme: const TextTheme(
-      bodyMedium: TextStyle(fontWeight: FontWeight.bold, color: primaryBlack),
-      titleMedium: TextStyle(color: primaryLight)
+      bodyMedium: TextStyle(fontFamily: principalFontFamily, fontWeight: FontWeight.bold, color: primaryBlack),
+      titleMedium: TextStyle(fontFamily: principalFontFamily, color: primaryLight)
     ),
 
     textButtonTheme: TextButtonThemeData(

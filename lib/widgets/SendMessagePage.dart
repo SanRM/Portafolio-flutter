@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/themes/styles.dart';
 
@@ -22,22 +23,96 @@ class _SendMessagePageState extends State<SendMessagePage> {
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController messageController = TextEditingController(text: "");
 
-  enviarMensaje() async {
-    await addBandejaDeEntrada(
-            nameController.text, emailController.text, messageController.text)
-        .then((value) {
-      value
-          ? ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('exito'), ))
-          : ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('No exito')));
-    });
-  }
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    
+    ApprovedSnackBar() {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          dismissDirection: DismissDirection.startToEnd,
+          margin: EdgeInsets.only(
+              bottom: height / 8, right: width / 30, left: width / 30),
+          behavior: SnackBarBehavior.floating,
+          padding: EdgeInsets.all(0),
+          duration: Duration(seconds: 7),
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(width: 2, color: primaryBlack)),
+          // Lottie.asset('animations/confeti.json', fit: BoxFit.fill, repeat: false)
+          content: Stack(alignment: Alignment.center, children: [
+            Positioned(
+              bottom: 0,
+              child: Container(
+                //color: Colors.red,
+                width: width,
+                height: height / 3,
+                child: Lottie.asset('assets/animations/confeti.json',
+                    repeat: true, fit: BoxFit.cover),
+              ),
+            ),
+            Container(
+              width: width,
+              height: height / 15,
+              alignment: Alignment.center,
+              child: Text(
+                '¡Mensaje enviado correctamente!',
+                style: TextStyle(
+                    color: primaryBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: width / 50),
+              ),
+            ),
+          ]),
+        ),
+      );
+    }
+
+    RejectedSnackBar() {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          dismissDirection: DismissDirection.startToEnd,
+          margin: EdgeInsets.only(
+              bottom: height / 8, right: width / 30, left: width / 30),
+          behavior: SnackBarBehavior.floating,
+          padding: EdgeInsets.all(0),
+          duration: Duration(seconds: 7),
+          backgroundColor: Color.fromARGB(255, 255, 67, 130),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(width: 2, color: primaryBlack)),
+          // Lottie.asset('animations/confeti.json', fit: BoxFit.fill, repeat: false)
+          content: 
+            Container(
+              width: width,
+              height: height / 15,
+              alignment: Alignment.center,
+              child: Text(
+                '¡Ha ocurrido un error al enviar el mensaje!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: primaryLight,
+                    fontWeight: FontWeight.bold,
+                    fontSize: width / 50),
+              ),
+            ),
+          
+        ),
+      );
+    }
+
+    enviarMensaje() async {
+      await addBandejaDeEntrada(
+              nameController.text, emailController.text, messageController.text)
+          .then((value) {
+        value
+            ? ApprovedSnackBar()
+            : RejectedSnackBar();
+      });
+    }
+
     return Container(
       color: Theme.of(context).colorScheme.primary,
       child: Column(
@@ -50,6 +125,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    //IconButton(onPressed: ApprovedSnackBar, icon: Icon(Icons.ac_unit_rounded)),
                     Container(
                       //color: Colors.amber,
                       alignment: Alignment.center,
@@ -137,6 +213,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                             child: Text(
                               'Enviar',
                               style: TextStyle(
+                                  fontFamily: principalFontFamily,
                                   color: primaryBlack,
                                   fontWeight: FontWeight.bold,
                                   fontSize: height / 50),

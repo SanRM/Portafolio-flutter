@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/screens/mobile.dart';
 import 'package:provider/provider.dart';
 import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/styles/Responsive/responsive.dart';
 
 //firebase
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
         body: AnimatedTheme(
           data: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
           duration: Duration(microseconds: 1),
-          child: Mobile()
+          //child: Responsive(context: context).getDevice()
+          child: Mobile(),
         ),
       ),
     );

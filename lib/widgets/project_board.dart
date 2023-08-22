@@ -246,6 +246,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                             ? Text(
                                                 '$label',
                                                 style: TextStyle(
+                                                  fontFamily: principalFontFamily,
                                                     color: primaryBlack,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize:
@@ -254,6 +255,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                             : Text(
                                                 '$label',
                                                 style: TextStyle(
+                                                    fontFamily: principalFontFamily,
                                                     color: primaryLight,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize:
@@ -297,6 +299,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                   child: Text(
                                     'Mostrar todo',
                                     style: TextStyle(
+                                        fontFamily: principalFontFamily,
                                         color: primaryBlack,
                                         fontWeight: FontWeight.bold,
                                         fontSize: widget.width / 30),
@@ -335,6 +338,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                             Text(
                                               'Proyectos realizados con $_setActualFilter',
                                               style: TextStyle(
+                                                fontFamily: principalFontFamily,
                                                 fontSize: widget.width / 20,
                                                 color: primaryLight
                                               ),
@@ -549,6 +553,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                               top: height / 20),
                           child: Text(projectTitle,
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                   fontSize: width / 20,
                                   color:
                                       Theme.of(context).colorScheme.secondary)),

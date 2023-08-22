@@ -69,11 +69,10 @@ class InitialInformation extends StatelessWidget {
                 ),
               ),
           ),
-          Padding(
-            padding: paddingSymetricMiddle,
-            child: Container(
+
+          Container(  
+                
                 alignment: Alignment.center,
-                height: height / 30,
                 //color: Color.fromARGB(255, 255, 121, 255),
                 child: Text(
                   'Desarrollador de software',
@@ -82,10 +81,8 @@ class InitialInformation extends StatelessWidget {
                       fontSize: width / 18,
                       color: Theme.of(context).colorScheme.onPrimary),
                 )),
-          ),
-          Padding(
-            padding: paddingSymetricMiddle,
-            child: Container(
+          
+           Container(
               padding: EdgeInsets.only(bottom: height / 20, top: height / 40),
               //color: Colors.blue,
               width: width/1.5,
@@ -103,13 +100,14 @@ class InitialInformation extends StatelessWidget {
                       },
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
+                        padding: EdgeInsets.all(20),
                         width: width / 4,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: const Color.fromRGBO(47, 59, 82, 1),
                         ),
                         child: Image.asset('assets/images/github-mark-white.png',
-                            scale: width / 70),
+                            fit: BoxFit.cover),
                       ),
                     ),
                   ),
@@ -123,23 +121,25 @@ class InitialInformation extends StatelessWidget {
                         if (!await launchUrl(url)) {
                           throw Exception('No se pudo cargar $url');
                         }
-                      },
+                      }, 
+                      
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
+                        padding: EdgeInsets.all(20),
                         width: width / 4,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: const Color.fromRGBO(1, 120, 180, 1),
                         ),
                         child: Image.asset('assets/images/linkedin.png',
-                            scale: width / 40),
+                            fit: BoxFit.cover),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
+          
         ],
       ),
     );
