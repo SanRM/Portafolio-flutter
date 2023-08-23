@@ -1,11 +1,17 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
+import 'package:portafolio/screens/Desktop/widgets/about_me.dart';
+import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
 //import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Desktop/widgets/initial_information.dart';
 
 import 'package:provider/provider.dart';
 import 'package:portafolio/main.dart';
+
+import 'package:blur/blur.dart';
 
 class Desktop extends StatefulWidget {
   const Desktop({super.key});
@@ -72,142 +78,178 @@ class _DesktopState extends State<Desktop> {
     });
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      toolbarHeight: height / 6,
-      elevation: 0,
-      titleSpacing: width / 30,
-      title: buildAppBarTitle(),
-    );
-  }
-
-  buildAppName() {
+  logo() {
     return Container(
-      padding: EdgeInsets.only(left: width/50),
-      child: Text(
+      alignment: Alignment.center,
+      //color: Colors.red,
+      height: height/20,
+      width: width/8,
+      //padding: EdgeInsets.only(left: width / 50),
+      child: SelectableText(
         'Horizon SanTech',
         textAlign: TextAlign.center,
-        overflow: TextOverflow.visible,
+        //overflow: TextOverflow.visible,
         style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
           fontFamily: principalFontFamily,
           fontSize: width / 75,
           fontWeight: FontWeight.bold,
         ),
       ),
-    );
+    ).frosted(
+        blur: 15,
+        frostColor: isDarkMode ? primaryBlack : primaryLight,
+        borderRadius: BorderRadius.circular(100),
+      );
   }
 
   Widget buildDarkModeToggle() {
     return Container(
-      padding: EdgeInsets.only(left: width / 100),
-      child: Tooltip(
-        message: isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Color.fromARGB(255, 7, 196, 230),
-          Color.fromARGB(255, 63, 158, 236),
-        ])),
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          onTap: () {
-            context.read<ThemeProvider>().toggleTheme();
-          },
-          child: Container(
-            //padding: EdgeInsets.only(left: width / 50),
-            //color: Colors.red,
-            child: Icon(
-              isDarkMode ? Icons.light_mode : Icons.dark_mode_outlined,
-              color: Theme.of(context).colorScheme.onPrimary,
-              size: width / 70,
-            ),
+      padding: EdgeInsets.only(left: width/100),
+      child: InkWell(
+        overlayColor: MaterialStatePropertyAll(
+            Theme.of(context).colorScheme.inversePrimary),
+        customBorder: const CircleBorder(),
+        onTap: () {
+          context.read<ThemeProvider>().toggleTheme();
+        },
+        child: Container(
+          height: height / 20,
+          //padding: EdgeInsets.only(left: width / 50),
+          //color: Colors.red,
+          child: Icon(
+            isDarkMode ? Icons.light_mode : Icons.dark_mode_outlined,
+            color: Theme.of(context).colorScheme.onPrimary,
+            size: width / 70,
           ),
         ),
       ),
     );
   }
 
-  Container buildAppBarTitle() {
+  Container buildAppBar() {
     return Container(
+      height: height / 13,
+      margin: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: width / 50),
       //color: Colors.red,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildAppName(),
-          Container(
-              //color: Colors.red,
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //buildContactButton(),
-              navigationButtons()
-            ],
-          )),
+          logo(),
+          navigationButtons(),
         ],
       ),
     );
   }
 
   navigationButtons() {
+    // return Container(
+    //   padding: EdgeInsets.symmetric(
+    //     vertical: height / 100,
+    //   ),
+    //   width: width / 3.5,
+    //   height: height / 13,
+    // ).blurred(
+    //   blurColor: isDarkMode ? Colors.white : Colors.white,
+    //   colorOpacity: 0.2,
+    //   borderRadius: BorderRadius.all(Radius.circular(borderRadiusPrimary)),
+    //   blur: 15,
+    //   overlay: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     children: [
+    //       buildDarkModeToggle(),
+    //       NavigationButton(
+    //         'Inicio',
+    //         textColor: Theme.of(context).colorScheme.onPrimary,
+    //       ),
+    //       NavigationButton(
+    //         'Proyectos',
+    //         textColor: Theme.of(context).colorScheme.onPrimary,
+    //       ),
+    //       NavigationButton(
+    //         'Sobre mi',
+    //         textColor: Theme.of(context).colorScheme.onPrimary,
+    //       ),
+    //       NavigationButton(
+    //         'Contacto',
+    //         backgroundColor: Color.fromARGB(255, 81, 225, 250),
+    //         textColor: primaryBlack,
+    //       ),
+    //     ],
+    //   ),
+    // );
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: height / 100),
-      //color: Colors.red,
-      decoration: BoxDecoration(
-        //color: Colors.blue,
-        borderRadius: BorderRadius.circular(100),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onPrimary,
-          width: 2,
-        ),
-      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildDarkModeToggle(),
-          NavigationButton('Inicio',),
-          NavigationButton('Proyectos'),
-          NavigationButton('Sobre mi'),
-          NavigationButton('Contacto',
-              backgroundColor: Color.fromARGB(255, 81, 225, 250),
-              textColor: primaryBlack)
+          NavigationButton(
+            'Inicio',
+            textColor: Theme.of(context).colorScheme.onPrimary,
+          ),
+          NavigationButton(
+            'Proyectos',
+            textColor: Theme.of(context).colorScheme.onPrimary,
+          ),
+          NavigationButton(
+            'Sobre mi',
+            textColor: Theme.of(context).colorScheme.onPrimary,
+          ),
+          NavigationButton(
+            'Contacto',
+            backgroundColor: Color.fromARGB(255, 81, 225, 250),
+            textColor: primaryBlack,
+          ),
         ],
-      ),
-    );
+      )
+    )
+    .frosted(
+        blur: 15,
+        frostColor: isDarkMode ? primaryBlack : primaryLight,
+        borderRadius: BorderRadius.circular(100),
+      );
   }
 
   NavigationButton(String name, {Color? backgroundColor, Color? textColor}) {
     return Container(
-      //color: Colors.yellow,
+      //color: const Color.fromARGB(118, 255, 235, 59),
       padding: EdgeInsets.symmetric(
         horizontal: width / 200,
       ),
       child: InkWell(
-        overlayColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
+        overlayColor: MaterialStatePropertyAll(isDarkMode
+            ? Color.fromARGB(33, 255, 255, 255)
+            : Color.fromARGB(20, 0, 0, 0)),
         borderRadius: BorderRadius.circular(borderRadiusPrimary),
-        onTap: (){
+        onTap: () {
           switch (name) {
             case 'Inicio':
               print('a');
               break;
 
-          case 'Proyectos':
+            case 'Proyectos':
               print('b');
               break;
 
-          case 'Sobre mi':
+            case 'Sobre mi':
               print('c');
               break;
-          
-          case 'Contacto':
+
+            case 'Contacto':
               print('d');
               break;
-
           }
         },
         child: Container(
           decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(borderRadiusPrimary)),
-          padding: EdgeInsets.all(width / 200),
+          //padding: EdgeInsets.all(width / 200),
+          height: height / 20,
+          width: width / 20,
           alignment: Alignment.center,
           child: Container(
             //color: Colors.blue,
@@ -236,8 +278,8 @@ class _DesktopState extends State<Desktop> {
           Column(
             children: [
               InitialInformation(width: width, height: height),
-              
-              // AboutMe(width: width, height: height),
+              ProjectBoard(width: width, height: height)
+              //  AboutMe(width: width, height: height),
               // Skills(width: width, height: height),
               // SendMessagePage(height: height, width: width),
             ],
@@ -254,9 +296,12 @@ class _DesktopState extends State<Desktop> {
     width = Responsive(context: context).getDeviceWidth();
 
     return Scaffold(
-      appBar: buildAppBar(),
-      body: buildBody(),
+      body: Stack(
+        children: [
+          buildBody(),
+          buildAppBar(),
+        ],
+      ),
     );
   }
-  
 }

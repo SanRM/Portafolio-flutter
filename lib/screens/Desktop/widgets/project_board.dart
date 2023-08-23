@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:portafolio/config/project_list.dart';
 import 'package:portafolio/globalWidgets/project_manager.dart';
 import 'package:portafolio/styles/styles.dart';
-import 'package:portafolio/config/project_list.dart';
 
 class ProjectBoard extends StatefulWidget {
   ProjectBoard({
@@ -22,7 +22,6 @@ class ProjectBoard extends StatefulWidget {
 class _ProjectBoardState extends State<ProjectBoard> {
 
   bool buttonOnPressed = false;
-
 
   List<Widget> projectSelected = proyectos;
 
@@ -334,4 +333,5 @@ class _ProjectBoardState extends State<ProjectBoard> {
     );
   }
 }
+
 

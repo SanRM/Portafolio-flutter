@@ -19,11 +19,13 @@ class InitialInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: height/19),
-      //color: Colors.red,
+      //padding: EdgeInsets.only(top: height/10),
+      //+color: Colors.red,
+      height: height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+
           Container(
             //color: Colors.pink,
             width: width / 2.5,
@@ -34,7 +36,7 @@ class InitialInformation extends StatelessWidget {
                   //color: const Color.fromARGB(255, 33, 243, 215),
                   alignment: Alignment.center,
                   height: height / 10,
-                  child: Text(
+                  child: SelectableText(
                     'PORTAFOLIO',
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
@@ -66,7 +68,7 @@ class InitialInformation extends StatelessWidget {
                   alignment: Alignment.center,
                   height: height / 10,
                   //color: Color.fromARGB(255, 255, 121, 255),
-                  child: Text(
+                  child: SelectableText(
                     'Desarrollador de software',
                     textAlign: TextAlign.center,
                     style: TextStyle(
