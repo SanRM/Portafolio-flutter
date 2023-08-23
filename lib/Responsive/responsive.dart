@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio/screens/desktop.dart';
-import 'package:portafolio/screens/mobile.dart';
+import 'package:portafolio/screens/Desktop/desktop.dart';
+import 'package:portafolio/screens/Mobile/mobile.dart';
 
 class Responsive {
 

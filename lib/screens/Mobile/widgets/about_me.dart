@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/styles/styles.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class AboutMe extends StatelessWidget {
@@ -37,6 +37,7 @@ class AboutMe extends StatelessWidget {
                 textAlign: TextAlign.center,
                 colors: secondaryDegradee,
                 style: TextStyle(
+                    fontFamily: principalFontFamily,
                     fontSize: width / 8,
                     color: Theme.of(context).colorScheme.secondary),
               ),
@@ -46,7 +47,7 @@ class AboutMe extends StatelessWidget {
                 child: Text(
                   AboutMeDescription,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: primaryLight, fontSize: width / 20),
+                  style: TextStyle(fontFamily: principalFontFamily, color: primaryLight, fontSize: width / 20),
                 ),
               ),
               

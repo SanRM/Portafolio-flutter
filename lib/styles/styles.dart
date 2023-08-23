@@ -7,7 +7,6 @@ class Styles extends StatefulWidget {
   State<Styles> createState() => _StylesState();
 }
 
-
 //2. Estilos globales de la App:
 
 const double containerBorderWidth = 3;
@@ -42,6 +41,10 @@ const Color secondaryVariation = Color.fromRGBO(70, 70, 70, 1);
 const Color tertiary = Color.fromRGBO(167, 223, 255, 1);
 const Color errorFormBorder = Color.fromARGB(255, 255, 88, 138);
 
+//10. Font family
+
+const String principalFontFamily = 'DMSans';
+
 //8. Degradees
 List<Color> principalDegradee = [
   Color.fromARGB(255, 24, 194, 216),
@@ -63,19 +66,14 @@ List<Color> secondaryDegradee = [
 const Color principalButton = Color.fromRGBO(81, 235, 255, 1);
 const Color labelOutline = Color.fromARGB(255, 131, 131, 131);
 const Color labelTextColor = Color.fromARGB(255, 41, 41, 41);
-const Color projectBoardDescription = Color.fromARGB(255, 90, 90, 90);
+const Color projectBoardDescription = Color.fromARGB(255, 82, 82, 82);
 
-//10. Fontfamily
-const String principalFontFamily = 'DMSans';
-
-//fontFamily: 'DMSans',
 //5. Modo claro de la App
 class LightTheme {
   static ThemeData themeData = ThemeData().copyWith(
 
     inputDecorationTheme: const InputDecorationTheme(
       floatingLabelAlignment: FloatingLabelAlignment.start,
-      hintStyle: TextStyle(fontFamily: principalFontFamily, color: primaryBlack),
       counterStyle: TextStyle(fontFamily: principalFontFamily, color: Color.fromARGB(255, 71, 71, 71)),
       labelStyle: TextStyle(fontFamily: principalFontFamily, color: primaryBlack),
       errorStyle: TextStyle(fontFamily: principalFontFamily, color: Color.fromARGB(255, 255, 7, 81)),
@@ -103,9 +101,20 @@ class LightTheme {
     scaffoldBackgroundColor: primaryLight,
 
     textTheme: const TextTheme(
-      bodyMedium: TextStyle(fontFamily: principalFontFamily, fontWeight: FontWeight.bold, color: primaryBlack),
-      bodyLarge: TextStyle(fontFamily: principalFontFamily, color: primaryBlack),
-      titleMedium: TextStyle(fontFamily: principalFontFamily, color: primaryBlack)
+      //displayLarge: TextStyle(fontWeight: FontWeight.bold),
+      
+      bodyMedium: TextStyle(fontWeight: FontWeight.bold, color: primaryBlack),
+      bodyLarge: TextStyle(color: primaryBlack),
+      titleMedium: TextStyle(color: primaryBlack)
+    ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+        side: MaterialStatePropertyAll(BorderSide(width: 1.5, color: primaryBlack)),
+        textStyle: MaterialStatePropertyAll(TextStyle(fontWeight: FontWeight.bold))
+      )
     ),
 
     textButtonTheme: TextButtonThemeData(
@@ -135,6 +144,7 @@ class LightTheme {
       onSurface: Color.fromRGBO(0, 77, 112, 100),
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(232, 232, 232, 1),
+      inversePrimary: Color.fromRGBO(0, 217, 255, 0.158)
     ),
   );
 }
@@ -169,8 +179,17 @@ class DarkTheme {
     scaffoldBackgroundColor: primaryBlack,
 
     textTheme: const TextTheme(
-      bodyMedium: TextStyle(fontFamily: principalFontFamily, fontWeight: FontWeight.bold, color: primaryBlack),
-      titleMedium: TextStyle(fontFamily: principalFontFamily, color: primaryLight)
+      bodyMedium: TextStyle(fontWeight: FontWeight.bold, color: primaryBlack),
+      titleMedium: TextStyle(color: primaryLight)
+    ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+        side: MaterialStatePropertyAll(BorderSide(width: 1.5, color: primaryLight)),
+        textStyle: MaterialStatePropertyAll(TextStyle(fontWeight: FontWeight.bold))
+      )
     ),
 
     textButtonTheme: TextButtonThemeData(
@@ -198,6 +217,7 @@ class DarkTheme {
       onSurface: Color.fromRGBO(0, 77, 112, 100),
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(27, 33, 48, 1),
+      inversePrimary: Color.fromRGBO(2, 225, 255, 0.176)
     ),
   );
 }

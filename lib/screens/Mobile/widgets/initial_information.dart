@@ -1,7 +1,7 @@
 // ignore: file_names
 
 import 'package:flutter/material.dart';
-import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,6 +40,7 @@ class InitialInformation extends StatelessWidget {
                 //color: const Color.fromARGB(255, 54, 244, 139),
                 child: Text('PORTAFOLIO',
                     style: TextStyle(
+                        fontFamily: principalFontFamily,
                         fontSize: width / 15,
                         letterSpacing: 6,
                         color: Theme.of(context).colorScheme.onPrimary))),
@@ -64,6 +65,7 @@ class InitialInformation extends StatelessWidget {
                   textAlign: TextAlign.center,
                   colors: principalDegradee,
                   style: TextStyle(
+                      fontFamily: principalFontFamily,
                       fontSize: width / 9,
                       color: Theme.of(context).colorScheme.secondary),
                 ),
@@ -71,16 +73,17 @@ class InitialInformation extends StatelessWidget {
           ),
 
           Container(  
-                
                 alignment: Alignment.center,
                 //color: Color.fromARGB(255, 255, 121, 255),
                 child: Text(
                   'Desarrollador de software',
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                      fontFamily: principalFontFamily,
                       fontSize: width / 18,
                       color: Theme.of(context).colorScheme.onPrimary),
-                )),
+              ),
+            ),
           
            Container(
               padding: EdgeInsets.only(bottom: height / 20, top: height / 40),
@@ -139,8 +142,8 @@ class InitialInformation extends StatelessWidget {
                 ],
               ),
             ),
-          
         ],
+        
       ),
     );
   }

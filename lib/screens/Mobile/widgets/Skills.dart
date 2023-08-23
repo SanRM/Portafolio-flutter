@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/styles/styles.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class Skills extends StatelessWidget {

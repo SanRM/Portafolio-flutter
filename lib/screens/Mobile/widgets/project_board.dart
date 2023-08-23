@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/styles/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectBoard extends StatefulWidget {
@@ -179,6 +179,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                                 Text(
                                                     'Filtrar proyectos según tecnologías usadas',
                                                     style: TextStyle(
+                                                        fontFamily: principalFontFamily,
                                                         color: primaryLight,
                                                         fontSize:
                                                             widget.width / 20)),
@@ -518,6 +519,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                               horizontal: width / 20, vertical: height / 50),
                           child: Text(projectTitle,
                               style: TextStyle(
+                                  fontFamily: principalFontFamily,
                                   fontSize: width / 20,
                                   color:
                                       Theme.of(context).colorScheme.secondary)),
@@ -553,8 +555,9 @@ class _ProjectManagerState extends State<ProjectManager> {
                               top: height / 20),
                           child: Text(projectTitle,
                               style: TextStyle(
+                                fontFamily: principalFontFamily,
                                 fontWeight: FontWeight.bold,
-                                  fontSize: width / 20,
+                                  fontSize: width / 15,
                                   color:
                                       Theme.of(context).colorScheme.secondary)),
                         ),
@@ -570,6 +573,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                               bottom: height / 100),
                           child: Text(projectDescription,
                               style: TextStyle(
+                                  fontFamily: principalFontFamily,
                                   fontSize: width / 25,
                                   color: projectBoardDescription)),
                         ),
@@ -605,6 +609,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                     label: Text(
                                       project,
                                       style: TextStyle(
+                                          fontFamily: principalFontFamily,
                                           color: labelTextColor,
                                           fontSize: width / 30),
                                     ));
@@ -640,6 +645,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                   Text(
                                     'Ver en Github',
                                     style: TextStyle(
+                                        fontFamily: principalFontFamily,
                                         fontSize: width / 20,
                                         color: primaryBlack),
                                   ),

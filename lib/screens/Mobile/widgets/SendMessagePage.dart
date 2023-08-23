@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:portafolio/services/firebase_service.dart';
-import 'package:portafolio/styles/themes/styles.dart';
+import 'package:portafolio/styles/styles.dart';
 
 class SendMessagePage extends StatefulWidget {
   const SendMessagePage({super.key, required this.height, required this.width});
@@ -60,6 +60,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
               child: Text(
                 '¡Mensaje enviado correctamente!',
                 style: TextStyle(
+                    fontFamily: principalFontFamily,
                     color: primaryBlack,
                     fontWeight: FontWeight.bold,
                     fontSize: width / 50),
@@ -93,6 +94,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                 '¡Ha ocurrido un error al enviar el mensaje!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                    fontFamily: principalFontFamily,
                     color: primaryLight,
                     fontWeight: FontWeight.bold,
                     fontSize: width / 50),
@@ -133,6 +135,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                         textAlign: TextAlign.center,
                         'Escribe un mensaje',
                         style: TextStyle(
+                            fontFamily: principalFontFamily,
                             fontSize: height / 20,
                             color: Theme.of(context).colorScheme.onPrimary),
                       ),
@@ -149,8 +152,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                           }
                           return null;
                         },
-                        decoration:
-                            InputDecoration(labelText: 'Ingresa tu nombre'),
+                        decoration:InputDecoration(labelText: 'Ingresa tu nombre'),
                         keyboardType: TextInputType.name,
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
                       ),
