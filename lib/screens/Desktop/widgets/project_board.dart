@@ -64,7 +64,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
       projectSelected = [];
     });
 
-    Future.delayed(Duration(microseconds: 1000), () {
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
         projectSelected =
             ProjectFilter(projects: projects).getSimilitudes(labelSelected);
@@ -160,7 +160,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                           //color: Colors.amber,
                                           child: Icon(
                                             Icons.filter_alt_rounded,
-                                            size: widget.width / 30,
+                                            size: widget.width / 60,
                                             color: Color.fromARGB(
                                               255,
                                               253,
@@ -334,7 +334,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                     //color: Colors.amber,
                                     child: Icon(
                                       Icons.star_rate_rounded,
-                                      size: widget.width / 30,
+                                      size: widget.width / 60,
                                       color: Color.fromARGB(255, 255, 125, 255),
                                     ),
                                   ),
@@ -348,11 +348,11 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                         child: Wrap(
                                           children: [
                                             Text(
-                                              'Proyectos realizados con $_setActualFilter',
+                                              'Proyectos desarrollados con $_setActualFilter',
                                               style: TextStyle(
                                                   fontFamily:
                                                       principalFontFamily,
-                                                  fontSize: widget.width / 40,
+                                                  fontSize: widget.width / 80,
                                                   color: primaryLight),
                                             )
                                           ],
@@ -368,7 +368,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                 Container(
                   //color: Colors.purple,
                   width: widget.width,
-                  height: widget.height / 1.8,
+                  height: widget.height / 1.6,
                   padding: EdgeInsets.only(
                       left: widget.width / 20,
                       right: widget.width / 20,
@@ -384,7 +384,6 @@ class _ProjectBoardState extends State<ProjectBoard> {
                     thickness: 5,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      primary: true,
                       child: Wrap(
                           spacing: widget.width / 30,
                           runSpacing: widget.height / 15,
@@ -495,6 +494,169 @@ class _ProjectManagerState extends State<ProjectManager> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.width;
 
+    openImage() {
+      final originalCardBgColor = HSLColor.fromColor(cardBgColor);
+      final finalCardBgColor =
+          originalCardBgColor.withLightness(0.2.clamp(0.0, 1.0)).toColor();
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            scrollable: true,
+            contentPadding: EdgeInsets.all(0),
+            content: Container(
+              color: secondary,
+              child: Row(
+                children: [
+                  Container(
+                    // width: width / 2,
+                    // height: height / 3,
+                    color: cardBgColor,
+                    child: Container(
+                      child: projectBanner.isEmpty
+                          ? Image.asset(
+                              'assets/illustraciones/Mataura.png',
+                              width: width / 2,
+                              height: height / 3,
+                              fit: BoxFit.fitWidth,
+                            )
+                          : Image.asset(
+                              projectBanner,
+                              width: width / 2,
+                              height: height / 3,
+                              fit: BoxFit.fitWidth,
+                            ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: width / 50),
+                    child: Container(
+                        width: width / 3,
+                        padding: EdgeInsets.all(width / 50),
+                        height: height / 3,
+                        color: finalCardBgColor,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              alignment: Alignment.bottomLeft,
+                              height: height / 15,
+                              //color: Colors.blue,
+                              child: SelectableText(
+                                projectTitle,
+                                style: TextStyle(
+                                    fontSize: width / 40,
+                                    fontWeight: FontWeight.bold,
+                                    color: primaryLight,
+                                    fontFamily: principalFontFamily),
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height / 50,
+                            ),
+                            Container(
+                              child: Wrap(
+                                alignment: WrapAlignment.start,
+                                spacing: width / 100,
+                                runSpacing: height / 100,
+                                children: List.generate(
+                                  projectLabels.length,
+                                  (index) {
+                                    var project = projectLabels[
+                                        index]; // Cambiado projectLabels[1] a projectLabels[index]
+                                    return Chip(
+                                        backgroundColor: primaryLight,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusPrimary),
+                                        ),
+                                        label: Text(
+                                          project,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: primaryBlack,
+                                              fontSize: width / 80),
+                                        ));
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: height / 80,
+                            ),
+                            SingleChildScrollView(
+                              child: Container(
+                                //color: Colors.blue,
+                                height: height / 10,
+                                child: SelectableText(
+                                  projectDescription,
+                                  style: TextStyle(
+                                      fontSize: width / 60,
+                                      color: primaryLight,
+                                      fontFamily: principalFontFamily),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: height / 80,
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                final Uri url = Uri.parse(projectLink);
+
+                                if (!await launchUrl(url)) {
+                                  throw Exception('No se pudo cargar $url');
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: cardBgColor,
+                                    border:
+                                        Border(top: BorderSide(width: 0.5))),
+
+                                padding: EdgeInsets.only(
+                                    left: width / 40,
+                                    right: width / 40,
+                                    bottom: height / 100,
+                                    top: height / 100),
+                                //color: Colors.red,
+                                width: width,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Ver en Github',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: principalFontFamily,
+                                            fontSize: width / 50,
+                                            color: finalCardBgColor),
+                                      ),
+                                      SizedBox(
+                                        width: width / 80,
+                                      ),
+                                      Icon(
+                                        Icons.open_in_new,
+                                        size: width / 40,
+                                        color: finalCardBgColor,
+                                      )
+                                    ]),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+
     return InkWell(
       onTap: () {
         _onPressAnimation();
@@ -529,14 +691,39 @@ class _ProjectManagerState extends State<ProjectManager> {
                   firstChild: Column(
                     children: [
                       //2. Project banner
-                      Container(
-                          width: width,
-                          height: height / 10,
-                          color: cardBgColor,
-                          child: projectBanner.isEmpty
-                              ? Image.asset('assets/illustraciones/Mataura.png',
-                                  fit: BoxFit.cover)
-                              : Image.asset(projectBanner, fit: BoxFit.cover)),
+                      Stack(
+                        children: [
+                          Container(
+                            width: width,
+                            height: height / 10,
+                            color: cardBgColor,
+                            child: projectBanner.isEmpty
+                                ? Image.asset(
+                                    'assets/illustraciones/Mataura.png',
+                                    fit: BoxFit.cover)
+                                : Image.asset(projectBanner, fit: BoxFit.cover),
+                          ),
+                          Positioned(
+                            top: height / 100,
+                            right: width / 100,
+                            child: InkWell(
+                                onTap: () {
+                                  openImage();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(73, 0, 0, 0),
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: Icon(
+                                    size: width / 50,
+                                    Icons.crop_free,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
                       //2. Project title
                       Container(
                         decoration: const BoxDecoration(
@@ -557,17 +744,48 @@ class _ProjectManagerState extends State<ProjectManager> {
                       ),
                     ],
                   ),
+
+                  //10. Second Child
+
                   secondChild: Column(
                     children: [
                       //2. Project banner
-                      Container(
-                          width: width,
-                          height: height / 7,
-                          color: cardBgColor,
-                          child: projectBanner.isEmpty
-                              ? Image.asset('assets/illustraciones/Mataura.png',
-                                  fit: BoxFit.cover)
-                              : Image.asset(projectBanner, fit: BoxFit.cover)),
+                      Stack(
+                        children: [
+                          Container(
+                            width: width,
+                            height: height / 7,
+                            color: cardBgColor,
+                            child: projectBanner.isEmpty
+                                ? Image.asset(
+                                    'assets/illustraciones/Mataura.png',
+                                    fit: BoxFit.cover)
+                                : Image.asset(
+                                    projectBanner,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                          Positioned(
+                            top: height / 100,
+                            right: width / 100,
+                            child: InkWell(
+                                onTap: () {
+                                  openImage();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(73, 0, 0, 0),
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: Icon(
+                                    size: width / 50,
+                                    Icons.crop_free,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
 
                       //2. Project title
                       Container(
@@ -581,7 +799,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                         padding: EdgeInsets.only(
                             left: width / 40,
                             right: width / 40,
-                            top: height / 40),
+                            top: height / 80),
                         child: Text(projectTitle,
                             style: TextStyle(
                                 fontFamily: principalFontFamily,
@@ -602,7 +820,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                             bottom: height / 100),
                         child: Text(projectDescription,
                             style: TextStyle(
-                                fontSize: width / 50,
+                                fontSize: width / 80,
                                 color: projectBoardDescription)),
                       ),
 
@@ -618,8 +836,8 @@ class _ProjectManagerState extends State<ProjectManager> {
                         ),
                         child: Wrap(
                           alignment: WrapAlignment.start,
-                          spacing: width / 80,
-                          runSpacing: height / 60,
+                          spacing: width / 100,
+                          runSpacing: height / 100,
                           children: List.generate(
                             projectLabels.length,
                             (index) {
@@ -674,7 +892,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                   style: TextStyle(
                                       fontFamily: principalFontFamily,
                                       fontSize: width / 50,
-                                      color: primaryBlack),
+                                      color: Color.fromARGB(255, 0, 83, 104)),
                                 ),
                                 SizedBox(
                                   width: width / 80,
@@ -682,6 +900,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 Icon(
                                   Icons.open_in_new,
                                   size: width / 40,
+                                  color: const Color.fromARGB(255, 0, 83, 104),
                                 )
                               ]),
                         ),
