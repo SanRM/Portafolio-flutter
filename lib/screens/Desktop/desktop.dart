@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
+import 'package:portafolio/screens/Desktop/widgets/SendMessagePage.dart';
 import 'package:portafolio/screens/Desktop/widgets/about_me.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
 //import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
@@ -131,7 +132,7 @@ class _DesktopState extends State<Desktop> {
     return Container(
       height: height / 13,
       margin: EdgeInsets.all(20),
-      padding: EdgeInsets.only(left: width / 50),
+      padding: EdgeInsets.symmetric(horizontal: width / 50),
       //color: Colors.red,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,10 +279,9 @@ class _DesktopState extends State<Desktop> {
           Column(
             children: [
               InitialInformation(width: width, height: height),
-              ProjectBoard(width: width, height: height)
-              //  AboutMe(width: width, height: height),
-              // Skills(width: width, height: height),
-              // SendMessagePage(height: height, width: width),
+              ProjectBoard(width: width, height: height),
+              AboutMe(width: width, height: height),
+              SendMessagePage(height: height, width: width),
             ],
           ),
         ],

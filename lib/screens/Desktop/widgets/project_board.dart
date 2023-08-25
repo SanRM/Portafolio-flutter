@@ -127,7 +127,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadiusSecondary),
           child: Container(
-            padding: EdgeInsets.only(bottom: widget.height / 50),
+            padding: EdgeInsets.only(bottom: widget.height / 200),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
             ),
@@ -146,7 +146,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                             Padding(
                               padding: EdgeInsets.only(
                                   top: widget.height / 100,
-                                  bottom: widget.height / 500),
+                                  bottom: widget.height / 100),
                               child: Container(
                                 width: widget.width,
                                 child: Container(
@@ -286,102 +286,104 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                     top: widget.height / 100,
                                     right: widget.width / 40,
                                     bottom: widget.width / 50),
-                                child: TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _mostrarTodos();
-                                      _selectedIndex = -1;
-                                      _mostrarTodosSelected();
-                                    });
-                                  },
-                                  style: _mostrarTodosIsSelected == true
-                                      ? ButtonStyle(
-                                          padding: MaterialStatePropertyAll(
-                                              paddingAll),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  tertiary))
-                                      : ButtonStyle(
-                                          padding: MaterialStatePropertyAll(
-                                              paddingAll),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Color.fromRGBO(
-                                                      168, 167, 255, 1))),
-                                  child: Text(
-                                    'Mostrar todo',
-                                    style: TextStyle(
-                                        fontFamily: principalFontFamily,
-                                        color: primaryBlack,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: widget.width / 100),
-                                  ),
+                                child: Row(
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _mostrarTodos();
+                                          _selectedIndex = -1;
+                                          _mostrarTodosSelected();
+                                        });
+                                      },
+                                      style: _mostrarTodosIsSelected == true
+                                          ? ButtonStyle(
+                                              padding: MaterialStatePropertyAll(
+                                                  paddingAll),
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                      tertiary))
+                                          : ButtonStyle(
+                                              padding: MaterialStatePropertyAll(
+                                                  paddingAll),
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                      Color.fromRGBO(
+                                                          168, 167, 255, 1))),
+                                      child: Text(
+                                        'Mostrar todo',
+                                        style: TextStyle(
+                                            fontFamily: principalFontFamily,
+                                            color: primaryBlack,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: widget.width / 100),
+                                      ),
+                                    ),
+                                    _setActualFilter != ''
+                                        ? Container(
+                                            padding: EdgeInsets.only(
+                                                left: widget.width / 100),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  //color: Colors.amber,
+                                                  padding: EdgeInsets.only(
+                                                      right:
+                                                          widget.width / 200),
+                                                  child: Icon(
+                                                    Icons.star_rate_rounded,
+                                                    size: widget.width / 80,
+                                                    color: Color.fromARGB(
+                                                        255, 54, 244, 187),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Proyectos desarrollados con $_setActualFilter',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          principalFontFamily,
+                                                      fontSize:
+                                                          widget.width / 100,
+                                                      color: primaryLight),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        : Container(),
+                                  ],
                                 ),
                               ),
                             ]),
                           ],
                         ))),
-                _setActualFilter != ''
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                            left: widget.width / 20,
-                            right: widget.width / 20,
-                            bottom: widget.height / 100),
-                        child: projectSelected.isNotEmpty
-                            ? Row(
-                                children: [
-                                  Container(
-                                    //color: Colors.amber,
-                                    child: Icon(
-                                      Icons.star_rate_rounded,
-                                      size: widget.width / 60,
-                                      color: Color.fromARGB(255, 255, 125, 255),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(
-                                          containerPadding),
-                                      child: Container(
-                                        //color: Colors.red,
-                                        width: widget.width / 1.7,
-                                        child: Wrap(
-                                          children: [
-                                            Text(
-                                              'Proyectos desarrollados con $_setActualFilter',
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                      principalFontFamily,
-                                                  fontSize: widget.width / 80,
-                                                  color: primaryLight),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
-                            : Container(),
-                      )
-                    : Container(),
                 Container(
                   //color: Colors.purple,
                   width: widget.width,
-                  height: widget.height / 1.6,
+                  height: widget.height / 1.7,
                   padding: EdgeInsets.only(
                       left: widget.width / 20,
                       right: widget.width / 20,
-                      bottom: widget.height / 15),
-                  child: RawScrollbar(
-                    timeToFade: Duration(microseconds: 1),
-                    thumbColor: Color.fromARGB(255, 0, 141, 151),
-                    trackColor: Color.fromRGBO(54, 54, 54, 1),
-                    trackRadius: Radius.circular(10),
-                    trackVisibility: true,
-                    thumbVisibility: true,
-                    radius: Radius.circular(10),
-                    thickness: 5,
+                      bottom: widget.height / 25),
+                  // child: RawScrollbar(
+                  //   timeToFade: Duration(microseconds: 1),
+                  //   thumbColor: Color.fromARGB(137, 0, 141, 151),
+                  //   trackColor: Color.fromRGBO(54, 54, 54, 1),
+                  //   trackRadius: Radius.circular(10),
+                  //   trackVisibility: true,
+                  //   thumbVisibility: true,
+                  //   radius: Radius.circular(10),
+                  //   thickness: 5,
+
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      scrollbarTheme: ScrollbarThemeData(
+                          thickness: MaterialStatePropertyAll(10),
+                          thumbColor: MaterialStatePropertyAll(
+                              Color.fromARGB(137, 0, 141, 151)),
+                          //trackColor: MaterialStatePropertyAll(Color.fromRGBO(114, 114, 114, 1)),
+                          trackVisibility: MaterialStatePropertyAll(true),
+                          thumbVisibility: MaterialStatePropertyAll(true)),
+                    ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Wrap(
@@ -613,9 +615,10 @@ class _ProjectManagerState extends State<ProjectManager> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: cardBgColor,
-                                    border:
-                                        Border(top: BorderSide(width: 0.5))),
+                                  color: cardBgColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                  
+                                ),
 
                                 padding: EdgeInsets.only(
                                     left: width / 40,
