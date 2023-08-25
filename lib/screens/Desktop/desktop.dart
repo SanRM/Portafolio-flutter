@@ -145,42 +145,6 @@ class _DesktopState extends State<Desktop> {
   }
 
   navigationButtons() {
-    // return Container(
-    //   padding: EdgeInsets.symmetric(
-    //     vertical: height / 100,
-    //   ),
-    //   width: width / 3.5,
-    //   height: height / 13,
-    // ).blurred(
-    //   blurColor: isDarkMode ? Colors.white : Colors.white,
-    //   colorOpacity: 0.2,
-    //   borderRadius: BorderRadius.all(Radius.circular(borderRadiusPrimary)),
-    //   blur: 15,
-    //   overlay: Row(
-    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     children: [
-    //       buildDarkModeToggle(),
-    //       NavigationButton(
-    //         'Inicio',
-    //         textColor: Theme.of(context).colorScheme.onPrimary,
-    //       ),
-    //       NavigationButton(
-    //         'Proyectos',
-    //         textColor: Theme.of(context).colorScheme.onPrimary,
-    //       ),
-    //       NavigationButton(
-    //         'Sobre mi',
-    //         textColor: Theme.of(context).colorScheme.onPrimary,
-    //       ),
-    //       NavigationButton(
-    //         'Contacto',
-    //         backgroundColor: Color.fromARGB(255, 81, 225, 250),
-    //         textColor: primaryBlack,
-    //       ),
-    //     ],
-    //   ),
-    // );
-
     return Container(
       padding: EdgeInsets.symmetric(vertical: height / 100),
       child: Row(
