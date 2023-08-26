@@ -24,9 +24,9 @@ class Desktop extends StatefulWidget {
 class _DesktopState extends State<Desktop> {
   final ScrollController _scrollController = ScrollController();
 
-  bool _backgroundColorSelected1 = true;
-  bool _backgroundColorSelected2 = false;
-  bool _backgroundColorSelected3 = false;
+  // bool _backgroundColorSelected1 = true;
+  // bool _backgroundColorSelected2 = false;
+  // bool _backgroundColorSelected3 = false;
 
   bool isDarkMode = false;
   double height = 0;
@@ -34,29 +34,29 @@ class _DesktopState extends State<Desktop> {
   double currentPage = 1;
   bool? pressed;
 
-  buttonBackground(String button) {
-    setState(() {
-      switch (button) {
-        case 'Inicio':
-          _backgroundColorSelected1 = true;
-          _backgroundColorSelected2 = false;
-          _backgroundColorSelected3 = false;
-          break;
-        case 'Proyectos':
-          _backgroundColorSelected1 = false;
-          _backgroundColorSelected2 = true;
-          _backgroundColorSelected3 = false;
-          break;
-        case 'Sobre mi':
-          _backgroundColorSelected1 = false;
-          _backgroundColorSelected2 = false;
-          _backgroundColorSelected3 = true;
-          break;
-        default:
-      }
-      //print('Proyectos seleccionado');
-    });
-  }
+  // buttonBackground(String button) {
+  //   setState(() {
+  //     switch (button) {
+  //       case 'Inicio':
+  //         _backgroundColorSelected1 = true;
+  //         _backgroundColorSelected2 = false;
+  //         _backgroundColorSelected3 = false;
+  //         break;
+  //       case 'Proyectos':
+  //         _backgroundColorSelected1 = false;
+  //         _backgroundColorSelected2 = true;
+  //         _backgroundColorSelected3 = false;
+  //         break;
+  //       case 'Sobre mi':
+  //         _backgroundColorSelected1 = false;
+  //         _backgroundColorSelected2 = false;
+  //         _backgroundColorSelected3 = true;
+  //         break;
+  //       default:
+  //     }
+  //     //print('Proyectos seleccionado');
+  //   });
+  // }
 
   scrollToPageFromTop(double pageNumber) {
     _scrollController.animateTo(
