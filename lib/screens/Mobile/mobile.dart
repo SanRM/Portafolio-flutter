@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:portafolio/Responsive/responsive.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Mobile/widgets/initial_information.dart';
@@ -26,8 +27,12 @@ class _MobileState extends State<Mobile> {
   double currentPage = 1;
 
   AppBar buildAppBar() {
+    bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
     return AppBar(
-      toolbarHeight: Responsive(context: context).getDeviceHeight() / 8,
+      systemOverlayStyle:
+          isDarkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+      backgroundColor: Colors.transparent,
+      toolbarHeight: Responsive(context: context).getDeviceHeight() / 10,
       elevation: 0,
       title: buildAppBarTitle(),
     );
@@ -59,6 +64,7 @@ class _MobileState extends State<Mobile> {
       textAlign: TextAlign.center,
       overflow: TextOverflow.visible,
       style: TextStyle(
+        color: Theme.of(context).colorScheme.onPrimary,
         fontFamily: principalFontFamily,
         fontSize: Responsive(context: context).getDeviceWidth() / 25,
         fontWeight: FontWeight.bold,
@@ -74,7 +80,8 @@ class _MobileState extends State<Mobile> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Tooltip(
-            message: isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
+            message:
+                isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
                 Color.fromARGB(255, 7, 196, 230),
@@ -107,7 +114,7 @@ class _MobileState extends State<Mobile> {
       customBorder: CircleBorder(),
       onTap: () {
         setState(() {
-          currentPage = 1.05;
+          currentPage = 1.07;
         });
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent / currentPage,
@@ -116,7 +123,8 @@ class _MobileState extends State<Mobile> {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(Responsive(context: context).getDeviceHeight() / 50),
+        padding:
+            EdgeInsets.all(Responsive(context: context).getDeviceHeight() / 50),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadiusPrimary),
           color: Theme.of(context).colorScheme.onPrimary,
@@ -163,21 +171,15 @@ class _MobileState extends State<Mobile> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
         height: Responsive(context: context).getDeviceHeight() / 10,
         child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            border: Border(
-              top: BorderSide(
-                width: 0,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: Responsive(context: context).getDeviceWidth() * sizedBoxWidth),
+              SizedBox(
+                  width: Responsive(context: context).getDeviceWidth() *
+                      sizedBoxWidth),
               buildBottomAppBarButton(
                 label: 'Inicio',
                 onPressed: () {
@@ -199,7 +201,7 @@ class _MobileState extends State<Mobile> {
                 label: 'Proyectos',
                 onPressed: () {
                   setState(() {
-                    currentPage = 0.9;
+                    currentPage = 0.8;
                   });
                   _scrollController.animateTo(
                     currentPage * height,
@@ -216,20 +218,23 @@ class _MobileState extends State<Mobile> {
                 label: 'Sobre mi',
                 onPressed: () {
                   setState(() {
-                    currentPage = 1;
+                    currentPage = 1.9;
                   });
                   _scrollController.animateTo(
-                    currentPage * height * 1.7,
+                    _scrollController.position.maxScrollExtent / currentPage,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
+
                   _backgroundColorSelected1 = false;
                   _backgroundColorSelected2 = false;
                   _backgroundColorSelected3 = true;
                 },
                 isSelected: _backgroundColorSelected3,
               ),
-              SizedBox(width: Responsive(context: context).getDeviceWidth() * sizedBoxWidth)
+              SizedBox(
+                  width: Responsive(context: context).getDeviceWidth() *
+                      sizedBoxWidth)
             ],
           ),
         ),
@@ -244,11 +249,15 @@ class _MobileState extends State<Mobile> {
   }) {
     return InkWell(
       onTap: onPressed,
+      splashColor: Color.fromARGB(66, 255, 255, 255),
+      highlightColor: Color.fromARGB(66, 255, 255, 255),
+      borderRadius: BorderRadius.circular(100),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Container(
           color: isSelected ? tertiary : null,
-          padding: EdgeInsets.symmetric(horizontal: Responsive(context: context).getDeviceWidth() / 50),
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive(context: context).getDeviceWidth() / 50),
           alignment: Alignment.center,
           height: Responsive(context: context).getDeviceHeight() / 20,
           child: Text(
