@@ -33,7 +33,7 @@ class AboutMe extends StatelessWidget {
           //color: Colors.green,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 //color: Colors.amber,
@@ -75,14 +75,17 @@ class AboutMe extends StatelessWidget {
                 //color: Colors.red,
                 width: width / 4,
                 padding: EdgeInsets.all(height / 20),
-                child: Column(children: [
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                   Container(
+                    //color: Colors.blue,
                     child: GradientText(
                       'Habilidades',
                       textAlign: TextAlign.center,
                       colors: secondaryDegradee,
                       style: TextStyle(
-                        fontSize: width / 27,
+                        fontSize: width / 29,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),

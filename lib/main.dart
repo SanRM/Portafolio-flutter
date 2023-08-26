@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:portafolio/styles/styles.dart';
@@ -8,7 +7,6 @@ import 'package:portafolio/Responsive/responsive.dart';
 //firebase
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,16 +30,13 @@ class MyApp extends StatelessWidget {
     bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
 
     return MaterialApp(
-      //theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
+      theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
+      themeAnimationDuration: Duration(microseconds: 1),
+      themeAnimationCurve: Curves.decelerate,
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
-        body: AnimatedTheme(
-          data: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
-          duration: Duration(microseconds: 1),
-          child: Responsive(context: context).getDevice()
-          //child: Mobile(),
-        ),
+        body: Responsive(context: context).getDevice(),
       ),
     );
   }

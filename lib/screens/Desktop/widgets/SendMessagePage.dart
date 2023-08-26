@@ -24,45 +24,48 @@ class _SendMessagePageState extends State<SendMessagePage> {
   void _showApprovedSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        dismissDirection: DismissDirection.startToEnd,
         margin: EdgeInsets.only(
-          bottom: widget.height / 8,
-          right: widget.width / 30,
-          left: widget.width / 30,
+          bottom: widget.height / 3,
+          right: widget.width / 5,
+          left: widget.width / 5,
         ),
         behavior: SnackBarBehavior.floating,
-        padding: EdgeInsets.zero,
-        duration: Duration(seconds: 7),
-        backgroundColor: Colors.white,
+        duration: Duration(seconds: 5),
+        backgroundColor: Color.fromARGB(255, 60, 221, 208),
+        showCloseIcon: true,
+        closeIconColor: primaryBlack,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: BorderSide(width: 2, color: primaryBlack),
+          side: BorderSide(width: 2, color: Color.fromARGB(255, 0, 177, 162)),
         ),
         content: Stack(
           alignment: Alignment.center,
           children: [
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: widget.width,
-                height: widget.height / 3,
-                child: Lottie.asset(
-                  'assets/animations/confeti.json',
-                  repeat: true,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            //  Positioned(
+            //   bottom: 0,
+            //   child: Container(
+            //     width: widget.width / 3,
+            //     height: widget.height / 2,
+            //     child: Lottie.asset(
+            //       'assets/animations/confeti.json',
+            //       repeat: true,
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            // ),
             Container(
               width: widget.width,
-              height: widget.height / 15,
+              height: widget.height / 25,
               alignment: Alignment.center,
               child: Text(
                 '¡Mensaje enviado correctamente!',
                 style: TextStyle(
                   fontFamily: principalFontFamily,
-                  color: primaryBlack,
+                  //color: primaryBlack,
+                  color: Color.fromARGB(255, 0, 61, 56),
                   fontWeight: FontWeight.bold,
-                  fontSize: widget.width / 50,
+                  fontSize: widget.width / 80,
                 ),
               ),
             ),
@@ -76,10 +79,13 @@ class _SendMessagePageState extends State<SendMessagePage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         margin: EdgeInsets.only(
-          bottom: widget.height / 8,
-          right: widget.width / 30,
-          left: widget.width / 30,
+          bottom: widget.height / 3,
+          right: widget.width / 5,
+          left: widget.width / 5,
         ),
+        dismissDirection: DismissDirection.startToEnd,
+        showCloseIcon: true,
+        closeIconColor: primaryLight,
         behavior: SnackBarBehavior.floating,
         padding: EdgeInsets.zero,
         duration: Duration(seconds: 7),
@@ -99,7 +105,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
               fontFamily: principalFontFamily,
               color: primaryLight,
               fontWeight: FontWeight.bold,
-              fontSize: widget.width / 50,
+              fontSize: widget.width / 80,
             ),
           ),
         ),
@@ -115,7 +121,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
     );
 
     if (success) {
-      _showApprovedSnackBar();
+       _showApprovedSnackBar();
     } else {
       _showRejectedSnackBar();
     }
@@ -160,6 +166,8 @@ class _SendMessagePageState extends State<SendMessagePage> {
                                 child: Wrap(
                                   runAlignment: WrapAlignment.spaceBetween,
                                   children: [
+                                    //IconButton(onPressed: _showApprovedSnackBar, icon: Icon(Icons.warning_rounded)),
+                                    //IconButton(onPressed: _showRejectedSnackBar, icon: Icon(Icons.warning_rounded)),
                                     Container(
                                       alignment: Alignment.centerLeft,
                                       child: SelectableText(

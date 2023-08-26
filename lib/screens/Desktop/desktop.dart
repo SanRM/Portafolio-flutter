@@ -66,25 +66,12 @@ class _DesktopState extends State<Desktop> {
     );
   }
 
-  aumentCurrentPage(double increase) {
-    setState(() {
-      pressed = true;
-      //print(pressed);
-      if (pressed == true) {
-        //print(increase);
-        currentPage = increase;
-        pressed == false;
-        //print('$currentPage, $pressed');
-      }
-    });
-  }
-
   logo() {
     return Container(
       alignment: Alignment.center,
       //color: Colors.red,
-      height: height/20,
-      width: width/8,
+      height: height / 20,
+      width: width / 8,
       //padding: EdgeInsets.only(left: width / 50),
       child: SelectableText(
         'Horizon SanTech',
@@ -98,15 +85,15 @@ class _DesktopState extends State<Desktop> {
         ),
       ),
     ).frosted(
-        blur: 15,
-        frostColor: isDarkMode ? primaryBlack : primaryLight,
-        borderRadius: BorderRadius.circular(100),
-      );
+      blur: 15,
+      frostColor: isDarkMode ? primaryBlack : primaryLight,
+      borderRadius: BorderRadius.circular(100),
+    );
   }
 
   Widget buildDarkModeToggle() {
     return Container(
-      padding: EdgeInsets.only(left: width/100),
+      padding: EdgeInsets.only(left: width / 100),
       child: InkWell(
         overlayColor: MaterialStatePropertyAll(
             Theme.of(context).colorScheme.inversePrimary),
@@ -146,36 +133,34 @@ class _DesktopState extends State<Desktop> {
 
   navigationButtons() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: height / 100),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          buildDarkModeToggle(),
-          NavigationButton(
-            'Inicio',
-            textColor: Theme.of(context).colorScheme.onPrimary,
-          ),
-          NavigationButton(
-            'Proyectos',
-            textColor: Theme.of(context).colorScheme.onPrimary,
-          ),
-          NavigationButton(
-            'Sobre mi',
-            textColor: Theme.of(context).colorScheme.onPrimary,
-          ),
-          NavigationButton(
-            'Contacto',
-            backgroundColor: Color.fromARGB(255, 81, 225, 250),
-            textColor: primaryBlack,
-          ),
-        ],
-      )
-    )
-    .frosted(
-        blur: 15,
-        frostColor: isDarkMode ? primaryBlack : primaryLight,
-        borderRadius: BorderRadius.circular(100),
-      );
+        padding: EdgeInsets.symmetric(vertical: height / 100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            buildDarkModeToggle(),
+            NavigationButton(
+              'Inicio',
+              textColor: Theme.of(context).colorScheme.onPrimary,
+            ),
+            NavigationButton(
+              'Proyectos',
+              textColor: Theme.of(context).colorScheme.onPrimary,
+            ),
+            NavigationButton(
+              'Sobre mi',
+              textColor: Theme.of(context).colorScheme.onPrimary,
+            ),
+            NavigationButton(
+              'Contacto',
+              backgroundColor: Color.fromARGB(255, 81, 225, 250),
+              textColor: primaryBlack,
+            ),
+          ],
+        )).frosted(
+      blur: 15,
+      frostColor: isDarkMode ? primaryBlack : primaryLight,
+      borderRadius: BorderRadius.circular(100),
+    );
   }
 
   NavigationButton(String name, {Color? backgroundColor, Color? textColor}) {
@@ -193,18 +178,41 @@ class _DesktopState extends State<Desktop> {
           switch (name) {
             case 'Inicio':
               print('a');
+              _scrollController.animateTo(
+                height - (height / 0.95),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
               break;
 
             case 'Proyectos':
+              _scrollController.animateTo(
+                //height * 1,
+                height * 0.940,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
               print('b');
               break;
 
             case 'Sobre mi':
               print('c');
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent / 1.51,
+                duration: const Duration(
+                    milliseconds: 500), // Duración de la animación
+                curve: Curves.easeInOut, // Curva de la animación
+              );
               break;
 
             case 'Contacto':
               print('d');
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent / 0.99,
+                duration: const Duration(
+                    milliseconds: 500), // Duración de la animación
+                curve: Curves.easeInOut, // Curva de la animación
+              );
               break;
           }
         },

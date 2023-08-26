@@ -716,7 +716,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 child: Container(
                                   padding: EdgeInsets.all(6),
                                   decoration: BoxDecoration(
-                                      color: Color.fromARGB(73, 0, 0, 0),
+                                      color: Color.fromARGB(115, 0, 0, 0),
                                       borderRadius: BorderRadius.circular(50)),
                                   child: Icon(
                                     size: width / 50,
@@ -778,7 +778,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 child: Container(
                                   padding: EdgeInsets.all(6),
                                   decoration: BoxDecoration(
-                                      color: Color.fromARGB(73, 0, 0, 0),
+                                      color: Color.fromARGB(115, 0, 0, 0),
                                       borderRadius: BorderRadius.circular(50)),
                                   child: Icon(
                                     size: width / 50,
