@@ -77,8 +77,8 @@ class _ProjectBoardState extends State<ProjectBoard> {
     setState(() {
       projectSelected = [];
     });
-
-    Future.delayed(Duration(microseconds: 1000), () {
+        //                      microseconds: 1000
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
         projectSelected = proyectos;
         //print(projectSelected);
@@ -823,6 +823,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                             bottom: height / 100),
                         child: Text(projectDescription,
                             style: TextStyle(
+                                fontFamily: principalFontFamily,
                                 fontSize: width / 80,
                                 color: projectBoardDescription)),
                       ),
@@ -858,6 +859,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                   label: Text(
                                     project,
                                     style: TextStyle(
+                                        fontFamily: principalFontFamily,
                                         color: labelTextColor,
                                         fontSize: width / 80),
                                   ));

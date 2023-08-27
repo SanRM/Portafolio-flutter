@@ -5,7 +5,6 @@ import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Mobile/widgets/initial_information.dart';
 import 'package:portafolio/screens/Mobile/widgets/project_board.dart';
 import 'package:portafolio/screens/Mobile/widgets/about_me.dart';
-import 'package:portafolio/screens/Mobile/widgets/Skills.dart';
 import 'package:portafolio/screens/Mobile/widgets/SendMessagePage.dart';
 import 'package:provider/provider.dart';
 import 'package:portafolio/main.dart';
@@ -163,7 +162,6 @@ class _MobileState extends State<Mobile> {
                 InitialInformation(width: width, height: height),
                 ProjectBoard(width: width, height: height),
                 AboutMe(width: width, height: height),
-                Skills(width: width, height: height),
                 SendMessagePage(height: height, width: width),
               ],
             ),

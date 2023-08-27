@@ -78,7 +78,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
       projectSelected = [];
     });
 
-    Future.delayed(Duration(microseconds: 1000), () {
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
         projectSelected = proyectos;
         //print(projectSelected);
