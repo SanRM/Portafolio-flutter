@@ -20,7 +20,7 @@ class ProjectFilter {
       if (labelsFilter.isEmpty == false) {
         if (labelsFilter[0] == labelToCompare) {
           //print('Hay etiquetas iguales en el proyecto $i');
-          print(labelsFilter);
+          //print(labelsFilter);
 
           filtroFinal.add(projects[i]);
 
@@ -83,6 +83,8 @@ class _ProjectManagerState extends State<ProjectManager> {
   final List<String> projectLabels;
 
   bool? _onPress;
+
+  
 
   _onPressAnimation() {
     setState(() {

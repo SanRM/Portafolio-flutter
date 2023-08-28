@@ -6,7 +6,9 @@ import 'package:portafolio/styles/styles.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class InitialInformation extends StatelessWidget {
+GlobalKey globalKeyInitialInformation = GlobalKey(); 
+
+class InitialInformation extends StatefulWidget {
   final double width;
   final double height;
 
@@ -17,8 +19,16 @@ class InitialInformation extends StatelessWidget {
   });
 
   @override
+  State<InitialInformation> createState() => InitialInformationState();
+}
+
+class InitialInformationState extends State<InitialInformation> {
+
+  @override
   Widget build(BuildContext context) {
+
     return Container(
+      key: globalKeyInitialInformation,
       //color: Colors.red,
       child: Column(
         children: [
@@ -26,8 +36,8 @@ class InitialInformation extends StatelessWidget {
             padding: paddingSymetricMiddle,
             child: Container(
               padding: paddingSymetricMiddle,
-              width: width,
-              height: height / 4,
+              width: widget.width,
+              height: widget.height / 4,
               //color: Colors.red,
               child: Image.asset('assets/images/PrincipaImage.png'),
             ),
@@ -36,21 +46,21 @@ class InitialInformation extends StatelessWidget {
             padding: paddingSymetricMiddle,
             child: Container(
                 alignment: Alignment.center,
-                width: width,
-                height: height / 14,
+                width: widget.width,
+                height: widget.height / 14,
                 //color: const Color.fromARGB(255, 54, 244, 139),
                 child: Text('PORTAFOLIO',
                     style: TextStyle(
                         fontFamily: principalFontFamily,
-                        fontSize: width / 15,
+                        fontSize: widget.width / 15,
                         letterSpacing: 6,
                         color: Theme.of(context).colorScheme.onPrimary))),
           ),
           Padding(
             padding: paddingSymetricMiddle,
             child: Container(
-              width: width,
-              height: height / 150,
+              width: widget.width,
+              height: widget.height / 150,
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
@@ -67,7 +77,7 @@ class InitialInformation extends StatelessWidget {
                 colors: principalDegradee,
                 style: TextStyle(
                     fontFamily: principalFontFamily,
-                    fontSize: width / 9,
+                    fontSize: widget.width / 9,
                     color: Theme.of(context).colorScheme.secondary),
               ),
             ),
@@ -80,14 +90,14 @@ class InitialInformation extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: principalFontFamily,
-                  fontSize: width / 18,
+                  fontSize: widget.width / 18,
                   color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: height / 20, top: height / 40),
+            padding: EdgeInsets.only(bottom: widget.height / 20, top: widget.height / 40),
             //color: Colors.blue,
-            width: width / 1.5,
+            width: widget.width / 1.5,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -103,7 +113,7 @@ class InitialInformation extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
                       padding: EdgeInsets.all(20),
-                      width: width / 4,
+                      width: widget.width / 4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color.fromRGBO(47, 59, 82, 1),
@@ -127,7 +137,7 @@ class InitialInformation extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
                       padding: EdgeInsets.all(20),
-                      width: width / 4,
+                      width: widget.width / 4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color.fromRGBO(1, 120, 180, 1),

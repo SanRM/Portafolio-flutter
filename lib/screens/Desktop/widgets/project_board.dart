@@ -21,7 +21,6 @@ class ProjectBoard extends StatefulWidget {
 class _ProjectBoardState extends State<ProjectBoard> {
   List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
 
-  bool buttonOnPressed = false;
 
   static List<ProjectManager> proyectos = [
     const ProjectManager(
@@ -58,6 +57,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
   ];
 
   List<Widget> projectSelected = proyectos;
+  bool buttonOnPressed = false;
 
   _selectButtonLabel(labelSelected, projects) {
     setState(() {

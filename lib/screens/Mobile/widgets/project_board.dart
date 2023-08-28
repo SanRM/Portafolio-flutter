@@ -4,6 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/screens/Mobile/widgets/project_utilities.dart';
 import 'package:portafolio/styles/styles.dart';
 
+GlobalKey globalKeyProjectBoard = GlobalKey();
+List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
+
+List<ProjectManager> proyectos = [
+const ProjectManager(
+    cardBgColor: const Color.fromARGB(255, 105, 214, 247),
+    projectTitle: 'Encriptador de texto',
+    projectBanner: 'assets/images/preview.png',
+    projectDescription: 'Descripción proyecto',
+    projectLabels: const ['HTML', 'CSS', 'JavaScript'],
+    projectLink: 'https://github.com/SanRM/Encriptador'),
+
+const ProjectManager(
+  cardBgColor: Colors.pink,
+  projectTitle: 'Proyecto creado con Java',
+  projectBanner: '',
+  projectDescription: 'a',
+  projectLabels: const ['Java'],
+  projectLink: 'https://github.com/SanRM/Conversor',
+),
+const ProjectManager(
+  cardBgColor: Color.fromARGB(255, 30, 233, 165),
+  projectTitle: 'Proyecto creado con Java version 2',
+  projectBanner: '',
+  projectDescription: 'asd',
+  projectLabels: const ['Java'],
+  projectLink: 'https://github.com/SanRM/Conversor',
+),
+const ProjectManager(
+  cardBgColor: Color.fromARGB(255, 65, 95, 226),
+  projectTitle: 'Proyecto creado con HTML',
+  projectBanner: '',
+  projectDescription: 'asd',
+  projectLabels: const ['HTML'],
+  projectLink: 'https://github.com/SanRM/Conversor',
+),
+];
+
 class ProjectBoard extends StatefulWidget {
   ProjectBoard({
     super.key,
@@ -19,56 +57,21 @@ class ProjectBoard extends StatefulWidget {
 }
 
 class _ProjectBoardState extends State<ProjectBoard> {
-  List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
 
-  bool buttonOnPressed = false;
-
-  static List<ProjectManager> proyectos = [
-    const ProjectManager(
-        cardBgColor: const Color.fromARGB(255, 105, 214, 247),
-        projectTitle: 'Encriptador de texto',
-        projectBanner: 'assets/images/preview.png',
-        projectDescription: 'Descripción proyecto',
-        projectLabels: const ['HTML', 'CSS', 'JavaScript'],
-        projectLink: 'https://github.com/SanRM/Encriptador'),
-    const ProjectManager(
-      cardBgColor: Colors.pink,
-      projectTitle: 'Proyecto creado con Java',
-      projectBanner: '',
-      projectDescription: 'a',
-      projectLabels: const ['Java'],
-      projectLink: 'https://github.com/SanRM/Conversor',
-    ),
-    const ProjectManager(
-      cardBgColor: Color.fromARGB(255, 30, 233, 165),
-      projectTitle: 'Proyecto creado con Java version 2',
-      projectBanner: '',
-      projectDescription: 'asd',
-      projectLabels: const ['Java'],
-      projectLink: 'https://github.com/SanRM/Conversor',
-    ),
-    const ProjectManager(
-      cardBgColor: Color.fromARGB(255, 65, 95, 226),
-      projectTitle: 'Proyecto creado con HTML',
-      projectBanner: '',
-      projectDescription: 'asd',
-      projectLabels: const ['HTML'],
-      projectLink: 'https://github.com/SanRM/Conversor',
-    ),
-  ];
 
   List<Widget> projectSelected = proyectos;
+
+  bool buttonOnPressed = false;
 
   _selectButtonLabel(labelSelected, projects) {
     setState(() {
       projectSelected = [];
     });
 
-    Future.delayed(Duration(milliseconds: 5), () {
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
-        projectSelected =
-            ProjectFilter(projects: projects).getSimilitudes(labelSelected);
-        print(projectSelected);
+        projectSelected = ProjectFilter(projects: projects).getSimilitudes(labelSelected);
+        //print(projectSelected);
       });
     });
   }
@@ -78,7 +81,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
       projectSelected = [];
     });
 
-    Future.delayed(Duration(milliseconds: 5), () {
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
         projectSelected = proyectos;
         //print(projectSelected);
@@ -110,6 +113,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: globalKeyProjectBoard,
       color: const Color.fromRGBO(162, 195, 195, 1),
       padding: projectBoardPadding,
       child: Container(
@@ -125,7 +129,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadiusSecondary),
           child: Container(
-            padding: EdgeInsets.only(bottom: widget.height / 25),
+            padding: EdgeInsets.only(bottom: widget.height /100),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
             ),
@@ -209,16 +213,12 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                           _selectButtonLabel(
                                               labels[i], proyectos);
                                           _selectLabel(i);
-                                          // setState(() {
-                                          //   _setActualFilter = labels[i];
-                                          // });
                                         },
                                         //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
                                         style: _selectedIndex == i
-                                            ? const ButtonStyle(
+                                            ? ButtonStyle(
                                                 padding:
-                                                    MaterialStatePropertyAll(
-                                                        paddingAll),
+                                                    MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
                                                 backgroundColor:
                                                     MaterialStatePropertyAll(
                                                   tertiary,
@@ -226,8 +226,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                               )
                                             : ButtonStyle(
                                                 padding:
-                                                    MaterialStatePropertyAll(
-                                                        paddingAll),
+                                                    MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
                                                 backgroundColor:
                                                     MaterialStatePropertyAll(
                                                   Theme.of(context)
@@ -292,14 +291,12 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                   },
                                   style: _mostrarTodosIsSelected == true
                                       ? ButtonStyle(
-                                          padding: MaterialStatePropertyAll(
-                                              paddingAll),
+                                          padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
                                           backgroundColor:
                                               MaterialStatePropertyAll(
                                                   tertiary))
                                       : ButtonStyle(
-                                          padding: MaterialStatePropertyAll(
-                                              paddingAll),
+                                          padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
                                           backgroundColor:
                                               MaterialStatePropertyAll(
                                                   Color.fromRGBO(
@@ -355,17 +352,10 @@ class _ProjectBoardState extends State<ProjectBoard> {
                 //             : Container(),
                 //       )
                 //     : Container(),
-                Container(
-                  //color: Colors.red,
-                  height: widget.height / 2.8,
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: projectSelected,
-                    ),
-                  ),
+                ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: projectSelected,
                 ),
                 
               ],

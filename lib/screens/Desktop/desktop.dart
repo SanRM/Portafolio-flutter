@@ -24,39 +24,11 @@ class Desktop extends StatefulWidget {
 class _DesktopState extends State<Desktop> {
   final ScrollController _scrollController = ScrollController();
 
-  // bool _backgroundColorSelected1 = true;
-  // bool _backgroundColorSelected2 = false;
-  // bool _backgroundColorSelected3 = false;
-
   bool isDarkMode = false;
   double height = 0;
   double width = 0;
   double currentPage = 1;
   bool? pressed;
-
-  // buttonBackground(String button) {
-  //   setState(() {
-  //     switch (button) {
-  //       case 'Inicio':
-  //         _backgroundColorSelected1 = true;
-  //         _backgroundColorSelected2 = false;
-  //         _backgroundColorSelected3 = false;
-  //         break;
-  //       case 'Proyectos':
-  //         _backgroundColorSelected1 = false;
-  //         _backgroundColorSelected2 = true;
-  //         _backgroundColorSelected3 = false;
-  //         break;
-  //       case 'Sobre mi':
-  //         _backgroundColorSelected1 = false;
-  //         _backgroundColorSelected2 = false;
-  //         _backgroundColorSelected3 = true;
-  //         break;
-  //       default:
-  //     }
-  //     //print('Proyectos seleccionado');
-  //   });
-  // }
 
   scrollToPageFromTop(double pageNumber) {
     _scrollController.animateTo(
@@ -177,7 +149,7 @@ class _DesktopState extends State<Desktop> {
         onTap: () {
           switch (name) {
             case 'Inicio':
-              print('a');
+              //print('Inicio');
               _scrollController.animateTo(
                 height - (height / 0.95),
                 duration: const Duration(milliseconds: 500),
@@ -192,11 +164,11 @@ class _DesktopState extends State<Desktop> {
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
               );
-              print('b');
+              //print('Proyectos');
               break;
 
             case 'Sobre mi':
-              print('c');
+              //print('Sobre mi');
               _scrollController.animateTo(
                 _scrollController.position.maxScrollExtent / 1.51,
                 duration: const Duration(
@@ -206,7 +178,7 @@ class _DesktopState extends State<Desktop> {
               break;
 
             case 'Contacto':
-              print('d');
+              //print('Contacto');
               _scrollController.animateTo(
                 _scrollController.position.maxScrollExtent / 0.99,
                 duration: const Duration(

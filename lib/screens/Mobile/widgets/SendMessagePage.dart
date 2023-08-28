@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 
+GlobalKey globalKeySendMessagePage = GlobalKey();
+
 class SendMessagePage extends StatefulWidget {
   const SendMessagePage({super.key, required this.height, required this.width});
 
@@ -118,20 +120,24 @@ class _SendMessagePageState extends State<SendMessagePage> {
     }
 
     return Container(
+      
       color: Theme.of(context).colorScheme.primary,
       child: Column(
         children: [
           Container(
+            
               padding: EdgeInsets.all(width / 20),
               width: width,
               //color: const Color.fromARGB(255, 54, 244, 155),
               child: Form(
                 key: _formKey,
                 child: Column(
+                  
                   children: [
                     //IconButton(onPressed: _showApprovedSnackBar, icon: Icon(Icons.warning_rounded)),
                     //IconButton(onPressed: _showRejectedSnackBar, icon: Icon(Icons.warning_rounded)),
                     Container(
+                      key: globalKeySendMessagePage,
                       //color: Colors.amber,
                       alignment: Alignment.center,
                       child: Text(

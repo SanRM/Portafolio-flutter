@@ -13,17 +13,39 @@ class Mobile extends StatefulWidget {
   const Mobile({super.key});
 
   @override
-  State<Mobile> createState() => _MobileState();
+  State<Mobile> createState() => MobileState();
 }
 
-class _MobileState extends State<Mobile> {
+class MobileState extends State<Mobile> {
   final ScrollController _scrollController = ScrollController();
 
   bool _backgroundColorSelected1 = true;
   bool _backgroundColorSelected2 = false;
   bool _backgroundColorSelected3 = false;
 
-  double currentPage = 1;
+  buttonSelected(buttonName) {
+    setState(() {
+      switch (buttonName) {
+        case 'Inicio':
+          _backgroundColorSelected1 = true;
+          _backgroundColorSelected2 = false;
+          _backgroundColorSelected3 = false;
+          break;
+
+        case 'Proyectos':
+          _backgroundColorSelected1 = false;
+          _backgroundColorSelected2 = true;
+          _backgroundColorSelected3 = false;
+          break;
+
+        case 'Sobre mi':
+          _backgroundColorSelected1 = false;
+          _backgroundColorSelected2 = false;
+          _backgroundColorSelected3 = true;
+          break;
+      }
+    });
+  }
 
   AppBar buildAppBar() {
     bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
@@ -112,14 +134,7 @@ class _MobileState extends State<Mobile> {
     return InkWell(
       customBorder: CircleBorder(),
       onTap: () {
-        setState(() {
-          currentPage = 1.07;
-        });
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent / 1.08,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
+        Scrollable.ensureVisible(globalKeySendMessagePage.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
       },
       child: Container(
         padding:
@@ -181,54 +196,24 @@ class _MobileState extends State<Mobile> {
               buildBottomAppBarButton(
                 label: 'Inicio',
                 onPressed: () {
-                  setState(() {
-                    currentPage = height - (height / 0.95);
-                  });
-                  _scrollController.animateTo(
-                    currentPage,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                  _backgroundColorSelected1 = true;
-                  _backgroundColorSelected2 = false;
-                  _backgroundColorSelected3 = false;
+                  Scrollable.ensureVisible(globalKeyInitialInformation.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+                  buttonSelected('Inicio');
                 },
                 isSelected: _backgroundColorSelected1,
               ),
               buildBottomAppBarButton(
                 label: 'Proyectos',
                 onPressed: () {
-                  print(height);
-                  setState(() {
-                    currentPage = height * 1;
-                  });
-                  _scrollController.animateTo(
-                    height - (height / 2
-                    ),
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                  _backgroundColorSelected1 = false;
-                  _backgroundColorSelected2 = true;
-                  _backgroundColorSelected3 = false;
+                  Scrollable.ensureVisible(globalKeyProjectBoard.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+                  buttonSelected('Proyectos');
                 },
                 isSelected: _backgroundColorSelected2,
               ),
               buildBottomAppBarButton(
                 label: 'Sobre mi',
                 onPressed: () {
-                  setState(() {
-                    currentPage = 1.9;
-                  });
-                  _scrollController.animateTo(
-                    height / 0.63,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-
-                  _backgroundColorSelected1 = false;
-                  _backgroundColorSelected2 = false;
-                  _backgroundColorSelected3 = true;
+                  Scrollable.ensureVisible(globalKeyAboutMe.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+                  buttonSelected('Sobre mi');
                 },
                 isSelected: _backgroundColorSelected3,
               ),
