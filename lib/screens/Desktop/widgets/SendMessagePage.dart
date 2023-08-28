@@ -184,6 +184,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                                         decoration: InputDecoration(
                                           labelText: 'Ingresa tu nombre',
                                         ),
+                                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                                         keyboardType: TextInputType.name,
                                         cursorColor: Theme.of(context)
                                             .colorScheme
@@ -206,6 +207,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                                         decoration: InputDecoration(
                                           labelText: 'Ingresa tu email',
                                         ),
+                                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                                         controller: emailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
@@ -232,6 +234,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                                     labelText: 'Digita el mensaje que quieres enviarme',
                                     alignLabelWithHint: true,
                                   ),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                                   controller: messageController,
                                   keyboardType: TextInputType.text,
                                   cursorColor:
