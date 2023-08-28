@@ -42,7 +42,7 @@ class AboutMe extends StatelessWidget {
                 colors: secondaryDegradee,
                 style: TextStyle(
                     fontFamily: principalFontFamily,
-                    fontSize: width / 8,
+                    fontSize: width / 10,
                     color: Theme.of(context).colorScheme.secondary),
               ),
               Container(
@@ -65,8 +65,8 @@ class AboutMe extends StatelessWidget {
                 textAlign: TextAlign.center,
                 colors: secondaryDegradee,
                 style: TextStyle(
-                    fontSize: width / 8,
-                    color: Theme.of(context).colorScheme.secondary),
+                    fontFamily: principalFontFamily,
+                    fontSize: width / 9),
               ),
               Container(
                 //color: Color.fromARGB(255, 0, 118, 122),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 
@@ -28,90 +27,93 @@ class _SendMessagePageState extends State<SendMessagePage> {
   @override
   Widget build(BuildContext context) {
     
-    ApprovedSnackBar() {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          dismissDirection: DismissDirection.startToEnd,
-          margin: EdgeInsets.only(
-              bottom: height / 8, right: width / 30, left: width / 30),
-          behavior: SnackBarBehavior.floating,
-          padding: EdgeInsets.all(0),
-          duration: Duration(seconds: 7),
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: BorderSide(width: 2, color: primaryBlack)),
-          // Lottie.asset('animations/confeti.json', fit: BoxFit.fill, repeat: false)
-          content: Stack(alignment: Alignment.center, children: [
-            Positioned(
-              bottom: 0,
-              child: Container(
-                //color: Colors.red,
-                width: width,
-                height: height / 3,
-                child: Lottie.asset('assets/animations/confeti.json',
-                    repeat: true, fit: BoxFit.cover),
-              ),
-            ),
+  void _showApprovedSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        dismissDirection: DismissDirection.startToEnd,
+        margin: EdgeInsets.only(
+          bottom: widget.height / 4,
+          right: widget.width / 15,
+          left: widget.width / 15,
+        ),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 5),
+        backgroundColor: Color.fromARGB(255, 60, 221, 208),
+        showCloseIcon: true,
+        closeIconColor: primaryBlack,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+          side: BorderSide(width: 2, color: Color.fromARGB(255, 0, 177, 162)),
+        ),
+        content: Stack(
+          alignment: Alignment.center,
+          children: [
             Container(
-              width: width,
-              height: height / 15,
+              width: widget.width,
+              height: widget.height / 25,
               alignment: Alignment.center,
               child: Text(
                 '¡Mensaje enviado correctamente!',
                 style: TextStyle(
-                    fontFamily: principalFontFamily,
-                    color: primaryBlack,
-                    fontWeight: FontWeight.bold,
-                    fontSize: width / 50),
+                  fontFamily: principalFontFamily,
+                  //color: primaryBlack,
+                  color: Color.fromARGB(255, 0, 61, 56),
+                  fontWeight: FontWeight.bold,
+                  fontSize: widget.width / 30,
+                ),
               ),
             ),
-          ]),
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
-    RejectedSnackBar() {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          dismissDirection: DismissDirection.startToEnd,
-          margin: EdgeInsets.only(
-              bottom: height / 8, right: width / 30, left: width / 30),
-          behavior: SnackBarBehavior.floating,
-          padding: EdgeInsets.all(0),
-          duration: Duration(seconds: 7),
-          backgroundColor: Color.fromARGB(255, 255, 67, 130),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: BorderSide(width: 2, color: primaryBlack)),
-          // Lottie.asset('animations/confeti.json', fit: BoxFit.fill, repeat: false)
-          content: 
-            Container(
-              width: width,
-              height: height / 15,
-              alignment: Alignment.center,
-              child: Text(
-                '¡Ha ocurrido un error al enviar el mensaje!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: principalFontFamily,
-                    color: primaryLight,
-                    fontWeight: FontWeight.bold,
-                    fontSize: width / 50),
-              ),
-            ),
-          
+  void _showRejectedSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        margin: EdgeInsets.only(
+          bottom: widget.height / 4,
+          right: widget.width / 15,
+          left: widget.width / 15,
         ),
-      );
-    }
+        dismissDirection: DismissDirection.startToEnd,
+        showCloseIcon: true,
+        closeIconColor: primaryLight,
+        behavior: SnackBarBehavior.floating,
+        //padding: EdgeInsets.zero,
+        duration: Duration(seconds: 7),
+        backgroundColor: Color.fromARGB(255, 255, 67, 130),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+          side: BorderSide(width: 2, color: primaryBlack),
+        ),
+        content: Container(
+          width: widget.width,
+          //height: widget.height / 15,
+          alignment: Alignment.center,
+          child: Text(
+            '¡Ha ocurrido un error al enviar el mensaje!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: principalFontFamily,
+              color: primaryLight,
+              fontWeight: FontWeight.bold,
+              fontSize: widget.width / 30,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
     enviarMensaje() async {
       await addBandejaDeEntrada(
               nameController.text, emailController.text, messageController.text)
           .then((value) {
         value
-            ? ApprovedSnackBar()
-            : RejectedSnackBar();
+            ? _showApprovedSnackBar()
+            : _showRejectedSnackBar();
       });
     }
 
@@ -127,7 +129,8 @@ class _SendMessagePageState extends State<SendMessagePage> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    //IconButton(onPressed: ApprovedSnackBar, icon: Icon(Icons.ac_unit_rounded)),
+                    //IconButton(onPressed: _showApprovedSnackBar, icon: Icon(Icons.warning_rounded)),
+                    //IconButton(onPressed: _showRejectedSnackBar, icon: Icon(Icons.warning_rounded)),
                     Container(
                       //color: Colors.amber,
                       alignment: Alignment.center,
@@ -152,6 +155,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                           }
                           return null;
                         },
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                         decoration:InputDecoration(labelText: 'Ingresa tu nombre'),
                         keyboardType: TextInputType.name,
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
@@ -170,6 +174,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                           }
                           return null;
                         },
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                         decoration:
                             InputDecoration(labelText: 'Ingresa tu email'),
                         controller: emailController,
@@ -188,6 +193,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
                           }
                           return null;
                         },
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                         decoration: InputDecoration(
                           labelText: 'Ingresa el texto que desas enviarme',
                           alignLabelWithHint: true,

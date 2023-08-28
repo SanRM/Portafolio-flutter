@@ -42,18 +42,6 @@ class _SendMessagePageState extends State<SendMessagePage> {
         content: Stack(
           alignment: Alignment.center,
           children: [
-            //  Positioned(
-            //   bottom: 0,
-            //   child: Container(
-            //     width: widget.width / 3,
-            //     height: widget.height / 2,
-            //     child: Lottie.asset(
-            //       'assets/animations/confeti.json',
-            //       repeat: true,
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ),
-            // ),
             Container(
               width: widget.width,
               height: widget.height / 25,

@@ -116,7 +116,7 @@ class _MobileState extends State<Mobile> {
           currentPage = 1.07;
         });
         _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent / currentPage,
+          _scrollController.position.maxScrollExtent / 1.08,
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
@@ -182,10 +182,10 @@ class _MobileState extends State<Mobile> {
                 label: 'Inicio',
                 onPressed: () {
                   setState(() {
-                    currentPage = 0;
+                    currentPage = height - (height / 0.95);
                   });
                   _scrollController.animateTo(
-                    currentPage * height,
+                    currentPage,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
@@ -198,11 +198,13 @@ class _MobileState extends State<Mobile> {
               buildBottomAppBarButton(
                 label: 'Proyectos',
                 onPressed: () {
+                  print(height);
                   setState(() {
-                    currentPage = 0.8;
+                    currentPage = height * 1;
                   });
                   _scrollController.animateTo(
-                    currentPage * height,
+                    height - (height / 2
+                    ),
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
@@ -219,7 +221,7 @@ class _MobileState extends State<Mobile> {
                     currentPage = 1.9;
                   });
                   _scrollController.animateTo(
-                    _scrollController.position.maxScrollExtent / currentPage,
+                    height / 0.63,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
