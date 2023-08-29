@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
 import 'package:portafolio/screens/Desktop/widgets/SendMessagePage.dart';
 import 'package:portafolio/screens/Desktop/widgets/about_me.dart';
+import 'package:portafolio/screens/Desktop/widgets/project.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
+import 'package:portafolio/services/firebase_service.dart';
 //import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Desktop/widgets/initial_information.dart';
@@ -223,7 +225,13 @@ class _DesktopState extends State<Desktop> {
           Column(
             children: [
               InitialInformation(width: width, height: height),
-              ProjectBoard(width: width, height: height),
+              FutureBuilder(
+                future: getProjects(),
+                builder: (context, snapshot) {
+                  return ProjectBoard(snapshot: snapshot, width: width, height: height);
+                },
+              ),
+              //ProjectBoardTEST(width: width, height: height,),
               AboutMe(width: width, height: height),
               SendMessagePage(height: height, width: width),
             ],
