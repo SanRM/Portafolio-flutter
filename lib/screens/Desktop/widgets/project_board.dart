@@ -21,69 +21,79 @@ class ProjectBoard extends StatefulWidget {
 }
 
 class _ProjectBoardState extends State<ProjectBoard> {
-  @override
-  Widget build(BuildContext context) {
-    List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
+  List<String> labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
+  List<ProjectManager> proyectos = [];
+  List<ProjectManager> projectSelected = [];
+  String setActualFilter = '';
+  bool mostrarTodosIsSelected = false;
+  int _selectedIndex = -1;
 
-    List<ProjectManager> proyectos = [];
+  @override
+  void initState() {
+    super.initState();
 
     for (var i = 0; i < widget.snapshot.data!.length; i++) {
-
+      var cardColor = widget.snapshot.data?[i]["cardBgColor"];
+      var projectBanner = widget.snapshot.data?[i]["projectBanner"];
+      var description = widget.snapshot.data?[i]["projectDescription"];
+      var projectLabels = widget.snapshot.data?[i]["projectLabels"];
+      var projectLinks = widget.snapshot.data?[i]["projectLinks"];
       var titulo = widget.snapshot.data?[i]["projectTitle"];
 
-      proyectos.add(ProjectManager(snapshot: widget.snapshot, title: titulo));
+      proyectos.add(ProjectManager(
+        snapshot: widget.snapshot,
+        cardBgColor: cardColor,
+        projectBanner: projectBanner,
+        description: description,
+        labels: projectLabels,
+        projectLinks: projectLinks,
+        title: titulo,
+      ));
     }
 
-    List<Widget> projectSelected = proyectos;
+    projectSelected = proyectos;
+  }
 
-    _selectButtonLabel(labelSelected, projects) {
+  void _selectButtonLabel(labelSelected, projects) {
+    setState(() {
+      projectSelected = [];
+    });
+
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
-        projectSelected = [];
+        projectSelected = ProjectFilter(snapshot: widget.snapshot)
+            .getSimilitudes(labelSelected);
+        //print(projectSelected);
       });
+    });
+  }
 
-      Future.delayed(Duration(milliseconds: 10), () {
-        setState(() {
-            projectSelected = ProjectFilter(snapshot: widget.snapshot).getSimilitudes(labelSelected);
-          
-            //print(projectSelected);
-        });
-      });
-    }
+  void _mostrarTodos() {
+    setState(() {
+      projectSelected = [];
+      setActualFilter = '';
 
-    String setActualFilter = '';
-    bool mostrarTodosIsSelected = false;
-
-    _mostrarTodos() {
+      mostrarTodosIsSelected == false
+          ? mostrarTodosIsSelected = true
+          : mostrarTodosIsSelected = false;
+    });
+    Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
-        projectSelected = [];
-        setActualFilter = '';
-
-        mostrarTodosIsSelected == false
-            ? mostrarTodosIsSelected = true
-            : mostrarTodosIsSelected = false;
+        projectSelected = proyectos;
+        //print(projectSelected);
       });
-      //                      microseconds: 1000
-      Future.delayed(Duration(milliseconds: 10), () {
-        setState(() {
-          projectSelected = proyectos;
-          //print(projectSelected);
-        });
-      });
-    }
+    });
+  }
 
-    int _selectedIndex = -1;
+  void _selectLabel(int index) {
+    setState(() {
+      _selectedIndex = index;
+      mostrarTodosIsSelected = false;
+    });
+  }
 
-    void _selectLabel(int index) {
-      setState(() {
-        _selectedIndex = index;
-        mostrarTodosIsSelected = false;
-      });
-    }
-
-    if (widget.snapshot.hasData) {
-      
-    }
-
+  @override
+  Widget build(BuildContext context) {
     return Container(
       //height: widget.height * 2,
       color: const Color.fromRGBO(162, 195, 195, 1),
@@ -266,6 +276,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                     TextButton(
                                       onPressed: () {
                                         setState(() {
+                                          print('mostrar todos');
                                           _mostrarTodos();
                                           _selectedIndex = -1;
                                           //_mostrarTodosSelected();

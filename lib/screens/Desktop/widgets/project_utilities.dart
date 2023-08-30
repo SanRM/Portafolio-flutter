@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
 
-
 // class ProjectFilter {
 //   ProjectFilter({required this.projects});
 
@@ -36,7 +35,6 @@ import 'package:portafolio/styles/styles.dart';
 //   }
 // }
 
-
 class ProjectFilter {
   ProjectFilter({required this.snapshot});
 
@@ -47,65 +45,101 @@ class ProjectFilter {
   List<ProjectManager> filtroFinal = [];
 
   List<ProjectManager> getSimilitudes(labelToCompare) {
-
-    print("Boton presionado: $labelToCompare");
+    //print("Boton presionado: $labelToCompare");
 
     var listaProyectos = snapshot.data!.length;
 
     for (var i = 0; i < listaProyectos; i++) {
       //print(snapshot.data?[i]["projectLabels"]);
       //print('');
-
-      var labels = snapshot.data?[i]["projectLabels"];
+      var cardBgColor = snapshot.data?[i]["cardBgColor"];
+      var projectBanner = snapshot.data?[i]["projectBanner"];
+      var projectDescription = snapshot.data?[i]["projectDescription"];
+      var projectLabels = snapshot.data?[i]["projectLabels"];
+      var projectLinks = snapshot.data?[i]["projectLinks"];
       var projectTitle = snapshot.data?[i]["projectTitle"];
-      //print(proyecto);
+
       //print('');
 
-      for (var i = 0; i < labels.length; i++) {
+      for (var i = 0; i < projectLabels.length; i++) {
         //print(labels[i]);
         //print('');
-        
-        if (labels[i] == labelToCompare) {
-          
-          filtroFinal.add(ProjectManager(snapshot: snapshot, title: projectTitle));
+
+        if (projectLabels[i] == labelToCompare) {
+          filtroFinal.add(
+            ProjectManager(
+              snapshot: snapshot,
+              cardBgColor: cardBgColor,
+              projectBanner: projectBanner,
+              description: projectDescription,
+              labels: projectLabels,
+              projectLinks: projectLinks,
+              title: projectTitle,
+            ),
+          );
           // print("Hay coincidencias en los proyectos: $projectTitle");
           // print('');
           //print(projectTitle);
-        } 
+        }
       }
-    };
+    }
+    ;
 
     //print(filtroFinal);
     return filtroFinal;
   }
-
 }
-
-
 
 class ProjectManager extends StatefulWidget {
   final AsyncSnapshot<List<dynamic>> snapshot;
+  final dynamic cardBgColor;
+  final dynamic projectBanner;
+  final dynamic description;
+  final dynamic labels;
+  final dynamic projectLinks;
   final dynamic title;
 
   const ProjectManager({
     super.key,
-    required this.snapshot, 
+    required this.snapshot,
+    required this.cardBgColor,
+    required this.projectBanner,
+    required this.description,
+    required this.labels,
+    required this.projectLinks,
     required this.title,
   });
 
   @override
   // ignore: no_logic_in_create_state
   State<ProjectManager> createState() => _ProjectManagerState(
-      snapshot: snapshot, title: title);
+        snapshot: snapshot,
+        cardBgColor: cardBgColor,
+        projectBanner: projectBanner,
+        description: description,
+        labels: labels,
+        projectLinks: projectLinks,
+        title: title,
+      );
 }
 
 class _ProjectManagerState extends State<ProjectManager> {
   _ProjectManagerState({
     required this.snapshot,
+    required this.cardBgColor,
+    required this.projectBanner,
+    required this.description,
+    required this.labels,
+    required this.projectLinks,
     required this.title,
   });
 
   final AsyncSnapshot<List<dynamic>> snapshot;
+  final dynamic cardBgColor;
+  final dynamic projectBanner;
+  final dynamic description;
+  final dynamic labels;
+  final dynamic projectLinks;
   final dynamic title;
 
   bool? _onPress;
@@ -120,13 +154,6 @@ class _ProjectManagerState extends State<ProjectManager> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.width;
-
-    //var numeroDeProyectos = widget.snapshot.data?.length;
-    var titulo = title;
-
-  
-    
-    //print(numeroDeProyectos);
 
     return InkWell(
       onTap: () {
@@ -167,14 +194,14 @@ class _ProjectManagerState extends State<ProjectManager> {
                           Container(
                             width: width,
                             height: height / 10,
-                            color: Colors.red,
+                            //color: Color("157"),
+                            color: Colors.cyan,
                             // child: data.isEmpty
                             //     ? Image.asset(
                             //         'assets/illustraciones/Mataura.png',
                             //         fit: BoxFit.cover)
                             //     : Image.asset(projectBanner, fit: BoxFit.cover),
                           ),
-                          
                         ],
                       ),
                       //2. Project title
@@ -188,7 +215,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(
                             horizontal: width / 40, vertical: height / 100),
-                        child: Text('$titulo',
+                        child: Text('$title',
                             style: TextStyle(
                                 fontFamily: principalFontFamily,
                                 fontSize: width / 50,
@@ -222,18 +249,17 @@ class _ProjectManagerState extends State<ProjectManager> {
                             top: height / 100,
                             right: width / 100,
                             child: InkWell(
-                              
                                 child: Container(
-                                  padding: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(115, 0, 0, 0),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: Icon(
-                                    size: width / 50,
-                                    Icons.crop_free,
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                  ),
-                                )),
+                              padding: EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(115, 0, 0, 0),
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Icon(
+                                size: width / 50,
+                                Icons.crop_free,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            )),
                           ),
                         ],
                       ),
@@ -251,7 +277,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                             left: width / 40,
                             right: width / 40,
                             top: height / 80),
-                        child: Text('projectTitle',
+                        child: Text('$title',
                             style: TextStyle(
                                 fontFamily: principalFontFamily,
                                 fontWeight: FontWeight.bold,
@@ -269,7 +295,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                             right: width / 40,
                             top: height / 100,
                             bottom: height / 100),
-                        child: Text('projectDescription',
+                        child: Text('$description',
                             style: TextStyle(
                                 fontFamily: principalFontFamily,
                                 fontSize: width / 80,
