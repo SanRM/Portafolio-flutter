@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
-//import 'package:portafolio/screens/Desktop/widgets/test.dart';
-import 'package:portafolio/screens/Desktop/widgets/test.dart';
+import 'package:portafolio/screens/Desktop/widgets/project_utilities.dart';
 
 class ProjectBoard extends StatefulWidget {
   ProjectBoard({
@@ -15,68 +14,75 @@ class ProjectBoard extends StatefulWidget {
 
   final double width;
   final double height;
-  final AsyncSnapshot<List> snapshot;
+  final AsyncSnapshot<List<dynamic>> snapshot;
 
   @override
   State<ProjectBoard> createState() => _ProjectBoardState();
 }
 
 class _ProjectBoardState extends State<ProjectBoard> {
-
-
   @override
   Widget build(BuildContext context) {
+    List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
 
-  List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
+    List<ProjectManager> proyectos = [];
 
-  var proyectosSnapshot = widget.snapshot.data;
+    for (var i = 0; i < widget.snapshot.data!.length; i++) {
 
-  List<ProjectManager> proyectos = [ProjectManager(snapshot: widget.snapshot)];
+      var titulo = widget.snapshot.data?[i]["projectTitle"];
 
-  List<Widget> projectSelected = proyectos;
+      proyectos.add(ProjectManager(snapshot: widget.snapshot, title: titulo));
+    }
 
-  _selectButtonLabel(labelSelected, projects) {
-    setState(() {
-      projectSelected = [];
-    });
+    List<Widget> projectSelected = proyectos;
 
-    Future.delayed(Duration(milliseconds: 10), () {
+    _selectButtonLabel(labelSelected, projects) {
       setState(() {
-        //projectSelected = ProjectFilter(snapshot: snapshot).getSimilitudes(labelSelected);
-        //print(projectSelected);
+        projectSelected = [];
       });
-    });
-  }
 
-  String setActualFilter = '';
-  bool mostrarTodosIsSelected = false;
+      Future.delayed(Duration(milliseconds: 10), () {
+        setState(() {
+          projectSelected =
+              ProjectFilter(projects: projects).getSimilitudes(labelSelected);
+          //print(projectSelected);
+        });
+      });
+    }
 
-  _mostrarTodos() {
-    setState(() {
-      projectSelected = [];
-      setActualFilter = '';
+    String setActualFilter = '';
+    bool mostrarTodosIsSelected = false;
 
-      mostrarTodosIsSelected == false
-          ? mostrarTodosIsSelected = true
-          : mostrarTodosIsSelected = false;
-    });
-    //                      microseconds: 1000
-    Future.delayed(Duration(milliseconds: 10), () {
+    _mostrarTodos() {
       setState(() {
-        projectSelected = proyectos;
-        //print(projectSelected);
+        projectSelected = [];
+        setActualFilter = '';
+
+        mostrarTodosIsSelected == false
+            ? mostrarTodosIsSelected = true
+            : mostrarTodosIsSelected = false;
       });
-    });
-  }
+      //                      microseconds: 1000
+      Future.delayed(Duration(milliseconds: 10), () {
+        setState(() {
+          projectSelected = proyectos;
+          //print(projectSelected);
+        });
+      });
+    }
 
-  int _selectedIndex = -1;
+    int _selectedIndex = -1;
 
-  void _selectLabel(int index) {
-    setState(() {
-      _selectedIndex = index;
-      mostrarTodosIsSelected = false;
-    });
-  }
+    void _selectLabel(int index) {
+      setState(() {
+        _selectedIndex = index;
+        mostrarTodosIsSelected = false;
+      });
+    }
+
+    if (widget.snapshot.hasData) {
+      
+    }
 
     return Container(
       //height: widget.height * 2,
@@ -102,18 +108,6 @@ class _ProjectBoardState extends State<ProjectBoard> {
             ),
             child: Column(
               children: [
-                // FutureBuilder(
-                //   future: getProjects(),
-                //   builder: (context, snapshot) {
-                //     var data = snapshot.data;
-                //    //var data = snapshot.data!.length;
-
-                //     return Container(
-                //       color: Colors.red,
-                //       child: Text('$data'),
-                //     );
-                //   },
-                // ),
                 Padding(
                     padding: EdgeInsets.only(
                         left: widget.width / 20,
@@ -124,13 +118,6 @@ class _ProjectBoardState extends State<ProjectBoard> {
                         //color: Colors.red,
                         child: Column(
                           children: [
-                            TextButton(
-                              onPressed: () {
-                              
-                                print('$proyectosSnapshot');
-                              },
-                              child: Text('aasd'),
-                            ),
                             Padding(
                               padding: EdgeInsets.only(
                                   top: widget.height / 100,
@@ -196,7 +183,6 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                     botones.add(
                                       TextButton(
                                         onPressed: () {
-                                          _mostrarTodos();
                                           _selectButtonLabel(
                                               labels[i], proyectos);
                                           _selectLabel(i);
@@ -212,7 +198,9 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                                         paddingAll),
                                                 backgroundColor:
                                                     MaterialStatePropertyAll(
-                                                        tertiary))
+                                                  tertiary,
+                                                ),
+                                              )
                                             : ButtonStyle(
                                                 padding:
                                                     MaterialStatePropertyAll(
@@ -351,6 +339,15 @@ class _ProjectBoardState extends State<ProjectBoard> {
                       left: widget.width / 20,
                       right: widget.width / 20,
                       bottom: widget.height / 25),
+                  // child: RawScrollbar(
+                  //   timeToFade: Duration(microseconds: 1),
+                  //   thumbColor: Color.fromARGB(137, 0, 141, 151),
+                  //   trackColor: Color.fromRGBO(54, 54, 54, 1),
+                  //   trackRadius: Radius.circular(10),
+                  //   trackVisibility: true,
+                  //   thumbVisibility: true,
+                  //   radius: Radius.circular(10),
+                  //   thickness: 5,
 
                   child: Theme(
                     data: Theme.of(context).copyWith(

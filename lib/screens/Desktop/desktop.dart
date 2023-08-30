@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
 import 'package:portafolio/screens/Desktop/widgets/SendMessagePage.dart';
 import 'package:portafolio/screens/Desktop/widgets/about_me.dart';
-import 'package:portafolio/screens/Desktop/widgets/project.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
 import 'package:portafolio/services/firebase_service.dart';
 //import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
@@ -228,10 +227,14 @@ class _DesktopState extends State<Desktop> {
               FutureBuilder(
                 future: getProjects(),
                 builder: (context, snapshot) {
-                  return ProjectBoard(snapshot: snapshot, width: width, height: height);
+                  if (snapshot.hasData) {
+                    return ProjectBoard(snapshot: snapshot, width: width, height: height);
+                  } else {
+                    return Center(child: CircularProgressIndicator(color: Color.fromARGB(137, 0, 141, 151),), );
+                  }
+                  
                 },
               ),
-              //ProjectBoardTEST(width: width, height: height,),
               AboutMe(width: width, height: height),
               SendMessagePage(height: height, width: width),
             ],
