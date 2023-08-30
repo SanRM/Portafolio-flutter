@@ -43,9 +43,9 @@ class _ProjectBoardState extends State<ProjectBoard> {
 
       Future.delayed(Duration(milliseconds: 10), () {
         setState(() {
-          projectSelected =
-              ProjectFilter(projects: projects).getSimilitudes(labelSelected);
-          //print(projectSelected);
+            projectSelected = ProjectFilter(snapshot: widget.snapshot).getSimilitudes(labelSelected);
+          
+            //print(projectSelected);
         });
       });
     }

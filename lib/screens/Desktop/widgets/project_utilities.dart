@@ -1,41 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+
+// class ProjectFilter {
+//   ProjectFilter({required this.projects});
+
+//   List<ProjectManager> projects = [];
+//   List<ProjectManager> filtroFinal = [];
+
+//   List<ProjectManager> getSimilitudes(labelToCompare) {
+//     // for (var i = 0; i < projects.length; i++) {
+//     //   List<String> labels = projects[i].projectLabels;
+//     //   var labelsFilter = labels.where((element) {
+//     //     return element == labelToCompare;
+//     //   }).toList();
+
+//     //   //print('labels: $labels,     labelsFilter: $labelsFilter');
+
+//     //   if (labelsFilter.isEmpty == false) {
+//     //     if (labelsFilter[0] == labelToCompare) {
+//     //       //print('Hay etiquetas iguales en el proyecto $i');
+//     //       //print(labelsFilter);
+
+//     //       filtroFinal.add(projects[i]);
+
+//     //       //i = projects.length + 1;
+//     //     }
+//     //   } else if (labelsFilter.isEmpty == true) {
+//     //     //print('No hay etiquetas iguales en el proyecto $i');
+//     //   }
+//     // }
+
+//     //print('Filtro final: $filtroFinal');
+//     return filtroFinal;
+//   }
+// }
 
 
 class ProjectFilter {
-  ProjectFilter({required this.projects});
+  ProjectFilter({required this.snapshot});
 
-  List<ProjectManager> projects = [];
+  //3. Aqui se guarda la información de los proyectos:
+  final AsyncSnapshot<List<dynamic>> snapshot;
+
+  //3. Lista de proyectos filtrados según el botón presionado:
   List<ProjectManager> filtroFinal = [];
 
   List<ProjectManager> getSimilitudes(labelToCompare) {
-    // for (var i = 0; i < projects.length; i++) {
-    //   List<String> labels = projects[i].projectLabels;
-    //   var labelsFilter = labels.where((element) {
-    //     return element == labelToCompare;
-    //   }).toList();
 
-    //   //print('labels: $labels,     labelsFilter: $labelsFilter');
+    print("Boton presionado: $labelToCompare");
 
-    //   if (labelsFilter.isEmpty == false) {
-    //     if (labelsFilter[0] == labelToCompare) {
-    //       //print('Hay etiquetas iguales en el proyecto $i');
-    //       //print(labelsFilter);
+    var listaProyectos = snapshot.data!.length;
 
-    //       filtroFinal.add(projects[i]);
+    for (var i = 0; i < listaProyectos; i++) {
+      //print(snapshot.data?[i]["projectLabels"]);
+      //print('');
 
-    //       //i = projects.length + 1;
-    //     }
-    //   } else if (labelsFilter.isEmpty == true) {
-    //     //print('No hay etiquetas iguales en el proyecto $i');
-    //   }
-    // }
+      var labels = snapshot.data?[i]["projectLabels"];
+      var projectTitle = snapshot.data?[i]["projectTitle"];
+      //print(proyecto);
+      //print('');
 
-    //print('Filtro final: $filtroFinal');
+      for (var i = 0; i < labels.length; i++) {
+        //print(labels[i]);
+        //print('');
+        
+        if (labels[i] == labelToCompare) {
+          
+          filtroFinal.add(ProjectManager(snapshot: snapshot, title: projectTitle));
+          // print("Hay coincidencias en los proyectos: $projectTitle");
+          // print('');
+          //print(projectTitle);
+        } 
+      }
+    };
+
+    //print(filtroFinal);
     return filtroFinal;
   }
+
 }
+
 
 
 class ProjectManager extends StatefulWidget {
@@ -76,12 +121,12 @@ class _ProjectManagerState extends State<ProjectManager> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.width;
 
-    var numeroDeProyectos = widget.snapshot.data?.length;
+    //var numeroDeProyectos = widget.snapshot.data?.length;
     var titulo = title;
 
   
-
-    print(numeroDeProyectos);
+    
+    //print(numeroDeProyectos);
 
     return InkWell(
       onTap: () {
