@@ -1,40 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
 
-// class ProjectFilter {
-//   ProjectFilter({required this.projects});
-
-//   List<ProjectManager> projects = [];
-//   List<ProjectManager> filtroFinal = [];
-
-//   List<ProjectManager> getSimilitudes(labelToCompare) {
-//     // for (var i = 0; i < projects.length; i++) {
-//     //   List<String> labels = projects[i].projectLabels;
-//     //   var labelsFilter = labels.where((element) {
-//     //     return element == labelToCompare;
-//     //   }).toList();
-
-//     //   //print('labels: $labels,     labelsFilter: $labelsFilter');
-
-//     //   if (labelsFilter.isEmpty == false) {
-//     //     if (labelsFilter[0] == labelToCompare) {
-//     //       //print('Hay etiquetas iguales en el proyecto $i');
-//     //       //print(labelsFilter);
-
-//     //       filtroFinal.add(projects[i]);
-
-//     //       //i = projects.length + 1;
-//     //     }
-//     //   } else if (labelsFilter.isEmpty == true) {
-//     //     //print('No hay etiquetas iguales en el proyecto $i');
-//     //   }
-//     // }
-
-//     //print('Filtro final: $filtroFinal');
-//     return filtroFinal;
-//   }
-// }
-
 class ProjectFilter {
   ProjectFilter({required this.snapshot});
 
@@ -150,14 +116,21 @@ class _ProjectManagerState extends State<ProjectManager> {
     });
   }
 
+  intToColor(cardBgColor) {
+    print(cardBgColor);
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.width;
 
+    Color cardColor = Color(cardBgColor).withOpacity(1);
+
     return InkWell(
       onTap: () {
         _onPressAnimation();
+        //print(finalcolor);
       },
       child: Container(
         width: width / 4,
@@ -195,12 +168,29 @@ class _ProjectManagerState extends State<ProjectManager> {
                             width: width,
                             height: height / 10,
                             //color: Color("157"),
-                            color: Colors.cyan,
-                            // child: data.isEmpty
-                            //     ? Image.asset(
-                            //         'assets/illustraciones/Mataura.png',
-                            //         fit: BoxFit.cover)
-                            //     : Image.asset(projectBanner, fit: BoxFit.cover),
+                            color: cardColor,
+                            child: projectBanner == "default"
+                                ? Image.asset(
+                                    'assets/illustraciones/Mataura.png',
+                                    fit: BoxFit.cover)
+                                : Image.network(projectBanner,
+                                    fit: BoxFit.cover),
+                          ),
+                          Positioned(
+                            top: height / 100,
+                            right: width / 100,
+                            child: InkWell(
+                                child: Container(
+                              padding: EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(115, 0, 0, 0),
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Icon(
+                                size: width / 50,
+                                Icons.crop_free,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            )),
                           ),
                         ],
                       ),
@@ -235,15 +225,13 @@ class _ProjectManagerState extends State<ProjectManager> {
                           Container(
                             width: width,
                             height: height / 7,
-                            color: Colors.red,
-                            // child: projectBanner.isEmpty
-                            //     ? Image.asset(
-                            //         'assets/illustraciones/Mataura.png',
-                            //         fit: BoxFit.cover)
-                            //     : Image.asset(
-                            //         projectBanner,
-                            //         fit: BoxFit.cover,
-                            //       ),
+                            color: cardColor,
+                            child: projectBanner == "default"
+                                ? Image.asset(
+                                    'assets/illustraciones/Mataura.png',
+                                    fit: BoxFit.cover)
+                                : Image.network(projectBanner,
+                                    fit: BoxFit.cover),
                           ),
                           Positioned(
                             top: height / 100,

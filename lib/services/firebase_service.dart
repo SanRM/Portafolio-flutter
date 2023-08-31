@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+final buckets = FirebaseStorage.instanceFor(bucket: "gs://my-custom-bucket");
 
 FirebaseFirestore db = FirebaseFirestore.instance;
+FirebaseStorage storage = FirebaseStorage.instance;
 
 Future<bool> addBandejaDeEntrada(
     String name, String email, String message) async {
@@ -34,5 +38,9 @@ Future<List> getProjects() async {
   return projects;
 }
 
+Future<String> getImage(String imageName) async {
 
+    String url = await storage.ref(imageName).getDownloadURL();
+    return url;
+}
 
