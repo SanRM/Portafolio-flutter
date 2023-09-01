@@ -228,11 +228,21 @@ class _DesktopState extends State<Desktop> {
                 future: getProjects(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ProjectBoard(snapshot: snapshot, width: width, height: height);
+                    return ProjectBoard(
+                        snapshot: snapshot, width: width, height: height);
                   } else {
-                    return Center(child: CircularProgressIndicator(color: Color.fromARGB(137, 0, 141, 151),), );
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: height/20),
+                      child: Container(
+                        width: width/100,
+                        height: height/65,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                          color: Color.fromARGB(137, 0, 141, 151),
+                        ),
+                      ),
+                    );
                   }
-                  
                 },
               ),
               AboutMe(width: width, height: height),

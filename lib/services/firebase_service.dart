@@ -38,9 +38,5 @@ Future<List> getProjects() async {
   return projects;
 }
 
-Future<String> getImage(String imageName) async {
 
-    String url = await storage.ref(imageName).getDownloadURL();
-    return url;
-}
 

@@ -21,7 +21,7 @@ class ProjectBoard extends StatefulWidget {
 }
 
 class _ProjectBoardState extends State<ProjectBoard> {
-  List<String> labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
+  List<dynamic> labels = [];
   List<ProjectManager> proyectos = [];
   List<ProjectManager> projectSelected = [];
   String setActualFilter = '';
@@ -51,7 +51,10 @@ class _ProjectBoardState extends State<ProjectBoard> {
       ));
     }
 
-    projectSelected = proyectos;
+    labels = ProjectLabels(snapshot: widget.snapshot).getLabelsList();
+  
+    _mostrarTodos();
+  
   }
 
   void _selectButtonLabel(labelSelected, projects) {
@@ -94,6 +97,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       //height: widget.height * 2,
       color: const Color.fromRGBO(162, 195, 195, 1),
@@ -119,229 +123,229 @@ class _ProjectBoardState extends State<ProjectBoard> {
             child: Column(
               children: [
                 Padding(
-                    padding: EdgeInsets.only(
-                        left: widget.width / 20,
-                        right: widget.width / 20,
-                        top: widget.height / 50),
-                    child: Container(
-                        width: widget.width,
-                        //color: Colors.red,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: widget.height / 100,
-                                  bottom: widget.height / 100),
-                              child: Container(
-                                width: widget.width,
-                                child: Container(
-                                  //color: Colors.blue,
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: containerPadding),
-                                        child: Container(
-                                          //color: Colors.amber,
-                                          child: Icon(
-                                            Icons.filter_alt_rounded,
-                                            size: widget.width / 60,
-                                            color: Color.fromARGB(
-                                              255,
-                                              253,
-                                              247,
-                                              167,
-                                            ),
-                                          ),
+                  padding: EdgeInsets.only(
+                      left: widget.width / 20,
+                      right: widget.width / 20,
+                      top: widget.height / 50),
+                  child: Container(
+                    width: widget.width,
+                    //color: Colors.red,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: widget.height / 100,
+                              bottom: widget.height / 100),
+                          child: Container(
+                            width: widget.width,
+                            child: Container(
+                              //color: Colors.blue,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: containerPadding),
+                                    child: Container(
+                                      //color: Colors.amber,
+                                      child: Icon(
+                                        Icons.filter_alt_rounded,
+                                        size: widget.width / 60,
+                                        color: Color.fromARGB(
+                                          255,
+                                          253,
+                                          247,
+                                          167,
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(
-                                              containerPadding),
-                                          child: Container(
-                                            //color: Colors.red,
-                                            child: Wrap(
-                                              children: [
-                                                SelectableText(
-                                                    'Filtrar proyectos según tecnologías usadas',
-                                                    style: TextStyle(
-                                                        color: primaryLight,
-                                                        fontSize:
-                                                            widget.width / 40)),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(
+                                          containerPadding),
+                                      child: Container(
+                                        //color: Colors.red,
+                                        child: Wrap(
+                                          children: [
+                                            SelectableText(
+                                                'Filtrar proyectos según tecnologías usadas',
+                                                style: TextStyle(
+                                                    color: primaryLight,
+                                                    fontSize:
+                                                        widget.width / 40)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Wrap(runSpacing: widget.height / 100, children: [
-                              ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: 1,
-                                itemBuilder: (context, index) {
-                                  List<Widget> botones = [];
+                          ),
+                        ),
+                        Wrap(
+                          runSpacing: widget.height / 100,
+                          children: [
+                            ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (context, index) {
+                                List<Widget> botones = [];
 
-                                  for (var i = 0; i < labels.length; i++) {
-                                    var label = labels[i];
+                                for (var i = 0; i < labels.length; i++) {
+                                  var label = labels[i];
 
-                                    botones.add(
-                                      TextButton(
-                                        onPressed: () {
-                                          _selectButtonLabel(
-                                              labels[i], proyectos);
-                                          _selectLabel(i);
-                                          setState(() {
-                                            setActualFilter = labels[i];
-                                          });
-                                        },
-                                        //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
-                                        style: _selectedIndex == i
-                                            ? const ButtonStyle(
-                                                padding:
-                                                    MaterialStatePropertyAll(
-                                                        paddingAll),
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                  tertiary,
-                                                ),
-                                              )
-                                            : ButtonStyle(
-                                                padding:
-                                                    MaterialStatePropertyAll(
-                                                        paddingAll),
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ),
-                                                shape: MaterialStatePropertyAll(
-                                                  RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            borderRadiusPrimary),
-                                                    side: const BorderSide(
-                                                      color: Color.fromARGB(
-                                                          255, 139, 139, 139),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                        child: _selectedIndex == i
-                                            ? Text(
-                                                '$label',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        principalFontFamily,
-                                                    color: primaryBlack,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        widget.width / 100),
-                                              )
-                                            : Text(
-                                                '$label',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        principalFontFamily,
-                                                    color: primaryLight,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        widget.width / 100),
-                                              ),
-                                      ),
-                                    ); // Agrega widgets a la lista
-                                  }
-
-                                  return Wrap(
-                                    spacing: widget.width / 100,
-                                    runSpacing: widget.height / 50,
-                                    alignment: WrapAlignment.start,
-                                    children: botones,
-                                  );
-                                },
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: widget.height / 100,
-                                    right: widget.width / 40,
-                                    bottom: widget.width / 50),
-                                child: Row(
-                                  children: [
+                                  botones.add(
                                     TextButton(
                                       onPressed: () {
+                                        _selectButtonLabel(
+                                            labels[i], proyectos);
+                                        _selectLabel(i);
                                         setState(() {
-                                          print('mostrar todos');
-                                          _mostrarTodos();
-                                          _selectedIndex = -1;
-                                          //_mostrarTodosSelected();
+                                          setActualFilter = labels[i];
                                         });
                                       },
-                                      style: mostrarTodosIsSelected == true
-                                          ? ButtonStyle(
+                                      //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
+                                      style: _selectedIndex == i
+                                          ? const ButtonStyle(
                                               padding: MaterialStatePropertyAll(
                                                   paddingAll),
                                               backgroundColor:
                                                   MaterialStatePropertyAll(
-                                                      tertiary))
+                                                tertiary,
+                                              ),
+                                            )
                                           : ButtonStyle(
                                               padding: MaterialStatePropertyAll(
                                                   paddingAll),
                                               backgroundColor:
                                                   MaterialStatePropertyAll(
-                                                      Color.fromRGBO(
-                                                          168, 167, 255, 1))),
-                                      child: Text(
-                                        'Mostrar todo',
-                                        style: TextStyle(
-                                            fontFamily: principalFontFamily,
-                                            color: primaryBlack,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: widget.width / 100),
-                                      ),
-                                    ),
-                                    setActualFilter != ''
-                                        ? Container(
-                                            padding: EdgeInsets.only(
-                                                left: widget.width / 100),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  //color: Colors.amber,
-                                                  padding: EdgeInsets.only(
-                                                      right:
-                                                          widget.width / 200),
-                                                  child: Icon(
-                                                    Icons.star_rate_rounded,
-                                                    size: widget.width / 80,
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                              ),
+                                              shape: MaterialStatePropertyAll(
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          borderRadiusPrimary),
+                                                  side: const BorderSide(
                                                     color: Color.fromARGB(
-                                                        255, 54, 244, 187),
+                                                        255, 139, 139, 139),
                                                   ),
                                                 ),
-                                                Text(
-                                                  'Proyectos desarrollados con $setActualFilter',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          principalFontFamily,
-                                                      fontSize:
-                                                          widget.width / 100,
-                                                      color: primaryLight),
-                                                )
-                                              ],
+                                              ),
                                             ),
-                                          )
-                                        : Container(),
-                                  ],
-                                ),
+                                      child: _selectedIndex == i
+                                          ? Text(
+                                              '$label',
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      principalFontFamily,
+                                                  color: primaryBlack,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: widget.width / 100),
+                                            )
+                                          : Text(
+                                              '$label',
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      principalFontFamily,
+                                                  color: primaryLight,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: widget.width / 100),
+                                            ),
+                                    ),
+                                  ); // Agrega widgets a la lista
+                                }
+
+                                return Wrap(
+                                  spacing: widget.width / 100,
+                                  runSpacing: widget.height / 50,
+                                  alignment: WrapAlignment.start,
+                                  children: botones,
+                                );
+                              },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: widget.height / 100,
+                                  right: widget.width / 40,
+                                  bottom: widget.width / 50),
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        print('mostrar todos');
+                                        _mostrarTodos();
+                                        _selectedIndex = -1;
+                                        //_mostrarTodosSelected();
+                                      });
+                                    },
+                                    style: mostrarTodosIsSelected == true
+                                        ? ButtonStyle(
+                                            padding: MaterialStatePropertyAll(
+                                                paddingAll),
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    tertiary))
+                                        : ButtonStyle(
+                                            padding: MaterialStatePropertyAll(
+                                                paddingAll),
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    Color.fromRGBO(
+                                                        168, 167, 255, 1))),
+                                    child: Text(
+                                      'Mostrar todo',
+                                      style: TextStyle(
+                                          fontFamily: principalFontFamily,
+                                          color: primaryBlack,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: widget.width / 100),
+                                    ),
+                                  ),
+                                  setActualFilter != ''
+                                      ? Container(
+                                          padding: EdgeInsets.only(
+                                              left: widget.width / 100),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                //color: Colors.amber,
+                                                padding: EdgeInsets.only(
+                                                    right: widget.width / 200),
+                                                child: Icon(
+                                                  Icons.star_rate_rounded,
+                                                  size: widget.width / 80,
+                                                  color: Color.fromARGB(
+                                                      255, 54, 244, 187),
+                                                ),
+                                              ),
+                                              Text(
+                                                'Proyectos desarrollados con $setActualFilter',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        principalFontFamily,
+                                                    fontSize:
+                                                        widget.width / 100,
+                                                    color: primaryLight),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : Container(),
+                                ],
                               ),
-                            ]),
+                            ),
                           ],
-                        ))),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 Container(
                   //color: Colors.purple,
                   width: widget.width,
@@ -349,7 +353,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                   padding: EdgeInsets.only(
                       left: widget.width / 20,
                       right: widget.width / 20,
-                      bottom: widget.height / 25),
+                      bottom: widget.height / 15),
                   // child: RawScrollbar(
                   //   timeToFade: Duration(microseconds: 1),
                   //   thumbColor: Color.fromARGB(137, 0, 141, 151),
