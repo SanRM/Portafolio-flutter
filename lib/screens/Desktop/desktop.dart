@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
 import 'package:portafolio/screens/Desktop/widgets/SendMessagePage.dart';
@@ -23,7 +21,7 @@ class Desktop extends StatefulWidget {
 }
 
 class _DesktopState extends State<Desktop> {
-  final ScrollController _scrollController = ScrollController();
+
 
   bool isDarkMode = false;
   double height = 0;
@@ -31,12 +29,8 @@ class _DesktopState extends State<Desktop> {
   double currentPage = 1;
   bool? pressed;
 
-  scrollToPageFromTop(double pageNumber) {
-    _scrollController.animateTo(
-      pageNumber * MediaQuery.of(context).size.height, // Altura de cada página
-      duration: const Duration(milliseconds: 500), // Duración de la animación
-      curve: Curves.easeInOut, // Curva de la animación
-    );
+  scrollTo(widget){
+    Scrollable.ensureVisible(widget.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
   }
 
   logo() {
@@ -113,18 +107,30 @@ class _DesktopState extends State<Desktop> {
             buildDarkModeToggle(),
             NavigationButton(
               'Inicio',
+              onTap: () {
+                scrollTo(globalKeyInitialInformation);
+              },
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
             NavigationButton(
               'Proyectos',
+              onTap: () {
+                scrollTo(globalKeyProjectBoard);
+              },
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
             NavigationButton(
               'Sobre mi',
+              onTap: () {
+                scrollTo(globalKeyAboutMe);
+              },
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
             NavigationButton(
               'Contacto',
+              onTap: () {
+                scrollTo(globalKeySendMessagePage);
+              },
               backgroundColor: Color.fromARGB(255, 81, 225, 250),
               textColor: primaryBlack,
             ),
@@ -136,7 +142,7 @@ class _DesktopState extends State<Desktop> {
     );
   }
 
-  NavigationButton(String name, {Color? backgroundColor, Color? textColor}) {
+  NavigationButton(String name, {required VoidCallback onTap, Color? backgroundColor, Color? textColor}) {
     return Container(
       //color: const Color.fromARGB(118, 255, 235, 59),
       padding: EdgeInsets.symmetric(
@@ -147,48 +153,7 @@ class _DesktopState extends State<Desktop> {
             ? Color.fromARGB(33, 255, 255, 255)
             : Color.fromARGB(20, 0, 0, 0)),
         borderRadius: BorderRadius.circular(borderRadiusPrimary),
-        onTap: () {
-          switch (name) {
-            case 'Inicio':
-              //print('Inicio');
-              _scrollController.animateTo(
-                height - (height / 0.95),
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
-              break;
-
-            case 'Proyectos':
-              _scrollController.animateTo(
-                //height * 1,
-                height * 0.940,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
-              //print('Proyectos');
-              break;
-
-            case 'Sobre mi':
-              //print('Sobre mi');
-              _scrollController.animateTo(
-                _scrollController.position.maxScrollExtent / 1.51,
-                duration: const Duration(
-                    milliseconds: 500), // Duración de la animación
-                curve: Curves.easeInOut, // Curva de la animación
-              );
-              break;
-
-            case 'Contacto':
-              //print('Contacto');
-              _scrollController.animateTo(
-                _scrollController.position.maxScrollExtent / 0.99,
-                duration: const Duration(
-                    milliseconds: 500), // Duración de la animación
-                curve: Curves.easeInOut, // Curva de la animación
-              );
-              break;
-          }
-        },
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
               color: backgroundColor,
@@ -216,10 +181,6 @@ class _DesktopState extends State<Desktop> {
   SafeArea buildBody() {
     return SafeArea(
       child: ListView(
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(
-          decelerationRate: ScrollDecelerationRate.normal,
-        ),
         children: [
           Column(
             children: [

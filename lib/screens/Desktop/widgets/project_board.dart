@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_utilities.dart';
 
+GlobalKey globalKeyProjectBoard = GlobalKey();
+
 class ProjectBoard extends StatefulWidget {
   ProjectBoard({
     super.key,
@@ -99,6 +101,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
   Widget build(BuildContext context) {
 
     return Container(
+      key: globalKeyProjectBoard,
       //height: widget.height * 2,
       color: const Color.fromRGBO(162, 195, 195, 1),
       padding: projectBoardPadding,
@@ -376,11 +379,13 @@ class _ProjectBoardState extends State<ProjectBoard> {
                     ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: Wrap(
-                          spacing: widget.width / 30,
-                          runSpacing: widget.height / 15,
-                          alignment: WrapAlignment.start,
-                          children: projectSelected),
+                      child: Container(
+                        child: Wrap(
+                            spacing: widget.width / 30,
+                            runSpacing: widget.height / 15,
+                            alignment: WrapAlignment.start,
+                            children: projectSelected),
+                      ),
                     ),
                   ),
                 ),

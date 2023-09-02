@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:portafolio/Responsive/responsive.dart';
+import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Mobile/widgets/initial_information.dart';
 import 'package:portafolio/screens/Mobile/widgets/project_board.dart';
@@ -22,6 +23,11 @@ class MobileState extends State<Mobile> {
   bool _backgroundColorSelected1 = true;
   bool _backgroundColorSelected2 = false;
   bool _backgroundColorSelected3 = false;
+
+  scrollTo(widget) {
+    Scrollable.ensureVisible(widget.currentContext!,
+        duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+  }
 
   buttonSelected(buttonName) {
     setState(() {
@@ -134,7 +140,7 @@ class MobileState extends State<Mobile> {
     return InkWell(
       customBorder: CircleBorder(),
       onTap: () {
-        Scrollable.ensureVisible(globalKeySendMessagePage.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+        scrollTo(globalKeySendMessagePage);
       },
       child: Container(
         padding:
@@ -175,7 +181,27 @@ class MobileState extends State<Mobile> {
             Column(
               children: [
                 InitialInformation(width: width, height: height),
-                ProjectBoard(width: width, height: height),
+                FutureBuilder(
+                  future: getProjects(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ProjectBoard(
+                          snapshot: snapshot, width: width, height: height);
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: height / 20),
+                        child: Container(
+                          width: width / 100,
+                          height: height / 65,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Color.fromARGB(137, 0, 141, 151),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
                 AboutMe(width: width, height: height),
                 SendMessagePage(height: height, width: width),
               ],
@@ -196,7 +222,7 @@ class MobileState extends State<Mobile> {
               buildBottomAppBarButton(
                 label: 'Inicio',
                 onPressed: () {
-                  Scrollable.ensureVisible(globalKeyInitialInformation.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+                  scrollTo(globalKeyInitialInformation);
                   buttonSelected('Inicio');
                 },
                 isSelected: _backgroundColorSelected1,
@@ -204,7 +230,7 @@ class MobileState extends State<Mobile> {
               buildBottomAppBarButton(
                 label: 'Proyectos',
                 onPressed: () {
-                  Scrollable.ensureVisible(globalKeyProjectBoard.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+                  scrollTo(globalKeyProjectBoard);
                   buttonSelected('Proyectos');
                 },
                 isSelected: _backgroundColorSelected2,
@@ -212,7 +238,7 @@ class MobileState extends State<Mobile> {
               buildBottomAppBarButton(
                 label: 'Sobre mi',
                 onPressed: () {
-                  Scrollable.ensureVisible(globalKeyAboutMe.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+                  scrollTo(globalKeyAboutMe);
                   buttonSelected('Sobre mi');
                 },
                 isSelected: _backgroundColorSelected3,

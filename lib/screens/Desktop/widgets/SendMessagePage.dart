@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 
+GlobalKey globalKeySendMessagePage = GlobalKey();
+
 class SendMessagePage extends StatefulWidget {
   const SendMessagePage({Key? key, required this.height, required this.width})
       : super(key: key);
@@ -119,6 +121,7 @@ class _SendMessagePageState extends State<SendMessagePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: globalKeySendMessagePage,
       color: Theme.of(context).colorScheme.primary,
       width: widget.width,
       height: widget.height,

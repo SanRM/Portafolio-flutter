@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
+GlobalKey globalKeyAboutMe = GlobalKey();
+
 class AboutMe extends StatelessWidget {
   const AboutMe({
     super.key,
@@ -18,6 +20,7 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: globalKeyAboutMe,
       width: width,
       //height: height,
       color: const Color.fromRGBO(0, 54, 93, 1),

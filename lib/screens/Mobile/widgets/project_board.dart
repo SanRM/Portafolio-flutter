@@ -1,86 +1,86 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:portafolio/screens/Mobile/widgets/project_utilities.dart';
 import 'package:portafolio/styles/styles.dart';
+import 'package:portafolio/screens/Mobile/widgets/project_utilities.dart';
 
 GlobalKey globalKeyProjectBoard = GlobalKey();
-List labels = ['HTML', 'CSS', 'JavaScript', 'Java'];
-
-List<ProjectManager> proyectos = [
-const ProjectManager(
-    cardBgColor: const Color.fromARGB(255, 105, 214, 247),
-    projectTitle: 'Encriptador de texto',
-    projectBanner: 'assets/images/preview.png',
-    projectDescription: 'Descripción proyecto',
-    projectLabels: const ['HTML', 'CSS', 'JavaScript'],
-    projectLink: 'https://github.com/SanRM/Encriptador'),
-
-const ProjectManager(
-  cardBgColor: Colors.pink,
-  projectTitle: 'Proyecto creado con Java',
-  projectBanner: '',
-  projectDescription: 'a',
-  projectLabels: const ['Java'],
-  projectLink: 'https://github.com/SanRM/Conversor',
-),
-const ProjectManager(
-  cardBgColor: Color.fromARGB(255, 30, 233, 165),
-  projectTitle: 'Proyecto creado con Java version 2',
-  projectBanner: '',
-  projectDescription: 'asd',
-  projectLabels: const ['Java'],
-  projectLink: 'https://github.com/SanRM/Conversor',
-),
-const ProjectManager(
-  cardBgColor: Color.fromARGB(255, 65, 95, 226),
-  projectTitle: 'Proyecto creado con HTML',
-  projectBanner: '',
-  projectDescription: 'asd',
-  projectLabels: const ['HTML'],
-  projectLink: 'https://github.com/SanRM/Conversor',
-),
-];
 
 class ProjectBoard extends StatefulWidget {
   ProjectBoard({
     super.key,
     required this.width,
     required this.height,
+    required this.snapshot,
   });
 
   final double width;
   final double height;
+  final AsyncSnapshot<List<dynamic>> snapshot;
 
   @override
   State<ProjectBoard> createState() => _ProjectBoardState();
 }
 
 class _ProjectBoardState extends State<ProjectBoard> {
+  List<dynamic> labels = [];
+  List<ProjectManager> proyectos = [];
+  List<ProjectManager> projectSelected = [];
+  String setActualFilter = '';
+  bool mostrarTodosIsSelected = false;
+  int _selectedIndex = -1;
 
+  @override
+  void initState() {
+    super.initState();
 
-  List<Widget> projectSelected = proyectos;
+    for (var i = 0; i < widget.snapshot.data!.length; i++) {
+      var cardColor = widget.snapshot.data?[i]["cardBgColor"];
+      var projectBanner = widget.snapshot.data?[i]["projectBanner"];
+      var description = widget.snapshot.data?[i]["projectDescription"];
+      var projectLabels = widget.snapshot.data?[i]["projectLabels"];
+      var projectLinks = widget.snapshot.data?[i]["projectLinks"];
+      var titulo = widget.snapshot.data?[i]["projectTitle"];
 
-  bool buttonOnPressed = false;
+      proyectos.add(ProjectManager(
+        snapshot: widget.snapshot,
+        cardBgColor: cardColor,
+        projectBanner: projectBanner,
+        description: description,
+        labels: projectLabels,
+        projectLinks: projectLinks,
+        title: titulo,
+      ));
+    }
 
-  _selectButtonLabel(labelSelected, projects) {
+    labels = ProjectLabels(snapshot: widget.snapshot).getLabelsList();
+
+    _mostrarTodos();
+  }
+
+  void _selectButtonLabel(labelSelected, projects) {
     setState(() {
       projectSelected = [];
     });
 
     Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
-        projectSelected = ProjectFilter(projects: projects).getSimilitudes(labelSelected);
+        projectSelected = ProjectFilter(snapshot: widget.snapshot)
+            .getSimilitudes(labelSelected);
         //print(projectSelected);
       });
     });
   }
 
-  _mostrarTodos() {
+  void _mostrarTodos() {
     setState(() {
       projectSelected = [];
-    });
+      setActualFilter = '';
 
+      mostrarTodosIsSelected == false
+          ? mostrarTodosIsSelected = true
+          : mostrarTodosIsSelected = false;
+    });
     Future.delayed(Duration(milliseconds: 10), () {
       setState(() {
         projectSelected = proyectos;
@@ -89,24 +89,10 @@ class _ProjectBoardState extends State<ProjectBoard> {
     });
   }
 
-  int _selectedIndex = -1;
-  bool _mostrarTodosIsSelected = false;
-
   void _selectLabel(int index) {
     setState(() {
       _selectedIndex = index;
-      _mostrarTodosIsSelected = false;
-    });
-  }
-
-  // String _setActualFilter = '';
-
-  void _mostrarTodosSelected() {
-    setState(() {
-      _mostrarTodosIsSelected == false
-          ? _mostrarTodosIsSelected = true
-          : _mostrarTodosIsSelected = false;
-      //_setActualFilter = '';
+      mostrarTodosIsSelected = false;
     });
   }
 
@@ -114,250 +100,271 @@ class _ProjectBoardState extends State<ProjectBoard> {
   Widget build(BuildContext context) {
     return Container(
       key: globalKeyProjectBoard,
+      //height: widget.height * 2,
       color: const Color.fromRGBO(162, 195, 195, 1),
       padding: projectBoardPadding,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                color: primaryBlack,
-                blurRadius: 10,
-                offset: Offset(2, 2), // Shadow position
-              ),
-            ]),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [
+            BoxShadow(
+              color: primaryBlack,
+              blurRadius: 10,
+              offset: Offset(2, 2), // Shadow position
+            ),
+          ],
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadiusSecondary),
           child: Container(
-            padding: EdgeInsets.only(bottom: widget.height /100),
+            padding: EdgeInsets.only(bottom: widget.height / 200),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
             ),
             child: Column(
               children: [
                 Padding(
-                    padding: EdgeInsets.only(
-                        left: widget.width / 20,
-                        right: widget.width / 20,
-                        top: widget.height / 50),
-                    child: Container(
-                        width: widget.width,
-                        //color: Colors.red,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: widget.height / 100,
-                                  bottom: widget.height / 500),
-                              child: Container(
-                                width: widget.width,
-                                child: Container(
-                                  //color: Colors.blue,
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: containerPadding),
-                                        child: Container(
-                                          //color: Colors.amber,
-                                          child: Icon(
-                                            Icons.filter_alt_rounded,
-                                            size: widget.width / 15,
-                                            color: Color.fromARGB(
-                                              255,
-                                              253,
-                                              247,
-                                              167,
-                                            ),
-                                          ),
+                  padding: EdgeInsets.only(
+                      left: widget.width / 20,
+                      right: widget.width / 20,
+                      top: widget.height / 50),
+                  child: Container(
+                    width: widget.width,
+                    //color: Colors.red,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: widget.height / 100,
+                              bottom: widget.height / 100),
+                          child: Container(
+                            width: widget.width,
+                            child: Container(
+                              //color: Colors.blue,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: containerPadding),
+                                    child: Container(
+                                      //color: Colors.amber,
+                                      child: Icon(
+                                        Icons.filter_alt_rounded,
+                                        size: widget.width / 15,
+                                        color: Color.fromARGB(
+                                          255,
+                                          253,
+                                          247,
+                                          167,
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(
-                                              containerPadding),
-                                          child: Container(
-                                            //color: Colors.red,
-                                            child: Wrap(
-                                              children: [
-                                                Text(
-                                                    'Filtrar proyectos según tecnologías usadas',
-                                                    style: TextStyle(
-                                                        color: primaryLight,
-                                                        fontSize:
-                                                            widget.width / 20)),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(
+                                          containerPadding),
+                                      child: Container(
+                                        //color: Colors.red,
+                                        child: Wrap(
+                                          children: [
+                                            SelectableText(
+                                                'Filtrar proyectos según tecnologías usadas',
+                                                style: TextStyle(
+                                                    color: primaryLight,
+                                                    fontSize:
+                                                        widget.width / 20)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Wrap(runSpacing: widget.height / 100, children: [
-                              ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: 1,
-                                itemBuilder: (context, index) {
-                                  List<Widget> botones = [];
+                          ),
+                        ),
+                        Wrap(
+                          runSpacing: widget.height / 100,
+                          children: [
+                            ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (context, index) {
+                                List<Widget> botones = [];
 
-                                  for (var i = 0; i < labels.length; i++) {
-                                    var label = labels[i];
+                                for (var i = 0; i < labels.length; i++) {
+                                  var label = labels[i];
 
-                                    botones.add(
-                                      TextButton(
-                                        onPressed: () {
-                                          _selectButtonLabel(
-                                              labels[i], proyectos);
-                                          _selectLabel(i);
-                                        },
-                                        //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
-                                        style: _selectedIndex == i
-                                            ? ButtonStyle(
-                                                padding:
-                                                    MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                  tertiary,
-                                                ),
-                                              )
-                                            : ButtonStyle(
-                                                padding:
-                                                    MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ),
-                                                shape: MaterialStatePropertyAll(
-                                                  RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            borderRadiusPrimary),
-                                                    side: const BorderSide(
-                                                      color: Color.fromARGB(
-                                                          255, 139, 139, 139),
-                                                    ),
+                                  botones.add(
+                                    TextButton(
+                                      onPressed: () {
+                                        _selectButtonLabel(
+                                            labels[i], proyectos);
+                                        _selectLabel(i);
+                                        setState(() {
+                                          setActualFilter = labels[i];
+                                        });
+                                      },
+                                      //ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red))
+                                      style: _selectedIndex == i
+                                          ?  ButtonStyle(
+                                              padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                tertiary,
+                                              ),
+                                            )
+                                          : ButtonStyle(
+                                              padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                              ),
+                                              shape: MaterialStatePropertyAll(
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          borderRadiusPrimary),
+                                                  side: const BorderSide(
+                                                    color: Color.fromARGB(
+                                                        255, 139, 139, 139),
                                                   ),
                                                 ),
                                               ),
-                                        child: _selectedIndex == i
-                                            ? Text(
-                                                '$label',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        principalFontFamily,
-                                                    color: primaryBlack,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        widget.width / 30),
-                                              )
-                                            : Text(
-                                                '$label',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        principalFontFamily,
-                                                    color: primaryLight,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        widget.width / 30),
-                                              ),
-                                      ),
-                                    ); // Agrega widgets a la lista
-                                  }
+                                            ),
+                                      child: _selectedIndex == i
+                                          ? Text(
+                                              '$label',
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      principalFontFamily,
+                                                  color: primaryBlack,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: widget.width / 30),
+                                            )
+                                          : Text(
+                                              '$label',
+                                              style: TextStyle(
+                                                  fontFamily:
+                                                      principalFontFamily,
+                                                  color: primaryLight,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: widget.width / 30),
+                                            ),
+                                    ),
+                                  ); // Agrega widgets a la lista
+                                }
 
-                                  return Wrap(
-                                    runSpacing: widget.height / 100,
-                                    alignment: WrapAlignment.spaceBetween,
-                                    children: botones,
-                                  );
-                                },
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    right: widget.width / 40,
-                                    bottom: widget.width / 25),
-                                child: TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _mostrarTodos();
-                                      _selectedIndex = -1;
-                                      _mostrarTodosSelected();
-                                    });
-                                  },
-                                  style: _mostrarTodosIsSelected == true
-                                      ? ButtonStyle(
-                                          padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  tertiary))
-                                      : ButtonStyle(
-                                          padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.width/40)),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Color.fromRGBO(
-                                                      168, 167, 255, 1))),
-                                  child: Text(
-                                    'Mostrar todo',
-                                    style: TextStyle(
-                                        fontFamily: principalFontFamily,
-                                        color: primaryBlack,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: widget.width / 30),
+                                return Wrap(
+                                  spacing: widget.width / 50,
+                                  runSpacing: widget.height / 100,
+                                  alignment: WrapAlignment.start,
+                                  children: botones,
+                                );
+                              },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: widget.height / 200,
+                                  right: widget.width / 40,
+                                  //bottom: widget.width / 20
                                   ),
+                              child: TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    print('mostrar todos');
+                                    _mostrarTodos();
+                                    _selectedIndex = -1;
+                                    //_mostrarTodosSelected();
+                                  });
+                                },
+                                style: mostrarTodosIsSelected == true
+                                    ? ButtonStyle(
+                                        padding: MaterialStatePropertyAll(
+                                            EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(tertiary))
+                                    : ButtonStyle(
+                                        padding: MaterialStatePropertyAll(
+                                            EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Color.fromRGBO(
+                                                    168, 167, 255, 1))),
+                                child: Text(
+                                  'Mostrar todo',
+                                  style: TextStyle(
+                                      fontFamily: principalFontFamily,
+                                      color: primaryBlack,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: widget.width / 30),
                                 ),
                               ),
-                            ]),
+                            ),
                           ],
-                        ))),
-                // _setActualFilter != ''
-                //     ? Padding(
-                //         padding: EdgeInsets.only(
-                //             left: widget.width / 20,
-                //             right: widget.width / 20,
-                //             bottom: widget.height / 100),
-                //         child: projectSelected.isNotEmpty
-                //             ? Row(
-                //                 children: [
-                //                   Container(
-                //                     //color: Colors.amber,
-                //                     child: Icon(
-                //                       Icons.star_rate_rounded,
-                //                       size: widget.width / 15,
-                //                       color: Color.fromARGB(255, 255, 125, 255),
-                //                     ),
-                //                   ),
-                //                   Container(
-                //                     //color: Colors.red,
-                //                     width: widget.width / 1.7,
-                //                     child: Wrap(
-                //                       children: [
-                //                         Text(
-                //                           'Proyectos realizados con $_setActualFilter',
-                //                           style: TextStyle(
-                //                               fontFamily:
-                //                                   principalFontFamily,
-                //                               fontSize: widget.width / 20,
-                //                               color: primaryLight),
-                //                         )
-                //                       ],
-                //                     ),
-                //                   )
-                //                 ],
-                //               )
-                //             : Container(),
-                //       )
-                //     : Container(),
-                ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: projectSelected,
+                        ),
+                        setActualFilter != ''
+                            ? Row(
+                                children: [
+                                  Container(
+                                    //color: Colors.amber,
+                                    child: Icon(
+                                      Icons.star_rate_rounded,
+                                      size: widget.width / 25,
+                                      color: Color.fromARGB(255, 255, 125, 255),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: widget.height/40, horizontal: widget.height/80),
+                                      child: Container(
+                                        //color: Colors.red,
+                                        width: widget.width / 1.7,
+                                        child: Wrap(
+                                          children: [
+                                            Text(
+                                              'Proyectos desarrollados con $setActualFilter',
+                                              style: TextStyle(
+                                                fontFamily: principalFontFamily,
+                                                fontSize: widget.width / 25,
+                                                color: primaryLight
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              
+                            )
+                            : SizedBox(height: widget.height/40),
+                      ],
+                    ),
+                  ),
                 ),
-                
+                Container(
+                  //color: Colors.purple,
+                  width: widget.width,
+                  //height: widget.height / 1.7,
+                  padding: EdgeInsets.only(
+                      left: widget.width / 20,
+                      right: widget.width / 20,
+                      bottom: widget.height / 40),
+
+                  child: Container(
+                    child: Wrap(
+                        spacing: widget.width / 30,
+                        runSpacing: widget.height / 40,
+                        alignment: WrapAlignment.start,
+                        children: projectSelected),
+                  ),
+                ),
               ],
             ),
           ),

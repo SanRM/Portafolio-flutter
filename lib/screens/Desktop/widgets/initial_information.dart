@@ -6,6 +6,8 @@ import 'package:portafolio/styles/styles.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+GlobalKey globalKeyInitialInformation = GlobalKey(); 
+
 class InitialInformation extends StatelessWidget {
   final double width;
   final double height;
@@ -19,13 +21,13 @@ class InitialInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: globalKeyInitialInformation,
       //padding: EdgeInsets.only(top: height/10),
-      //+color: Colors.red,
+      //color: Colors.red,
       height: height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Container(
             //color: Colors.pink,
             width: width / 2.5,
@@ -126,7 +128,8 @@ class InitialInformation extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               color: const Color.fromRGBO(1, 120, 180, 1),
                             ),
-                            child: Image.asset('assets/images/linkedin.png', fit: BoxFit.cover),
+                            child: Image.asset('assets/images/linkedin.png',
+                                fit: BoxFit.cover),
                           ),
                         ),
                       ),
@@ -136,15 +139,12 @@ class InitialInformation extends StatelessWidget {
               ],
             ),
           ),
-
-
           Container(
             margin: EdgeInsets.all(15),
-            height: height/1.7,
-            width: width/3,
+            height: height / 1.7,
+            width: width / 3,
             //color: Color.fromARGB(255, 54, 216, 244),
             child: Image.asset('assets/images/PrincipaImage.png'),
-              
           ),
         ],
       ),
