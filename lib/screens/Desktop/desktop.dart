@@ -188,7 +188,6 @@ class _DesktopState extends State<Desktop> {
               FutureBuilder(
                 future: getProjects(),
                 builder: (context, snapshot) {
-
                   if (snapshot.hasData) {
                     return ProjectBoard(
                         snapshot: snapshot, width: width, height: height);

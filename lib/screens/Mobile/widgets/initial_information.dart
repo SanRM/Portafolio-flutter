@@ -39,7 +39,7 @@ class InitialInformationState extends State<InitialInformation> {
               width: widget.width,
               height: widget.height / 4,
               //color: Colors.red,
-              child: Image.asset('assets/images/PrincipaImage.png',),
+              child: Image.asset('assets/images/PrincipaImage.png'),
             ),
           ),
           Padding(
