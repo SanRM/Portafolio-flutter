@@ -2,7 +2,7 @@
     package="com.HorizonSanTech.portafolio">
 
     <application
-        android:label="portafolio"
+        android:label="Portafolio - Santiago Rodriguez Morales"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

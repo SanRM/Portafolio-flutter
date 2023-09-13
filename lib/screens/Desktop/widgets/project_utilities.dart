@@ -70,7 +70,6 @@ class ProjectFilter {
         }
       }
     }
-    ;
 
     //print(filtroFinal);
     return filtroFinal;
@@ -154,7 +153,7 @@ class _ProjectManagerState extends State<ProjectManager> {
         builder: (context) {
           return AlertDialog(
             scrollable: true,
-            contentPadding: EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(0),
             content: Container(
               color: secondary,
               child: Row(
@@ -204,7 +203,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                           SizedBox(
                             height: height / 50,
                           ),
-                          Container(
+                          SizedBox(
                             height: height / 35,
                             width: width,
                             child: SingleChildScrollView(
@@ -239,7 +238,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                             height: height / 80,
                           ),
                           SingleChildScrollView(
-                            child: Container(
+                            child: SizedBox(
                               //color: Colors.blue,
                               height: projectLinks.length > 1
                                   ? height / 12
@@ -257,7 +256,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                           SizedBox(
                             height: height / 100,
                           ),
-                          Container(
+                          SizedBox(
                             height: projectLinks.length > 1
                                 ? height / 15
                                 : height / 20,
@@ -271,7 +270,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                   return Padding(
                                     padding: projectLinks.length > 1
                                         ? EdgeInsets.only(bottom: height / 100)
-                                        : EdgeInsets.only(bottom: 0),
+                                        : const EdgeInsets.only(bottom: 0),
                                     child: InkWell(
                                       onTap: () async {
                                         if (!await launchUrl(linkURL)) {
@@ -389,7 +388,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                           fit: BoxFit.cover)
                                       : Image.network(projectBanner,
                                           fit: BoxFit.cover)
-                                  : Center(
+                                  : const Center(
                                       child: CircularProgressIndicator(),
                                     ),
                             ),
@@ -401,14 +400,14 @@ class _ProjectManagerState extends State<ProjectManager> {
                                     openImage();
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(6),
+                                    padding: const EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                        color: Color.fromARGB(115, 0, 0, 0),
+                                        color: const Color.fromARGB(115, 0, 0, 0),
                                         borderRadius: BorderRadius.circular(50)),
                                     child: Icon(
                                       size: width / 50,
                                       Icons.crop_free,
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      color: const Color.fromARGB(255, 255, 255, 255),
                                     ),
                                   )),
                             ),
@@ -461,14 +460,14 @@ class _ProjectManagerState extends State<ProjectManager> {
                                     openImage();
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(6),
+                                    padding: const EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                        color: Color.fromARGB(115, 0, 0, 0),
+                                        color: const Color.fromARGB(115, 0, 0, 0),
                                         borderRadius: BorderRadius.circular(50)),
                                     child: Icon(
                                       size: width / 50,
                                       Icons.crop_free,
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      color: const Color.fromARGB(255, 255, 255, 255),
                                     ),
                                   )),
                             ),
@@ -564,7 +563,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 highlightColor: Colors.blue,
                                 focusColor: Colors.blue,
                                 overlayColor:
-                                    MaterialStatePropertyAll(Colors.blue),
+                                    const MaterialStatePropertyAll(Colors.blue),
                                 hoverColor: Colors.blue,
                                 splashColor: Colors.blue,
                                 onTap: () async {
@@ -578,7 +577,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                   decoration: BoxDecoration(
                                       color: cardColor,
                                       border:
-                                          Border(top: BorderSide(width: 0.5))),
+                                          const Border(top: BorderSide(width: 0.5))),
       
                                   padding: EdgeInsets.only(
                                       left: width / 40,

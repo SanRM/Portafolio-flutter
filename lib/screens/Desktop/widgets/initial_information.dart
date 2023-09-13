@@ -20,7 +20,7 @@ class InitialInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       key: globalKeyInitialInformation,
       //padding: EdgeInsets.only(top: height/10),
       //color: Colors.red,
@@ -28,7 +28,7 @@ class InitialInformation extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             //color: Colors.pink,
             width: width / 2.5,
             child: Column(
@@ -79,7 +79,7 @@ class InitialInformation extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onPrimary),
                   ),
                 ),
-                Container(
+                SizedBox(
                   //color: Colors.blue,
                   width: width / 4,
                   child: Row(
@@ -97,7 +97,7 @@ class InitialInformation extends StatelessWidget {
                           },
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
-                            padding: EdgeInsets.all(25),
+                            padding: const EdgeInsets.all(25),
                             width: width / 12,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
@@ -114,7 +114,7 @@ class InitialInformation extends StatelessWidget {
                         child: InkWell(
                           onTap: () async {
                             final Uri url = Uri.parse(
-                                'https://www.linkedin.com/in/santiagorodriguezmorales');
+                                'https://www.linkedin.com/in/santiago-rodriguez-morales');
 
                             if (!await launchUrl(url)) {
                               throw Exception('No se pudo cargar $url');
@@ -122,7 +122,7 @@ class InitialInformation extends StatelessWidget {
                           },
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
-                            padding: EdgeInsets.all(25),
+                            padding: const EdgeInsets.all(25),
                             width: width / 12,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
@@ -140,7 +140,7 @@ class InitialInformation extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             height: height / 1.7,
             width: width / 3,
             //color: Color.fromARGB(255, 54, 216, 244),

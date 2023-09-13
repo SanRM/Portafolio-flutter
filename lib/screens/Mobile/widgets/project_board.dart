@@ -7,7 +7,7 @@ import 'package:portafolio/screens/Mobile/widgets/project_utilities.dart';
 GlobalKey globalKeyProjectBoard = GlobalKey();
 
 class ProjectBoard extends StatefulWidget {
-  ProjectBoard({
+  const ProjectBoard({
     super.key,
     required this.width,
     required this.height,
@@ -63,7 +63,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
       projectSelected = [];
     });
 
-    Future.delayed(Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 10), () {
       setState(() {
         projectSelected = ProjectFilter(snapshot: widget.snapshot)
             .getSimilitudes(labelSelected);
@@ -81,7 +81,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
           ? mostrarTodosIsSelected = true
           : mostrarTodosIsSelected = false;
     });
-    Future.delayed(Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 10), () {
       setState(() {
         projectSelected = proyectos;
         //print(projectSelected);
@@ -128,7 +128,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                       left: widget.width / 20,
                       right: widget.width / 20,
                       top: widget.height / 50),
-                  child: Container(
+                  child: SizedBox(
                     width: widget.width,
                     //color: Colors.red,
                     child: Column(
@@ -138,50 +138,41 @@ class _ProjectBoardState extends State<ProjectBoard> {
                           padding: EdgeInsets.only(
                               top: widget.height / 100,
                               bottom: widget.height / 100),
-                          child: Container(
+                          child: SizedBox(
                             width: widget.width,
-                            child: Container(
-                              //color: Colors.blue,
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: containerPadding),
-                                    child: Container(
-                                      //color: Colors.amber,
-                                      child: Icon(
-                                        Icons.filter_alt_rounded,
-                                        size: widget.width / 15,
-                                        color: Color.fromARGB(
-                                          255,
-                                          253,
-                                          247,
-                                          167,
-                                        ),
-                                      ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: containerPadding),
+                                  child: Icon(
+                                    Icons.filter_alt_rounded,
+                                    size: widget.width / 15,
+                                    color: const Color.fromARGB(
+                                      255,
+                                      253,
+                                      247,
+                                      167,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(
-                                          containerPadding),
-                                      child: Container(
-                                        //color: Colors.red,
-                                        child: Wrap(
-                                          children: [
-                                            SelectableText(
-                                                'Filtrar proyectos según tecnologías usadas',
-                                                style: TextStyle(
-                                                    color: primaryLight,
-                                                    fontSize:
-                                                        widget.width / 20)),
-                                          ],
-                                        ),
-                                      ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(
+                                        containerPadding),
+                                    child: Wrap(
+                                      children: [
+                                        SelectableText(
+                                            'Filtrar proyectos según tecnologías usadas',
+                                            style: TextStyle(
+                                                color: primaryLight,
+                                                fontSize:
+                                                    widget.width / 20)),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -189,7 +180,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                           runSpacing: widget.height / 100,
                           children: [
                             ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: 1,
                               itemBuilder: (context, index) {
@@ -213,7 +204,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                           ?  ButtonStyle(
                                               padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
                                               backgroundColor:
-                                                  MaterialStatePropertyAll(
+                                                  const MaterialStatePropertyAll(
                                                 tertiary,
                                               ),
                                             )
@@ -277,7 +268,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                               child: TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    print('mostrar todos');
+                                    //print('mostrar todos');
                                     _mostrarTodos();
                                     _selectedIndex = -1;
                                     //_mostrarTodosSelected();
@@ -288,12 +279,12 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                         padding: MaterialStatePropertyAll(
                                             EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
                                         backgroundColor:
-                                            MaterialStatePropertyAll(tertiary))
+                                            const MaterialStatePropertyAll(tertiary))
                                     : ButtonStyle(
                                         padding: MaterialStatePropertyAll(
                                             EdgeInsets.symmetric(vertical: widget.height/80, horizontal: widget.height/50)),
                                         backgroundColor:
-                                            MaterialStatePropertyAll(
+                                            const MaterialStatePropertyAll(
                                                 Color.fromRGBO(
                                                     168, 167, 255, 1))),
                                 child: Text(
@@ -311,18 +302,15 @@ class _ProjectBoardState extends State<ProjectBoard> {
                         setActualFilter != ''
                             ? Row(
                                 children: [
-                                  Container(
-                                    //color: Colors.amber,
-                                    child: Icon(
-                                      Icons.star_rate_rounded,
-                                      size: widget.width / 25,
-                                      color: Color.fromARGB(255, 255, 125, 255),
-                                    ),
+                                  Icon(
+                                    Icons.star_rate_rounded,
+                                    size: widget.width / 25,
+                                    color: const Color.fromARGB(255, 255, 125, 255),
                                   ),
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: widget.height/40, horizontal: widget.height/80),
-                                      child: Container(
+                                      child: SizedBox(
                                         //color: Colors.red,
                                         width: widget.width / 1.7,
                                         child: Wrap(
@@ -357,13 +345,11 @@ class _ProjectBoardState extends State<ProjectBoard> {
                       right: widget.width / 20,
                       bottom: widget.height / 40),
 
-                  child: Container(
-                    child: Wrap(
-                        spacing: widget.width / 30,
-                        runSpacing: widget.height / 40,
-                        alignment: WrapAlignment.start,
-                        children: projectSelected),
-                  ),
+                  child: Wrap(
+                      spacing: widget.width / 30,
+                      runSpacing: widget.height / 40,
+                      alignment: WrapAlignment.start,
+                      children: projectSelected),
                 ),
               ],
             ),

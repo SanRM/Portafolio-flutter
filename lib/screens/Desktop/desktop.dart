@@ -1,6 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
-import 'package:portafolio/screens/Desktop/widgets/SendMessagePage.dart';
+import 'package:portafolio/screens/Desktop/widgets/send_message_page.dart';
 import 'package:portafolio/screens/Desktop/widgets/about_me.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
 import 'package:portafolio/services/firebase_service.dart';
@@ -30,7 +32,7 @@ class _DesktopState extends State<Desktop> {
   bool? pressed;
 
   scrollTo(widget){
-    Scrollable.ensureVisible(widget.currentContext!, duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+    Scrollable.ensureVisible(widget.currentContext!, duration: const Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
   }
 
   logo() {
@@ -68,7 +70,7 @@ class _DesktopState extends State<Desktop> {
         onTap: () {
           context.read<ThemeProvider>().toggleTheme();
         },
-        child: Container(
+        child: SizedBox(
           height: height / 20,
           //padding: EdgeInsets.only(left: width / 50),
           //color: Colors.red,
@@ -85,7 +87,7 @@ class _DesktopState extends State<Desktop> {
   Container buildAppBar() {
     return Container(
       height: height / 13,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       padding: EdgeInsets.symmetric(horizontal: width / 50),
       //color: Colors.red,
       child: Row(
@@ -105,33 +107,33 @@ class _DesktopState extends State<Desktop> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             buildDarkModeToggle(),
-            NavigationButton(
+            navigationButton(
               'Inicio',
               onTap: () {
                 scrollTo(globalKeyInitialInformation);
               },
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
-            NavigationButton(
+            navigationButton(
               'Proyectos',
               onTap: () {
                 scrollTo(globalKeyProjectBoard);
               },
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
-            NavigationButton(
+            navigationButton(
               'Sobre mi',
               onTap: () {
                 scrollTo(globalKeyAboutMe);
               },
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
-            NavigationButton(
+            navigationButton(
               'Contacto',
               onTap: () {
                 scrollTo(globalKeySendMessagePage);
               },
-              backgroundColor: Color.fromARGB(255, 81, 225, 250),
+              backgroundColor: const Color.fromARGB(255, 81, 225, 250),
               textColor: primaryBlack,
             ),
           ],
@@ -142,7 +144,7 @@ class _DesktopState extends State<Desktop> {
     );
   }
 
-  NavigationButton(String name, {required VoidCallback onTap, Color? backgroundColor, Color? textColor}) {
+  navigationButton(String name, {required VoidCallback onTap, Color? backgroundColor, Color? textColor}) {
     return Container(
       //color: const Color.fromARGB(118, 255, 235, 59),
       padding: EdgeInsets.symmetric(
@@ -150,8 +152,8 @@ class _DesktopState extends State<Desktop> {
       ),
       child: InkWell(
         overlayColor: MaterialStatePropertyAll(isDarkMode
-            ? Color.fromARGB(33, 255, 255, 255)
-            : Color.fromARGB(20, 0, 0, 0)),
+            ? const Color.fromARGB(33, 255, 255, 255)
+            : const Color.fromARGB(20, 0, 0, 0)),
         borderRadius: BorderRadius.circular(borderRadiusPrimary),
         onTap: onTap,
         child: Container(
@@ -162,16 +164,13 @@ class _DesktopState extends State<Desktop> {
           height: height / 20,
           width: width / 20,
           alignment: Alignment.center,
-          child: Container(
-            //color: Colors.blue,
-            child: Text(
-              name,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: principalFontFamily,
-                  fontSize: width / 100,
-                  color: textColor),
-            ),
+          child: Text(
+            name,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: principalFontFamily,
+                fontSize: width / 100,
+                color: textColor),
           ),
         ),
       ),
@@ -194,10 +193,10 @@ class _DesktopState extends State<Desktop> {
                   } else {
                     return Padding(
                       padding: EdgeInsets.only(bottom: height/20),
-                      child: Container(
+                      child: SizedBox(
                         width: width/100,
                         height: height/65,
-                        child: CircularProgressIndicator(
+                        child: const CircularProgressIndicator(
                           strokeWidth: 3,
                           color: Color.fromARGB(137, 0, 141, 151),
                         ),

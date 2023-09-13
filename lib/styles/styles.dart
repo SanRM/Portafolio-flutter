@@ -47,19 +47,19 @@ const String principalFontFamily = 'DMSans';
 
 //8. Degradees
 List<Color> principalDegradee = [
-  Color.fromARGB(255, 24, 194, 216),
-  Color.fromARGB(255, 23, 164, 207),
-  Color.fromARGB(255, 24, 194, 216),
-  Color.fromARGB(255, 23, 164, 207),
-  Color.fromARGB(255, 24, 194, 216),
+  const Color.fromARGB(255, 24, 194, 216),
+  const Color.fromARGB(255, 23, 164, 207),
+  const Color.fromARGB(255, 24, 194, 216),
+  const Color.fromARGB(255, 23, 164, 207),
+  const Color.fromARGB(255, 24, 194, 216),
 ];
 
 List<Color> secondaryDegradee = [
-  Color.fromARGB(255, 53, 221, 243),
-  Color.fromARGB(255, 42, 199, 247),
-  Color.fromARGB(255, 53, 221, 243),
-  Color.fromARGB(255, 42, 199, 247),
-  Color.fromARGB(255, 53, 221, 243),
+  const Color.fromARGB(255, 53, 221, 243),
+  const Color.fromARGB(255, 42, 199, 247),
+  const Color.fromARGB(255, 53, 221, 243),
+  const Color.fromARGB(255, 42, 199, 247),
+  const Color.fromARGB(255, 53, 221, 243),
 ];
 
 //7. ProjectBoard Widget
@@ -110,20 +110,20 @@ class LightTheme {
 
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
         shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-        side: MaterialStatePropertyAll(BorderSide(width: 1.5, color: primaryBlack)),
-        textStyle: MaterialStatePropertyAll(TextStyle(fontWeight: FontWeight.bold))
+        side: const MaterialStatePropertyAll(BorderSide(width: 1.5, color: primaryBlack)),
+        textStyle: const MaterialStatePropertyAll(TextStyle(fontWeight: FontWeight.bold))
       )
     ),
 
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            padding: MaterialStatePropertyAll(paddingAll),
+            padding: const MaterialStatePropertyAll(paddingAll),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
 
-    filledButtonTheme: FilledButtonThemeData(
+    filledButtonTheme: const FilledButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 32, 238, 159)),
       )
@@ -185,10 +185,10 @@ class DarkTheme {
 
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
         shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-        side: MaterialStatePropertyAll(BorderSide(width: 1.5, color: primaryLight)),
-        textStyle: MaterialStatePropertyAll(TextStyle(fontWeight: FontWeight.bold))
+        side: const MaterialStatePropertyAll(BorderSide(width: 1.5, color: primaryLight)),
+        textStyle: const MaterialStatePropertyAll(TextStyle(fontWeight: FontWeight.bold))
       )
     ),
 
@@ -197,7 +197,7 @@ class DarkTheme {
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))))),
 
-    filledButtonTheme: FilledButtonThemeData(
+    filledButtonTheme: const FilledButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 32, 238, 159)),
       )

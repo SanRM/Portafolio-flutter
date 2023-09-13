@@ -16,10 +16,10 @@ Future<bool> addBandejaDeEntrada(
 
   try {
     await db.collection("Bandeja de entrada").add(conversion);
-    print('Operación exitosa: Mensaje enviado correctamente');
+    //print('Operación exitosa: Mensaje enviado correctamente');
     return true;
   } catch (e) {
-    print('Error al enviar el mensaje: $e');
+    //print('Error al enviar el mensaje: $e');
     return false;
   }
 }
@@ -31,9 +31,9 @@ Future<List> getProjects() async {
 
   QuerySnapshot querySnapshot = await collectionReference.get();
 
-  querySnapshot.docs.forEach((documento) {
+  for (var documento in querySnapshot.docs) {
     projects.add(documento.data());
-  });
+  }
 
   return projects;
 }

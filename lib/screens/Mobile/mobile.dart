@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:portafolio/Responsive/responsive.dart';
@@ -6,7 +8,7 @@ import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Mobile/widgets/initial_information.dart';
 import 'package:portafolio/screens/Mobile/widgets/project_board.dart';
 import 'package:portafolio/screens/Mobile/widgets/about_me.dart';
-import 'package:portafolio/screens/Mobile/widgets/SendMessagePage.dart';
+import 'package:portafolio/screens/Mobile/widgets/send_message_page.dart';
 import 'package:provider/provider.dart';
 import 'package:portafolio/main.dart';
 
@@ -26,7 +28,7 @@ class MobileState extends State<Mobile> {
 
   scrollTo(widget) {
     Scrollable.ensureVisible(widget.currentContext!,
-        duration: Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+        duration: const Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
   }
 
   buttonSelected(buttonName) {
@@ -65,23 +67,19 @@ class MobileState extends State<Mobile> {
     );
   }
 
-  Container buildAppBarTitle() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          buildAppName(),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildDarkModeToggle(),
-                buildContactButton(),
-              ],
-            ),
-          ),
-        ],
-      ),
+  Row buildAppBarTitle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        buildAppName(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            buildDarkModeToggle(),
+            buildContactButton(),
+          ],
+        ),
+      ],
     );
   }
 
@@ -102,43 +100,41 @@ class MobileState extends State<Mobile> {
   Widget buildDarkModeToggle() {
     bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
 
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Tooltip(
-            message:
-                isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 7, 196, 230),
-                Color.fromARGB(255, 63, 158, 236),
-              ]),
-            ),
-            child: InkWell(
-              customBorder: CircleBorder(),
-              onTap: () {
-                context.read<ThemeProvider>().toggleTheme();
-              },
-              child: Container(
-                width: Responsive(context: context).getDeviceWidth() / 6,
-                height: Responsive(context: context).getDeviceHeight() / 19,
-                child: Icon(
-                  isDarkMode ? Icons.light_mode : Icons.dark_mode_outlined,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  size: Responsive(context: context).getDeviceWidth() / 12,
-                ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Tooltip(
+          message:
+              isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 7, 196, 230),
+              Color.fromARGB(255, 63, 158, 236),
+            ]),
+          ),
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: () {
+              context.read<ThemeProvider>().toggleTheme();
+            },
+            child: SizedBox(
+              width: Responsive(context: context).getDeviceWidth() / 6,
+              height: Responsive(context: context).getDeviceHeight() / 19,
+              child: Icon(
+                isDarkMode ? Icons.light_mode : Icons.dark_mode_outlined,
+                color: Theme.of(context).colorScheme.onPrimary,
+                size: Responsive(context: context).getDeviceWidth() / 12,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   InkWell buildContactButton() {
     return InkWell(
-      customBorder: CircleBorder(),
+      customBorder: const CircleBorder(),
       onTap: () {
         scrollTo(globalKeySendMessagePage);
       },
@@ -190,10 +186,10 @@ class MobileState extends State<Mobile> {
                     } else {
                       return Padding(
                         padding: EdgeInsets.only(bottom: height / 20),
-                        child: Container(
+                        child: SizedBox(
                           width: width / 100,
                           height: height / 65,
-                          child: CircularProgressIndicator(
+                          child: const CircularProgressIndicator(
                             strokeWidth: 3,
                             color: Color.fromARGB(137, 0, 141, 151),
                           ),
@@ -212,42 +208,40 @@ class MobileState extends State<Mobile> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         height: Responsive(context: context).getDeviceHeight() / 10,
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                  width: Responsive(context: context).getDeviceWidth() *
-                      sizedBoxWidth),
-              buildBottomAppBarButton(
-                label: 'Inicio',
-                onPressed: () {
-                  scrollTo(globalKeyInitialInformation);
-                  buttonSelected('Inicio');
-                },
-                isSelected: _backgroundColorSelected1,
-              ),
-              buildBottomAppBarButton(
-                label: 'Proyectos',
-                onPressed: () {
-                  scrollTo(globalKeyProjectBoard);
-                  buttonSelected('Proyectos');
-                },
-                isSelected: _backgroundColorSelected2,
-              ),
-              buildBottomAppBarButton(
-                label: 'Sobre mi',
-                onPressed: () {
-                  scrollTo(globalKeyAboutMe);
-                  buttonSelected('Sobre mi');
-                },
-                isSelected: _backgroundColorSelected3,
-              ),
-              SizedBox(
-                  width: Responsive(context: context).getDeviceWidth() *
-                      sizedBoxWidth)
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+                width: Responsive(context: context).getDeviceWidth() *
+                    sizedBoxWidth),
+            buildBottomAppBarButton(
+              label: 'Inicio',
+              onPressed: () {
+                scrollTo(globalKeyInitialInformation);
+                buttonSelected('Inicio');
+              },
+              isSelected: _backgroundColorSelected1,
+            ),
+            buildBottomAppBarButton(
+              label: 'Proyectos',
+              onPressed: () {
+                scrollTo(globalKeyProjectBoard);
+                buttonSelected('Proyectos');
+              },
+              isSelected: _backgroundColorSelected2,
+            ),
+            buildBottomAppBarButton(
+              label: 'Sobre mi',
+              onPressed: () {
+                scrollTo(globalKeyAboutMe);
+                buttonSelected('Sobre mi');
+              },
+              isSelected: _backgroundColorSelected3,
+            ),
+            SizedBox(
+                width: Responsive(context: context).getDeviceWidth() *
+                    sizedBoxWidth)
+          ],
         ),
       ),
     );
@@ -260,8 +254,8 @@ class MobileState extends State<Mobile> {
   }) {
     return InkWell(
       onTap: onPressed,
-      splashColor: Color.fromARGB(66, 255, 255, 255),
-      highlightColor: Color.fromARGB(66, 255, 255, 255),
+      splashColor: const Color.fromARGB(66, 255, 255, 255),
+      highlightColor: const Color.fromARGB(66, 255, 255, 255),
       borderRadius: BorderRadius.circular(100),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),

@@ -112,7 +112,7 @@ class InitialInformationState extends State<InitialInformation> {
                     },
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       width: widget.width / 4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -128,7 +128,7 @@ class InitialInformationState extends State<InitialInformation> {
                   child: InkWell(
                     onTap: () async {
                       final Uri url = Uri.parse(
-                          'https://www.linkedin.com/in/santiagorodriguezmorales');
+                          'https://www.linkedin.com/in/santiago-rodriguez-morales');
 
                       if (!await launchUrl(url)) {
                         throw Exception('No se pudo cargar $url');
@@ -136,7 +136,7 @@ class InitialInformationState extends State<InitialInformation> {
                     },
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       width: widget.width / 4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),

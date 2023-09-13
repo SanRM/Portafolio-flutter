@@ -32,10 +32,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       theme: isDarkMode ? DarkTheme.themeData : LightTheme.themeData,
-      themeAnimationDuration: Duration(microseconds: 1),
+      themeAnimationDuration: const Duration(microseconds: 1),
       themeAnimationCurve: Curves.decelerate,
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Portafolio - Santiago Rodriguez Morales',
       home: Scaffold(
         body: Responsive(context: context).getDevice(),
       ),

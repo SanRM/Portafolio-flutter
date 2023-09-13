@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -32,129 +34,128 @@ class AboutMe extends StatelessWidget {
                 left: width / 15,
                 top: height / 6,
                 bottom: height / 6),
-        child: Container(
-          //color: Colors.green,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                //color: Colors.amber,
-                width: width / 4,
-                child: Image.asset('assets/images/PersonalData.png'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              //color: Colors.amber,
+              width: width / 4,
+              child: Image.asset('assets/images/PersonalData.png'),
+            ),
+            Container(
+              //color: Color.fromARGB(255, 32, 7, 255),
+              width: width / 4,
+              padding: EdgeInsets.all(height / 20),
+              child: Column(
+                children: [
+                  GradientText(
+                    'Sobre mi',
+                    textAlign: TextAlign.center,
+                    colors: secondaryDegradee,
+                    style: TextStyle(
+                      fontSize: width / 27,
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 100,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: SelectableText(
+                      AboutMeDescription,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: primaryLight,
+                        fontSize: width / 70,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                //color: Color.fromARGB(255, 32, 7, 255),
-                width: width / 4,
-                padding: EdgeInsets.all(height / 20),
-                child: Column(
+            ),
+            Container(
+              //color: Colors.red,
+              width: width / 4,
+              padding: EdgeInsets.all(height / 20),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GradientText(
-                      'Sobre mi',
+                      'Habilidades',
                       textAlign: TextAlign.center,
                       colors: secondaryDegradee,
                       style: TextStyle(
-                        fontSize: width / 27,
+                        fontSize: width / 29,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     SizedBox(
                       height: height / 100,
                     ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: SelectableText(
-                        AboutMeDescription,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: primaryLight,
-                          fontSize: width / 70,
-                        ),
+                    GridView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
                       ),
+                      children: [
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'Dart',
+                            image: 'assets/images/dart.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'Flutter',
+                            image: 'assets/images/flutter.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'SQL',
+                            image: 'assets/images/sql.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'Java',
+                            image: 'assets/images/java.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'Python',
+                            image: 'assets/images/python.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'MySQL',
+                            image: 'assets/images/mysql.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'HTML',
+                            image: 'assets/images/html.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'CSS 5',
+                            image: 'assets/images/css.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'JavaScript',
+                            image: 'assets/images/js.png'),
+                        BadgesGrid(
+                            width: width,
+                            height: height,
+                            title: 'Firebase',
+                            image: 'assets/images/firebase.png'),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                //color: Colors.red,
-                width: width / 4,
-                padding: EdgeInsets.all(height / 20),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GradientText(
-                        'Habilidades',
-                        textAlign: TextAlign.center,
-                        colors: secondaryDegradee,
-                        style: TextStyle(
-                          fontSize: width / 29,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                      SizedBox(
-                        height: height / 100,
-                      ),
-                      Container(
-                        //color: Color.fromARGB(255, 0, 118, 122),
-                        child: GridView(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                          ),
-                          children: [
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'Dart',
-                                image: 'assets/images/dart.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'Flutter',
-                                image: 'assets/images/flutter.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'SQL',
-                                image: 'assets/images/sql.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'Java',
-                                image: 'assets/images/java.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'Python',
-                                image: 'assets/images/python.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'MySQL',
-                                image: 'assets/images/mysql.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'HTML',
-                                image: 'assets/images/html.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'CSS 5',
-                                image: 'assets/images/css.png'),
-                            BadgesGrid(
-                                width: width,
-                                height: height,
-                                title: 'JavaScript',
-                                image: 'assets/images/js.png'),
-                          ],
-                        ),
-                      ),
-                    ]),
-              ),
-            ],
-          ),
+                  ]),
+            ),
+          ],
         ),
       ),
     );
@@ -181,7 +182,7 @@ class BadgesGrid extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Container(
-          color: Color.fromRGBO(21, 65, 109, 1),
+          color: const Color.fromRGBO(21, 65, 109, 1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
