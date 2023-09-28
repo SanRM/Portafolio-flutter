@@ -141,25 +141,27 @@ class InitialInformation extends StatelessWidget {
             ),
           ),
           Container(
-              margin: const EdgeInsets.all(15),
-              height: height / 1.7,
-              width: width / 3,
-              //color: Color.fromARGB(255, 54, 216, 244),
-              child: FutureBuilder(
-                future: getSection("Información inicial"),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+            margin: const EdgeInsets.all(15),
+            height: height / 1.7,
+            width: width / 3,
+            //color: Color.fromARGB(255, 54, 216, 244),
+            child: FutureBuilder(
+              future: getSection("Información inicial"),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  String principalBanner = snapshot.data?[0]['principalBanner'];
 
-                    String principalBanner = snapshot.data?[0]['principalBanner'];
-
-                    return Image.network(principalBanner);
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onTertiaryContainer),
-                    );
-                  }
-                },
-              )),
+                  return Image.network(principalBanner);
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.onTertiaryContainer,
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
         ],
       ),
     );

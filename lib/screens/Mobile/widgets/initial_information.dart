@@ -1,12 +1,13 @@
 // ignore: file_names
 
 import 'package:flutter/material.dart';
+import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-GlobalKey globalKeyInitialInformation = GlobalKey(); 
+GlobalKey globalKeyInitialInformation = GlobalKey();
 
 class InitialInformation extends StatefulWidget {
   final double width;
@@ -23,63 +24,62 @@ class InitialInformation extends StatefulWidget {
 }
 
 class InitialInformationState extends State<InitialInformation> {
-
   @override
   Widget build(BuildContext context) {
-
     return Container(
       key: globalKeyInitialInformation,
       //color: Colors.red,
       child: Column(
         children: [
-          Padding(
-            padding: paddingSymetricMiddle,
-            child: Container(
-              padding: paddingSymetricMiddle,
-              width: widget.width,
-              height: widget.height / 4,
-              //color: Colors.red,
-              child: Image.asset('assets/images/PrincipaImage.png'),
+          Container(
+            //margin: const EdgeInsets.all(15),
+            height: widget.height / 4,
+            width: widget.width,
+            //color: Color.fromARGB(255, 54, 216, 244),
+            child: FutureBuilder(
+              future: getSection("Información inicial"),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  String principalBanner = snapshot.data?[0]['principalBanner'];
+
+                  return Image.network(principalBanner);
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
+                    ),
+                  );
+                }
+              },
             ),
           ),
-          Padding(
-            padding: paddingSymetricMiddle,
-            child: Container(
-                alignment: Alignment.center,
-                width: widget.width,
-                height: widget.height / 14,
-                //color: const Color.fromARGB(255, 54, 244, 139),
-                child: Text('PORTAFOLIO',
-                    style: TextStyle(
-                        fontFamily: principalFontFamily,
-                        fontSize: widget.width / 15,
-                        letterSpacing: 6,
-                        color: Theme.of(context).colorScheme.onPrimary))),
-          ),
-          Padding(
-            padding: paddingSymetricMiddle,
-            child: Container(
-              width: widget.width,
-              height: widget.height / 150,
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
-          ),
-          Padding(
-            padding: paddingSymetricMiddle,
-            child: Container(
-              //color: Colors.amber,
-              padding: paddingAll,
-              alignment: Alignment.center,
-              //color: Color.fromARGB(255, 54, 105, 244),
-              child: GradientText(
-                'Santiago Rodriguez Morales',
-                textAlign: TextAlign.center,
-                colors: principalDegradee,
-                style: TextStyle(
-                    fontFamily: principalFontFamily,
-                    fontSize: widget.width / 9,
-                    color: Theme.of(context).colorScheme.secondary),
+          Container(
+            alignment: Alignment.center,
+
+            //color: const Color.fromARGB(255, 54, 244, 139),
+            child: Text(
+              'PORTAFOLIO',
+              style: TextStyle(
+                fontFamily: principalFontFamily,
+                fontSize: widget.width / 15,
+                letterSpacing: 6,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
+            ),
+          ),
+          Container(
+            //color: Colors.amber,
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            alignment: Alignment.center,
+            //color: Color.fromARGB(255, 54, 105, 244),
+            child: GradientText(
+              'Santiago Rodriguez Morales',
+              textAlign: TextAlign.center,
+              colors: principalDegradee,
+              style: TextStyle(
+                  fontFamily: principalFontFamily,
+                  fontSize: widget.width / 9,
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           Container(
@@ -95,7 +95,8 @@ class InitialInformationState extends State<InitialInformation> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: widget.height / 20, top: widget.height / 40),
+            padding: EdgeInsets.only(
+                bottom: widget.height / 20, top: widget.height / 40),
             //color: Colors.blue,
             width: widget.width / 1.5,
             child: Row(
