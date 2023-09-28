@@ -1,12 +1,13 @@
 // ignore: file_names
 
 import 'package:flutter/material.dart';
+import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-GlobalKey globalKeyInitialInformation = GlobalKey(); 
+GlobalKey globalKeyInitialInformation = GlobalKey();
 
 class InitialInformation extends StatelessWidget {
   final double width;
@@ -140,12 +141,25 @@ class InitialInformation extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(15),
-            height: height / 1.7,
-            width: width / 3,
-            //color: Color.fromARGB(255, 54, 216, 244),
-            child: Image.asset('assets/images/PrincipaImage.png'),
-          ),
+              margin: const EdgeInsets.all(15),
+              height: height / 1.7,
+              width: width / 3,
+              //color: Color.fromARGB(255, 54, 216, 244),
+              child: FutureBuilder(
+                future: getSection("Información inicial"),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+
+                    String principalBanner = snapshot.data?[0]['principalBanner'];
+
+                    return Image.network(principalBanner);
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onTertiaryContainer),
+                    );
+                  }
+                },
+              )),
         ],
       ),
     );

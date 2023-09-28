@@ -24,18 +24,18 @@ Future<bool> addBandejaDeEntrada(
   }
 }
 
-Future<List> getProjects() async {
-  List projects = [];
+Future<List> getSection(String folder) async {
+  List documentList = [];
 
-  CollectionReference collectionReference = db.collection("Lista de proyectos");
+  CollectionReference collectionReference = db.collection(folder);
 
   QuerySnapshot querySnapshot = await collectionReference.get();
 
   for (var documento in querySnapshot.docs) {
-    projects.add(documento.data());
+    documentList.add(documento.data());
   }
 
-  return projects;
+  return documentList;
 }
 
 
