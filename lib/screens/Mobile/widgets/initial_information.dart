@@ -31,7 +31,7 @@ class InitialInformationState extends State<InitialInformation> {
       //color: Colors.red,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             //margin: const EdgeInsets.all(15),
             height: widget.height / 4,
             width: widget.width,
@@ -39,6 +39,7 @@ class InitialInformationState extends State<InitialInformation> {
             child: FutureBuilder(
               future: getSection("Información inicial"),
               builder: (context, snapshot) {
+                
                 if (snapshot.hasData) {
                   String principalBanner = snapshot.data?[0]['principalBanner'];
 
@@ -50,6 +51,7 @@ class InitialInformationState extends State<InitialInformation> {
                     ),
                   );
                 }
+                
               },
             ),
           ),
@@ -69,7 +71,7 @@ class InitialInformationState extends State<InitialInformation> {
           ),
           Container(
             //color: Colors.amber,
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             alignment: Alignment.center,
             //color: Color.fromARGB(255, 54, 105, 244),
             child: GradientText(
@@ -105,9 +107,9 @@ class InitialInformationState extends State<InitialInformation> {
                 ClipRRect(
                   child: InkWell(
                     onTap: () async {
-                      final Uri url = Uri.parse('https://github.com/SanRM');
+                      final Uri url = Uri.parse('https://www.github.com/SanRM');
 
-                      if (!await launchUrl(url)) {
+                      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
                         throw Exception('No se pudo cargar $url');
                       }
                     },
@@ -128,10 +130,9 @@ class InitialInformationState extends State<InitialInformation> {
                   borderRadius: BorderRadius.circular(15),
                   child: InkWell(
                     onTap: () async {
-                      final Uri url = Uri.parse(
-                          'https://www.linkedin.com/in/santiago-rodriguez-morales');
+                      final Uri url = Uri.parse('https://www.linkedin.com/in/santiagorodriguezmorales');
 
-                      if (!await launchUrl(url)) {
+                      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
                         throw Exception('No se pudo cargar $url');
                       }
                     },

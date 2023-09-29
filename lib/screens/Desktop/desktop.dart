@@ -193,13 +193,8 @@ class _DesktopState extends State<Desktop> {
                   } else {
                     return Padding(
                       padding: EdgeInsets.only(bottom: height/20),
-                      child: SizedBox(
-                        width: width/100,
-                        height: height/65,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 3,
-                          color: Color.fromARGB(137, 0, 141, 151),
-                        ),
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.onTertiaryContainer,
                       ),
                     );
                   }

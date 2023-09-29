@@ -115,7 +115,7 @@ class InitialInformation extends StatelessWidget {
                         child: InkWell(
                           onTap: () async {
                             final Uri url = Uri.parse(
-                                'https://www.linkedin.com/in/santiago-rodriguez-morales');
+                                'https://www.linkedin.com/in/santiagorodriguezmorales');
 
                             if (!await launchUrl(url)) {
                               throw Exception('No se pudo cargar $url');

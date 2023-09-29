@@ -113,9 +113,10 @@ class AboutMe extends StatelessWidget {
                           ),
                           itemCount: badgesList.length,
                           itemBuilder: (context, index) {
-
-                            var badgeUrl = snapshot.data[0]['Insignias'][index]['ImageUrl'];
-                            var badgeName = snapshot.data[0]['Insignias'][index]['nombre'];
+                            var badgeUrl = snapshot.data[0]['Insignias'][index]
+                                ['ImageUrl'];
+                            var badgeName =
+                                snapshot.data[0]['Insignias'][index]['nombre'];
 
                             return BadgesGrid(
                               width: width,
@@ -133,8 +134,10 @@ class AboutMe extends StatelessWidget {
             ),
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.onTertiaryContainer,
+            ),
           );
         }
       },
