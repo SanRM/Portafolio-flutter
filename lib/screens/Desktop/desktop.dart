@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:portafolio/Responsive/responsive.dart';
+import 'package:portafolio/screens/Desktop/widgets/certificate_board.dart';
 import 'package:portafolio/screens/Desktop/widgets/send_message_page.dart';
 import 'package:portafolio/screens/Desktop/widgets/about_me.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_board.dart';
@@ -188,8 +189,7 @@ class _DesktopState extends State<Desktop> {
                 future: getSection("Lista de proyectos"),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ProjectBoard(
-                        snapshot: snapshot, width: width, height: height);
+                    return ProjectBoard(snapshot: snapshot, width: width, height: height);
                   } else {
                     return Padding(
                       padding: EdgeInsets.only(bottom: height/20),
@@ -201,6 +201,22 @@ class _DesktopState extends State<Desktop> {
                 },
               ),
               AboutMe(width: width, height: height),
+              FutureBuilder(
+                future: getSection("Certificados"),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    //print(snapshot.data);
+                    return CertificatesBoard(snapshot: snapshot, width: width, height: height);
+                  } else {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: height/20),
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.onTertiaryContainer,
+                      ),
+                    );
+                  }
+                },
+              ),
               SendMessagePage(height: height, width: width),
             ],
           ),
