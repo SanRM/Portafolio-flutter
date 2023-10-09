@@ -65,15 +65,14 @@ class _DesktopState extends State<Desktop> {
     return Container(
       padding: EdgeInsets.only(left: width / 100),
       child: InkWell(
-        overlayColor: MaterialStatePropertyAll(
-            Theme.of(context).colorScheme.inversePrimary),
+        overlayColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
         customBorder: const CircleBorder(),
         onTap: () {
           context.read<ThemeProvider>().toggleTheme();
         },
-        child: SizedBox(
+        child: Container(
           height: height / 20,
-          //padding: EdgeInsets.only(left: width / 50),
+          padding: EdgeInsets.only(right: width / 150),
           //color: Colors.red,
           child: Icon(
             isDarkMode ? Icons.light_mode : Icons.dark_mode_outlined,
@@ -130,6 +129,13 @@ class _DesktopState extends State<Desktop> {
               textColor: Theme.of(context).colorScheme.onPrimary,
             ),
             navigationButton(
+              'Certificados',
+              onTap: () {
+                scrollTo(globalKeyCertificatesBoard);
+              },
+              textColor: Theme.of(context).colorScheme.onPrimary,
+            ),
+            navigationButton(
               'Contacto',
               onTap: () {
                 scrollTo(globalKeySendMessagePage);
@@ -152,9 +158,7 @@ class _DesktopState extends State<Desktop> {
         horizontal: width / 200,
       ),
       child: InkWell(
-        overlayColor: MaterialStatePropertyAll(isDarkMode
-            ? const Color.fromARGB(33, 255, 255, 255)
-            : const Color.fromARGB(20, 0, 0, 0)),
+        overlayColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
         borderRadius: BorderRadius.circular(borderRadiusPrimary),
         onTap: onTap,
         child: Container(
@@ -163,7 +167,8 @@ class _DesktopState extends State<Desktop> {
               borderRadius: BorderRadius.circular(borderRadiusPrimary)),
           //padding: EdgeInsets.all(width / 200),
           height: height / 20,
-          width: width / 20,
+          padding: EdgeInsets.symmetric(horizontal: width / 200),
+          //width: width / 17,
           alignment: Alignment.center,
           child: Text(
             name,
@@ -209,7 +214,7 @@ class _DesktopState extends State<Desktop> {
                     return CertificatesBoard(snapshot: snapshot, width: width, height: height);
                   } else {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: height/20),
+                      padding: EdgeInsets.only(top: height/20, bottom: height/20),
                       child: CircularProgressIndicator(
                         color: Theme.of(context).colorScheme.onTertiaryContainer,
                       ),

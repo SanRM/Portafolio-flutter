@@ -136,6 +136,9 @@ class _ProjectManagerState extends State<ProjectManager> {
     });
   }
 
+  Color projectHoverColor = Color.fromARGB(255, 8, 8, 8);
+  bool projectIsHover = false;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -334,7 +337,25 @@ class _ProjectManagerState extends State<ProjectManager> {
       );
     }
 
+
+    hoverColor(value) {
+      setState(
+        () {
+          projectIsHover = value;
+
+          if (value == true) {
+            projectHoverColor = cardColor;
+          } else {
+            projectHoverColor = Color.fromARGB(255, 8, 8, 8);
+          }
+        },
+      );
+    }
+
     return InkWell(
+      onHover: (value) {
+        hoverColor(value);
+      },
       onTap: () {
         _onPressAnimation();
         //print(finalcolor);
@@ -348,11 +369,11 @@ class _ProjectManagerState extends State<ProjectManager> {
           width: containerWidth / 3.5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color.fromARGB(255, 8, 8, 8),
-                blurRadius: 5,
-                offset: Offset(2, 2), // Shadow position
+                color: projectHoverColor,
+                blurRadius: projectIsHover == true ? 0 : 5,
+                offset: Offset(7, 7), // Shadow position
               ),
             ],
           ),
@@ -576,8 +597,8 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: cardColor,
-                                      border:
-                                          const Border(top: BorderSide(width: 0.5))),
+                                      border: const Border(
+                                        top: BorderSide(width: 0.5))),
       
                                   padding: EdgeInsets.only(
                                       left: width / 40,

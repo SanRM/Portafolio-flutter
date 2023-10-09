@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Desktop/widgets/project_utilities.dart';
 
@@ -54,9 +55,8 @@ class _ProjectBoardState extends State<ProjectBoard> {
     }
 
     labels = ProjectLabels(snapshot: widget.snapshot).getLabelsList();
-  
+
     _mostrarTodos();
-  
   }
 
   void _selectButtonLabel(labelSelected, projects) {
@@ -99,7 +99,6 @@ class _ProjectBoardState extends State<ProjectBoard> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       key: globalKeyProjectBoard,
       //height: widget.height * 2,
@@ -159,16 +158,15 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(
-                                        containerPadding),
+                                    padding:
+                                        const EdgeInsets.all(containerPadding),
                                     child: Wrap(
                                       children: [
                                         SelectableText(
                                             'Filtrar proyectos según tecnologías usadas',
                                             style: TextStyle(
                                                 color: primaryLight,
-                                                fontSize:
-                                                    widget.width / 40)),
+                                                fontSize: widget.width / 40)),
                                       ],
                                     ),
                                   ),
@@ -211,8 +209,9 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                               ),
                                             )
                                           : ButtonStyle(
-                                              padding: const MaterialStatePropertyAll(
-                                                  paddingAll),
+                                              padding:
+                                                  const MaterialStatePropertyAll(
+                                                      paddingAll),
                                               backgroundColor:
                                                   MaterialStatePropertyAll(
                                                 Theme.of(context)
@@ -343,10 +342,10 @@ class _ProjectBoardState extends State<ProjectBoard> {
                 Container(
                   //color: Colors.purple,
                   width: widget.width,
-                  height: widget.height / 1.7,
+                  height: widget.height / 1.6,
                   padding: EdgeInsets.only(
                       left: widget.width / 20,
-                      right: widget.width / 20,
+                      right: widget.width / 50,
                       bottom: widget.height / 15),
                   // child: RawScrollbar(
                   //   timeToFade: Duration(microseconds: 1),
@@ -361,20 +360,34 @@ class _ProjectBoardState extends State<ProjectBoard> {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       scrollbarTheme: const ScrollbarThemeData(
-                          thickness: MaterialStatePropertyAll(10),
-                          thumbColor: MaterialStatePropertyAll(
-                              Color.fromARGB(137, 0, 141, 151)),
-                          //trackColor: MaterialStatePropertyAll(Color.fromRGBO(114, 114, 114, 1)),
-                          trackVisibility: MaterialStatePropertyAll(true),
-                          thumbVisibility: MaterialStatePropertyAll(true)),
+                        thickness: MaterialStatePropertyAll(10),
+                        thumbColor: MaterialStatePropertyAll(
+                          Color.fromARGB(137, 0, 141, 151),
+                        ),
+                        //trackColor: MaterialStatePropertyAll(Color.fromRGBO(114, 114, 114, 1)),
+                        trackVisibility: MaterialStatePropertyAll(false),
+                      ),
                     ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: Wrap(
-                          spacing: widget.width / 30,
-                          runSpacing: widget.height / 15,
-                          alignment: WrapAlignment.start,
-                          children: projectSelected),
+                      padding: const EdgeInsets.only(right: 60, bottom: 15),
+                      child:
+                          // Wrap(
+                          //   spacing: widget.width / 30,
+                          //   runSpacing: widget.height / 15,
+                          //   alignment: WrapAlignment.start,
+                          //   children: projectSelected,
+                          // ),
+                          MasonryGridView.count(
+                            itemCount: projectSelected.length,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: widget.width / 60,
+                            crossAxisSpacing: widget.height / 30,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return projectSelected[index];
+                            },
+                          ),
                     ),
                   ),
                 ),

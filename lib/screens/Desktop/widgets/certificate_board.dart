@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:portafolio/screens/Desktop/widgets/certificate_utilities.dart';
 import 'package:portafolio/styles/styles.dart';
 
@@ -35,25 +36,22 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
     super.initState();
 
     for (var i = 0; i < widget.snapshot.data!.length; i++) {
-      
       var certificateDescription = widget.snapshot.data?[i]["description"];
       var certificateLabels = widget.snapshot.data?[i]["labels"];
       var certificateTitle = widget.snapshot.data?[i]["title"];
       var certificateUrl = widget.snapshot.data?[i]["Url"];
 
       proyectos.add(CertificateManager(
-        snapshot: widget.snapshot,
-        description: certificateDescription,
-        labels: certificateLabels,
-        title: certificateTitle,
-        url: certificateUrl
-      ));
+          snapshot: widget.snapshot,
+          description: certificateDescription,
+          labels: certificateLabels,
+          title: certificateTitle,
+          url: certificateUrl));
     }
 
     labels = CertificateLabels(snapshot: widget.snapshot).getLabelsList();
-  
+
     _mostrarTodos();
-  
   }
 
   void _selectButtonLabel(labelSelected, projects) {
@@ -63,7 +61,8 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
 
     Future.delayed(const Duration(milliseconds: 10), () {
       setState(() {
-        projectSelected = CertificatesFilter(snapshot: widget.snapshot).getSimilitudes(labelSelected);
+        projectSelected = CertificatesFilter(snapshot: widget.snapshot)
+            .getSimilitudes(labelSelected);
         //print(projectSelected);
       });
     });
@@ -95,7 +94,6 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       key: globalKeyCertificatesBoard,
       //height: widget.height * 2,
@@ -145,26 +143,20 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                                   child: Icon(
                                     Icons.filter_alt_rounded,
                                     size: widget.width / 60,
-                                    color: const Color.fromARGB(
-                                      255,
-                                      253,
-                                      247,
-                                      167,
-                                    ),
+                                    color: Color.fromARGB(255, 167, 253, 220),
                                   ),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(
-                                        containerPadding),
+                                    padding:
+                                        const EdgeInsets.all(containerPadding),
                                     child: Wrap(
                                       children: [
                                         SelectableText(
                                             'Filtrar certificados según tecnologías estudiadas',
                                             style: TextStyle(
                                                 color: primaryLight,
-                                                fontSize:
-                                                    widget.width / 40)),
+                                                fontSize: widget.width / 40)),
                                       ],
                                     ),
                                   ),
@@ -189,7 +181,8 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                                   botones.add(
                                     TextButton(
                                       onPressed: () {
-                                        _selectButtonLabel(labels[i], proyectos);
+                                        _selectButtonLabel(
+                                            labels[i], proyectos);
                                         _selectLabel(i);
                                         setState(() {
                                           setActualFilter = labels[i];
@@ -206,8 +199,9 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                                               ),
                                             )
                                           : ButtonStyle(
-                                              padding: const MaterialStatePropertyAll(
-                                                  paddingAll),
+                                              padding:
+                                                  const MaterialStatePropertyAll(
+                                                      paddingAll),
                                               backgroundColor:
                                                   MaterialStatePropertyAll(
                                                 Theme.of(context)
@@ -309,12 +303,12 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                                                 child: Icon(
                                                   Icons.star_rate_rounded,
                                                   size: widget.width / 80,
-                                                  color: const Color.fromARGB(
-                                                      255, 54, 244, 187),
+                                                  color: Color.fromARGB(
+                                                      255, 244, 54, 133),
                                                 ),
                                               ),
                                               Text(
-                                                'Proyectos desarrollados con $setActualFilter',
+                                                'Certificados de $setActualFilter',
                                                 style: TextStyle(
                                                     fontFamily:
                                                         principalFontFamily,
@@ -338,10 +332,10 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                 Container(
                   //color: Colors.purple,
                   width: widget.width,
-                  height: widget.height / 1.7,
+                  height: widget.height / 1.6,
                   padding: EdgeInsets.only(
                       left: widget.width / 20,
-                      right: widget.width / 20,
+                      right: widget.width / 50,
                       bottom: widget.height / 15),
                   // child: RawScrollbar(
                   //   timeToFade: Duration(microseconds: 1),
@@ -356,20 +350,35 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       scrollbarTheme: const ScrollbarThemeData(
-                          thickness: MaterialStatePropertyAll(10),
-                          thumbColor: MaterialStatePropertyAll(
-                              Color.fromARGB(137, 0, 141, 151)),
-                          //trackColor: MaterialStatePropertyAll(Color.fromRGBO(114, 114, 114, 1)),
-                          trackVisibility: MaterialStatePropertyAll(true),
-                          thumbVisibility: MaterialStatePropertyAll(true)),
+                        thickness: MaterialStatePropertyAll(10),
+                        thumbColor: MaterialStatePropertyAll(
+                          Color.fromARGB(137, 0, 141, 151),
+                        ),
+                        //trackColor: MaterialStatePropertyAll(Color.fromRGBO(114, 114, 114, 1)),
+                        trackVisibility: MaterialStatePropertyAll(false),
+                      ),
                     ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: Wrap(
-                          spacing: widget.width / 30,
-                          runSpacing: widget.height / 15,
-                          alignment: WrapAlignment.start,
-                          children: projectSelected),
+                      padding: const EdgeInsets.only(right: 60, bottom: 15),
+                      child:
+                          // Wrap(
+                          //   spacing: widget.width / 30,
+                          //   runSpacing: widget.height / 15,
+                          //   alignment: WrapAlignment.start,
+                          //   children: projectSelected,
+                          // ),
+                          MasonryGridView.count(
+                            itemCount: projectSelected.length,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: widget.width / 60,
+                            crossAxisSpacing: widget.height / 30,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return projectSelected[index];
+                            },
+                      ),
+                      //Container()
                     ),
                   ),
                 ),
