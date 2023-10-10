@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:portafolio/Responsive/responsive.dart';
+import 'package:portafolio/screens/Mobile/widgets/certificate_board.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 import 'package:portafolio/screens/Mobile/widgets/initial_information.dart';
@@ -25,10 +26,12 @@ class MobileState extends State<Mobile> {
   bool _backgroundColorSelected1 = true;
   bool _backgroundColorSelected2 = false;
   bool _backgroundColorSelected3 = false;
+  bool _backgroundColorSelected4 = false;
 
   scrollTo(widget) {
     Scrollable.ensureVisible(widget.currentContext!,
-        duration: const Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOutCubicEmphasized);
   }
 
   buttonSelected(buttonName) {
@@ -38,17 +41,27 @@ class MobileState extends State<Mobile> {
           _backgroundColorSelected1 = true;
           _backgroundColorSelected2 = false;
           _backgroundColorSelected3 = false;
+          _backgroundColorSelected4 = false;
           break;
 
         case 'Proyectos':
           _backgroundColorSelected1 = false;
           _backgroundColorSelected2 = true;
           _backgroundColorSelected3 = false;
+          _backgroundColorSelected4 = false;
+          break;
+
+        case 'Certificados':
+          _backgroundColorSelected1 = false;
+          _backgroundColorSelected2 = false;
+          _backgroundColorSelected4 = true;
+          _backgroundColorSelected3 = false;
           break;
 
         case 'Sobre mi':
           _backgroundColorSelected1 = false;
           _backgroundColorSelected2 = false;
+          _backgroundColorSelected4 = false;
           _backgroundColorSelected3 = true;
           break;
       }
@@ -199,6 +212,25 @@ class MobileState extends State<Mobile> {
                   },
                 ),
                 AboutMe(width: width, height: height),
+                FutureBuilder(
+                  future: getSection("Certificados"),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      //print(snapshot.data);
+                      return CertificatesBoard(
+                          snapshot: snapshot, width: width, height: height);
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: height / 20, bottom: height / 20),
+                        child: CircularProgressIndicator(
+                          color:
+                              Theme.of(context).colorScheme.onTertiaryContainer,
+                        ),
+                      );
+                    }
+                  },
+                ),
                 SendMessagePage(height: height, width: width),
               ],
             ),
@@ -216,6 +248,7 @@ class MobileState extends State<Mobile> {
                     sizedBoxWidth),
             buildBottomAppBarButton(
               label: 'Inicio',
+              iconSelected: const Icon(Icons.home_filled, size: 20),
               onPressed: () {
                 scrollTo(globalKeyInitialInformation);
                 buttonSelected('Inicio');
@@ -224,6 +257,7 @@ class MobileState extends State<Mobile> {
             ),
             buildBottomAppBarButton(
               label: 'Proyectos',
+              iconSelected: const Icon(Icons.handyman_rounded, size: 20),
               onPressed: () {
                 scrollTo(globalKeyProjectBoard);
                 buttonSelected('Proyectos');
@@ -232,11 +266,21 @@ class MobileState extends State<Mobile> {
             ),
             buildBottomAppBarButton(
               label: 'Sobre mi',
+              iconSelected: const Icon(Icons.person, size: 20),
               onPressed: () {
                 scrollTo(globalKeyAboutMe);
                 buttonSelected('Sobre mi');
               },
               isSelected: _backgroundColorSelected3,
+            ),
+            buildBottomAppBarButton(
+              label: 'Certificados',
+              iconSelected: const Icon(Icons.verified, size: 20),
+              onPressed: () {
+                scrollTo(globalKeyCertificatesBoard);
+                buttonSelected('Certificados');
+              },
+              isSelected: _backgroundColorSelected4,
             ),
             SizedBox(
                 width: Responsive(context: context).getDeviceWidth() *
@@ -248,6 +292,7 @@ class MobileState extends State<Mobile> {
   }
 
   InkWell buildBottomAppBarButton({
+    required Icon iconSelected,
     required String label,
     required VoidCallback onPressed,
     required bool isSelected,
@@ -264,15 +309,32 @@ class MobileState extends State<Mobile> {
           padding: EdgeInsets.symmetric(
               horizontal: Responsive(context: context).getDeviceWidth() / 50),
           alignment: Alignment.center,
-          height: Responsive(context: context).getDeviceHeight() / 20,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: Responsive(context: context).getDeviceWidth() / 20,
-              color: isSelected
-                  ? primaryBlack
-                  : Theme.of(context).colorScheme.onPrimary,
-            ),
+          //height: Responsive(context: context).getDeviceHeight() / 20,
+          // child: Text(
+          //   label,
+          //   style: TextStyle(
+          //     fontFamily: principalFontFamily,
+          //     fontSize: Responsive(context: context).getDeviceWidth() / 25,
+          //     color: isSelected
+          //         ? primaryBlack
+          //         : Theme.of(context).colorScheme.onPrimary,
+          //   ),
+          // ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              iconSelected,
+              Text(
+                label,
+                style: TextStyle(
+                  fontFamily: principalFontFamily,
+                  fontSize: Responsive(context: context).getDeviceWidth() / 25,
+                  color: isSelected
+                      ? primaryBlack
+                      : Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -581,12 +581,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                               var linkURL = projectLinks[index]["url"];
       
                               return InkWell(
-                                highlightColor: Colors.blue,
-                                focusColor: Colors.blue,
-                                overlayColor:
-                                    const MaterialStatePropertyAll(Colors.blue),
-                                hoverColor: Colors.blue,
-                                splashColor: Colors.blue,
+                               
                                 onTap: () async {
                                   final Uri url = Uri.parse(linkURL);
       
@@ -597,8 +592,8 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: cardColor,
-                                      border: const Border(
-                                        top: BorderSide(width: 0.5))),
+                                      border: Border(
+                                        top: BorderSide(width: 0.5, color: finalCardBgColor))),
       
                                   padding: EdgeInsets.only(
                                       left: width / 40,

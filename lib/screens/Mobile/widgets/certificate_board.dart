@@ -1,13 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:portafolio/screens/Mobile/widgets/certificate_utilities.dart';
 import 'package:portafolio/styles/styles.dart';
-import 'package:portafolio/screens/Mobile/widgets/project_utilities.dart';
 
-GlobalKey globalKeyProjectBoard = GlobalKey();
+GlobalKey globalKeyCertificatesBoard = GlobalKey();
 
-class ProjectBoard extends StatefulWidget {
-  const ProjectBoard({
+class CertificatesBoard extends StatefulWidget {
+  const CertificatesBoard({
     super.key,
     required this.width,
     required this.height,
@@ -19,13 +19,13 @@ class ProjectBoard extends StatefulWidget {
   final AsyncSnapshot<List<dynamic>> snapshot;
 
   @override
-  State<ProjectBoard> createState() => _ProjectBoardState();
+  State<CertificatesBoard> createState() => _CertificatesBoardState();
 }
 
-class _ProjectBoardState extends State<ProjectBoard> {
+class _CertificatesBoardState extends State<CertificatesBoard> {
   List<dynamic> labels = [];
-  List<ProjectManager> proyectos = [];
-  List<ProjectManager> projectSelected = [];
+  List<CertificateManager> proyectos = [];
+  List<CertificateManager> projectSelected = [];
   String setActualFilter = '';
   bool mostrarTodosIsSelected = false;
   int _selectedIndex = -1;
@@ -35,25 +35,20 @@ class _ProjectBoardState extends State<ProjectBoard> {
     super.initState();
 
     for (var i = 0; i < widget.snapshot.data!.length; i++) {
-      var cardColor = widget.snapshot.data?[i]["cardBgColor"];
-      var projectBanner = widget.snapshot.data?[i]["projectBanner"];
-      var description = widget.snapshot.data?[i]["projectDescription"];
-      var projectLabels = widget.snapshot.data?[i]["projectLabels"];
-      var projectLinks = widget.snapshot.data?[i]["projectLinks"];
-      var titulo = widget.snapshot.data?[i]["projectTitle"];
+      var certificateDescription = widget.snapshot.data?[i]["description"];
+      var certificateLabels = widget.snapshot.data?[i]["labels"];
+      var certificateTitle = widget.snapshot.data?[i]["title"];
+      var certificateUrl = widget.snapshot.data?[i]["Url"];
 
-      proyectos.add(ProjectManager(
-        snapshot: widget.snapshot,
-        cardBgColor: cardColor,
-        projectBanner: projectBanner,
-        description: description,
-        labels: projectLabels,
-        projectLinks: projectLinks,
-        title: titulo,
-      ));
+      proyectos.add(CertificateManager(
+          snapshot: widget.snapshot,
+          description: certificateDescription,
+          labels: certificateLabels,
+          title: certificateTitle,
+          url: certificateUrl));
     }
 
-    labels = ProjectLabels(snapshot: widget.snapshot).getLabelsList();
+    labels = CertificateLabels(snapshot: widget.snapshot).getLabelsList();
 
     _mostrarTodos();
   }
@@ -65,7 +60,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
 
     Future.delayed(const Duration(milliseconds: 10), () {
       setState(() {
-        projectSelected = ProjectFilter(snapshot: widget.snapshot)
+        projectSelected = CertificatesFilter(snapshot: widget.snapshot)
             .getSimilitudes(labelSelected);
         //print(projectSelected);
       });
@@ -99,7 +94,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: globalKeyProjectBoard,
+      key: globalKeyCertificatesBoard,
       //height: widget.height * 2,
       color: const Color.fromRGBO(162, 195, 195, 1),
       padding: projectBoardPadding,
@@ -148,12 +143,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                   child: Icon(
                                     Icons.filter_alt_rounded,
                                     size: widget.width / 15,
-                                    color: const Color.fromARGB(
-                                      255,
-                                      253,
-                                      247,
-                                      167,
-                                    ),
+                                    color: Color.fromARGB(255, 167, 250, 253),
                                   ),
                                 ),
                                 Expanded(
@@ -163,7 +153,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                     child: Wrap(
                                       children: [
                                         SelectableText(
-                                            'Filtrar proyectos según tecnologías usadas',
+                                            'Filtrar certificados según tecnologías estudiadas',
                                             style: TextStyle(
                                                 color: primaryLight,
                                                 fontSize:
@@ -305,7 +295,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                   Icon(
                                     Icons.star_rate_rounded,
                                     size: widget.width / 15,
-                                    color: const Color.fromARGB(255, 255, 125, 255),
+                                    color: Color.fromARGB(255, 255, 125, 147),
                                   ),
                                   Expanded(
                                     child: Padding(
@@ -316,7 +306,7 @@ class _ProjectBoardState extends State<ProjectBoard> {
                                         child: Wrap(
                                           children: [
                                             Text(
-                                              'Proyectos desarrollados con $setActualFilter',
+                                              'Certificados de $setActualFilter',
                                               style: TextStyle(
                                                 fontFamily: principalFontFamily,
                                                 fontSize: widget.width / 25,
@@ -359,3 +349,4 @@ class _ProjectBoardState extends State<ProjectBoard> {
     );
   }
 }
+

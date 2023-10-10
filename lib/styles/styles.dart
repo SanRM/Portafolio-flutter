@@ -38,7 +38,7 @@ const Color primaryBlack = Color.fromRGBO(27, 33, 48, 1);
 const Color primaryLight = Color.fromRGBO(232, 232, 232, 1);
 const Color secondary = Color.fromRGBO(41, 41, 41, 1);
 const Color secondaryVariation = Color.fromRGBO(70, 70, 70, 1);
-const Color tertiary = Color.fromRGBO(167, 223, 255, 1);
+const Color tertiary = Color.fromRGBO(167, 234, 255, 1);
 const Color errorFormBorder = Color.fromARGB(255, 255, 88, 138);
 
 //10. Font family
