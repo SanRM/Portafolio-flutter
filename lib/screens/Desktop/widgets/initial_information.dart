@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:portafolio/services/firebase_service.dart';
+import 'package:portafolio/services/pdf_service.dart';
 import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -80,6 +81,41 @@ class InitialInformation extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onPrimary),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: width / 10,
+                      right: width / 10,
+                      top: height / 80,
+                      bottom: height / 20),
+                  child: FilledButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Color.fromARGB(255, 32, 231, 238),
+                      ),
+                    ),
+                    onPressed: () async {
+                      PDF().createPDF();
+                    },
+                    icon: Icon(
+                      Icons.download,
+                      color: primaryBlack,
+                      size: height / 30,
+                    ),
+                    label: Container(
+                      padding: EdgeInsets.all(height / 100),
+                      width: width / 3,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Descargar CV',
+                        style: TextStyle(
+                            fontFamily: principalFontFamily,
+                            color: primaryBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: height / 40),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   //color: Colors.blue,
                   width: width / 4,
@@ -155,7 +191,7 @@ class InitialInformation extends StatelessWidget {
                 } else {
                   return Center(
                     child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.onTertiaryContainer,
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                   );
                 }

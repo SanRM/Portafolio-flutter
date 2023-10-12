@@ -166,109 +166,101 @@ class _CertificateManagerState extends State<CertificateManager> {
                 borderRadius: BorderRadius.circular(borderRadiusSecondary),
                 child: Container(
                   color: const Color.fromARGB(255, 243, 243, 243),
-                  child: Stack(children: [
+                  child: Column(
+                    children: [
+                      //Text(url),
 
-                    //2. badge
-                    Positioned(
-                      right: 1,
-                      child: Icon(
-                        Icons.verified,
-                        color: Color.fromARGB(55, 0, 217, 255),
-                        size: width / 10,
-                      ),
-                    ),
-
-                    Column(
-                      children: [
-                        //Text(url),
-
-                        //2. Certificate title
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: width / 40,
-                              right: width / 40,
-                              top: height / 80),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '$title',
-                                  style: TextStyle(
-                                      fontFamily: principalFontFamily,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: width / 40,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
-                                ),
+                      //2. Certificate title
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: width / 40,
+                            right: width / 40,
+                            top: height / 80),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '$title',
+                                style: TextStyle(
+                                    fontFamily: principalFontFamily,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: width / 40,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
                               ),
-                            ],
-                          ),
+                            ),
+                            Icon(
+                                Icons.verified,
+                                color: Color.fromARGB(255, 37, 212, 224),
+                                size: width / 15,
+                              ),
+                          ],
                         ),
+                      ),
 
-                        //2. Certificate description
-                        Container(
-                          //color: const Color.fromARGB(255, 7, 255, 40),
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(
-                              left: width / 40,
-                              right: width / 40,
-                              top: height / 200,
-                              bottom: height / 200),
-                          child: Text(
-                            '$description',
-                            style: TextStyle(
-                                fontFamily: principalFontFamily,
-                                fontSize: width / 80,
-                                color: primaryBlack),
-                          ),
-                        ),
-
-                        //2. Certificate labels
-                        Container(
-                          //color: const Color.fromARGB(255, 7, 143, 255),
-                          width: width / 1,
-                          padding: EdgeInsets.only(
+                      //2. Certificate description
+                      Container(
+                        //color: const Color.fromARGB(255, 7, 255, 40),
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(
                             left: width / 40,
                             right: width / 40,
                             top: height / 200,
-                            bottom: height / 40,
-                          ),
-                          child: Wrap(
-                            alignment: WrapAlignment.start,
-                            spacing: width / 100,
-                            runSpacing: height / 100,
-                            children: List.generate(
-                              labels.length,
-                              (index) {
-                                var project = labels[index];
-                                return Chip(
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 243, 243, 243),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        borderRadiusPrimary),
-                                    side: const BorderSide(
-                                        width: 1.5,
-                                        strokeAlign: 2,
-                                        color: primaryBlack),
-                                  ),
-                                  label: Text(
-                                    project,
-                                    style: TextStyle(
-                                        fontFamily: principalFontFamily,
-                                        color: primaryBlack,
-                                        fontSize: width / 80),
-                                  ),
-                                );
-                              },
-                            ),
+                            bottom: height / 200),
+                        child: Text(
+                          '$description',
+                          style: TextStyle(
+                              fontFamily: principalFontFamily,
+                              fontSize: width / 80,
+                              color: primaryBlack),
+                        ),
+                      ),
+
+                      //2. Certificate labels
+                      Container(
+                        //color: const Color.fromARGB(255, 7, 143, 255),
+                        width: width / 1,
+                        padding: EdgeInsets.only(
+                          left: width / 40,
+                          right: width / 40,
+                          top: height / 200,
+                          bottom: height / 40,
+                        ),
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          spacing: width / 100,
+                          runSpacing: height / 100,
+                          children: List.generate(
+                            labels.length,
+                            (index) {
+                              var project = labels[index];
+                              return Chip(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 243, 243, 243),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      borderRadiusPrimary),
+                                  side: const BorderSide(
+                                      width: 1.5,
+                                      strokeAlign: 2,
+                                      color: primaryBlack),
+                                ),
+                                label: Text(
+                                  project,
+                                  style: TextStyle(
+                                      fontFamily: principalFontFamily,
+                                      color: primaryBlack,
+                                      fontSize: width / 80),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                      ],
-                    ),
-                  ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -241,14 +241,14 @@ class MobileState extends State<Mobile> {
         color: Colors.transparent,
         height: Responsive(context: context).getDeviceHeight() / 10,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
                 width: Responsive(context: context).getDeviceWidth() *
                     sizedBoxWidth),
             buildBottomAppBarButton(
               label: 'Inicio',
-              iconSelected: const Icon(Icons.home_filled, size: 20),
+              iconSelected: Icons.home_filled,
               onPressed: () {
                 scrollTo(globalKeyInitialInformation);
                 buttonSelected('Inicio');
@@ -257,7 +257,7 @@ class MobileState extends State<Mobile> {
             ),
             buildBottomAppBarButton(
               label: 'Proyectos',
-              iconSelected: const Icon(Icons.handyman_rounded, size: 20),
+              iconSelected: Icons.handyman_rounded,
               onPressed: () {
                 scrollTo(globalKeyProjectBoard);
                 buttonSelected('Proyectos');
@@ -266,7 +266,7 @@ class MobileState extends State<Mobile> {
             ),
             buildBottomAppBarButton(
               label: 'Sobre mi',
-              iconSelected: const Icon(Icons.person, size: 20),
+              iconSelected: Icons.person,
               onPressed: () {
                 scrollTo(globalKeyAboutMe);
                 buttonSelected('Sobre mi');
@@ -275,7 +275,7 @@ class MobileState extends State<Mobile> {
             ),
             buildBottomAppBarButton(
               label: 'Certificados',
-              iconSelected: const Icon(Icons.verified, size: 20),
+              iconSelected: Icons.verified,
               onPressed: () {
                 scrollTo(globalKeyCertificatesBoard);
                 buttonSelected('Certificados');
@@ -292,7 +292,7 @@ class MobileState extends State<Mobile> {
   }
 
   InkWell buildBottomAppBarButton({
-    required Icon iconSelected,
+    required IconData iconSelected,
     required String label,
     required VoidCallback onPressed,
     required bool isSelected,
@@ -323,7 +323,13 @@ class MobileState extends State<Mobile> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              iconSelected,
+              Icon(
+                iconSelected,
+                size: 20,
+                color: isSelected
+                      ? primaryBlack
+                      : Theme.of(context).colorScheme.onPrimary,
+              ),
               Text(
                 label,
                 style: TextStyle(

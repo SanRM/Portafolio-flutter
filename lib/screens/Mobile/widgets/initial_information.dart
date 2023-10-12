@@ -1,11 +1,16 @@
 // ignore: file_names
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:pdf/widgets.dart' as pw;
+import 'package:universal_html/html.dart' as html;
 
 GlobalKey globalKeyInitialInformation = GlobalKey();
 
@@ -84,7 +89,7 @@ class InitialInformationState extends State<InitialInformation> {
               style: TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontFamily: principalFontFamily,
-                  fontSize: widget.width / 10,
+                  fontSize: widget.height / 20,
                   color: Theme.of(context).colorScheme.secondary),
             ),
           ),
@@ -103,30 +108,35 @@ class InitialInformationState extends State<InitialInformation> {
                   color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
-          // Padding(
-          //   padding: EdgeInsets.only(top: widget.height / 80),
-          //   child: FilledButton.icon(
-          //       style: ButtonStyle(
-          //         backgroundColor: MaterialStatePropertyAll(
-          //           Color.fromARGB(255, 32, 231, 238),
-          //         ),
-          //       ),
-          //       onPressed: () {},
-          //       icon: Icon(Icons.download),
-          //       label: Container(
-          //         padding: EdgeInsets.all(widget.height / 100),
-          //         width: widget.width / 3,
-          //         alignment: Alignment.center,
-          //         child: Text(
-          //           'Descargar CV',
-          //           style: TextStyle(
-          //               fontFamily: principalFontFamily,
-          //               color: primaryBlack,
-          //               fontWeight: FontWeight.bold,
-          //               fontSize: widget.height / 50),
-          //         ),
-          //       )),
-          // ),
+          Padding(
+            padding: EdgeInsets.only(top: widget.height / 80),
+            child: FilledButton.icon(
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  Color.fromARGB(255, 32, 231, 238),
+                ),
+              ),
+              onPressed: () async {
+                
+                
+
+              },
+              icon: Icon(Icons.download, color: primaryBlack),
+              label: Container(
+                padding: EdgeInsets.all(widget.height / 100),
+                width: widget.width / 3,
+                alignment: Alignment.center,
+                child: Text(
+                  'Descargar CV',
+                  style: TextStyle(
+                      fontFamily: principalFontFamily,
+                      color: primaryBlack,
+                      fontWeight: FontWeight.bold,
+                      fontSize: widget.height / 50),
+                ),
+              ),
+            ),
+          ),
           Container(
             padding: EdgeInsets.only(
                 bottom: widget.height / 40, top: widget.height / 40),
