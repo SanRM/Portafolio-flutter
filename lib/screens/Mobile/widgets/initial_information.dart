@@ -1,16 +1,12 @@
 // ignore: file_names
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:portafolio/services/firebase_service.dart';
+import 'package:portafolio/services/pdf_service.dart';
 import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'package:pdf/widgets.dart' as pw;
-import 'package:universal_html/html.dart' as html;
 
 GlobalKey globalKeyInitialInformation = GlobalKey();
 
@@ -39,8 +35,24 @@ class InitialInformationState extends State<InitialInformation> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
+            alignment: Alignment.center,
+            //color: Color.fromARGB(255, 255, 121, 255),
+            //height: widget.height / 20,
+            child: Text(
+              'PORTAFOLIO',
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  letterSpacing: 3,
+                  fontFamily: principalFontFamily,
+                  fontSize: widget.width / 15,
+                  color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
+          Container(
             //margin: const EdgeInsets.all(15),
-            height: widget.height / 5,
+            height: widget.height / 4,
             width: widget.width,
             //color: Color.fromARGB(255, 54, 216, 244),
             child: FutureBuilder(
@@ -61,24 +73,8 @@ class InitialInformationState extends State<InitialInformation> {
             ),
           ),
           Container(
-            alignment: Alignment.center,
-            //color: Color.fromARGB(255, 255, 121, 255),
-            //height: widget.height / 20,
-            child: Text(
-              'PORTAFOLIO',
-              textAlign: TextAlign.center,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  letterSpacing: 10,
-                  fontFamily: principalFontFamily,
-                  fontSize: widget.width / 15,
-                  color: Theme.of(context).colorScheme.onPrimary),
-            ),
-          ),
-          Container(
             //color: Colors.amber,
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
             alignment: Alignment.center,
             //height: widget.height / 6,
             child: GradientText(
@@ -89,7 +85,7 @@ class InitialInformationState extends State<InitialInformation> {
               style: TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontFamily: principalFontFamily,
-                  fontSize: widget.height / 20,
+                  fontSize: widget.height / 25,
                   color: Theme.of(context).colorScheme.secondary),
             ),
           ),
@@ -109,30 +105,31 @@ class InitialInformationState extends State<InitialInformation> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: widget.height / 80),
+            padding: EdgeInsets.only(
+              left: widget.width / 6,
+              right: widget.width / 6,
+            ),
             child: FilledButton.icon(
-              style: ButtonStyle(
+              style: const ButtonStyle(
+                //side: MaterialStatePropertyAll(BorderSide(width: 1, color: Color.fromARGB(255, 44, 187, 192))),
                 backgroundColor: MaterialStatePropertyAll(
                   Color.fromARGB(255, 32, 231, 238),
                 ),
               ),
               onPressed: () async {
-                
-                
-
+                PDF().createPDF(saveMethod: 'mobile');
               },
-              icon: Icon(Icons.download, color: primaryBlack),
+              icon: const Icon(Icons.file_download_outlined, color: primaryBlack),
               label: Container(
                 padding: EdgeInsets.all(widget.height / 100),
-                width: widget.width / 3,
                 alignment: Alignment.center,
                 child: Text(
-                  'Descargar CV',
+                  'Descargar hoja de vida',
                   style: TextStyle(
                       fontFamily: principalFontFamily,
                       color: primaryBlack,
                       fontWeight: FontWeight.bold,
-                      fontSize: widget.height / 50),
+                      fontSize: widget.height / 55),
                 ),
               ),
             ),
@@ -161,7 +158,7 @@ class InitialInformationState extends State<InitialInformation> {
                     },
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: const Color.fromRGBO(47, 59, 82, 1),
@@ -185,7 +182,7 @@ class InitialInformationState extends State<InitialInformation> {
                     },
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color.fromRGBO(1, 120, 180, 1),

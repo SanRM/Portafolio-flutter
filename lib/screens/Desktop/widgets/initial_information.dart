@@ -94,7 +94,7 @@ class InitialInformation extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                      PDF().createPDF();
+                      PDF().createPDF(saveMethod: 'web');
                     },
                     icon: Icon(
                       Icons.download,

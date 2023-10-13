@@ -1,29 +1,30 @@
+import 'dart:io';
+
+import 'package:open_filex/open_filex.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:universal_html/html.dart' as html;
 
 class PDF {
-  getHabilidades() async {
-    List? habilidades;
-    habilidades = await getSection('Sección de habilidades');
-    return habilidades;
+  getSobreMi() async {
+    List? sobreMi = await getSection('Sección de habilidades');
+    return sobreMi;
   }
 
   getProyectos() async {
-    List? proyectos;
-    proyectos = await getSection('Lista de proyectos');
+    List? proyectos = await getSection('Lista de proyectos');
     return proyectos;
   }
 
   getCertificados() async {
-    List? certificados;
-    certificados = await getSection('Certificados');
+    List? certificados = await getSection('Certificados');
     return certificados;
   }
 
-  Future<void> createPDF() async {
-    List? sobreMi = await getHabilidades();
+  Future<void> createPDF({required String saveMethod}) async {
+    List? sobreMi = await getSobreMi();
     List? proyectos = await getProyectos();
     List? certificados = await getCertificados();
 
@@ -154,14 +155,63 @@ class PDF {
     );
 
     widgets.add(
+      pw.Container(
+        color: PdfColors.grey50,
+        child: pw.Text(
+          '$descripcion',
+          style: const pw.TextStyle(
+            fontSize: 12,
+            color: PdfColors.grey900,
+          ),
+        ),
+      ),
+    );
+
+    widgets.add(
       pw.Text(
-        '$descripcion',
+        '\nCuento con habilidades y conocimientos en:',
         style: const pw.TextStyle(
           fontSize: 12,
           color: PdfColors.grey900,
         ),
       ),
     );
+
+    List<pw.Widget> insigniasWidgets = [];
+
+    for (var i = 0; i < sobreMi?[0]['Insignias'].length; i++) {
+      //print(sobreMi?[0]['Insignias'][i]);
+
+      String insignia = sobreMi?[0]['Insignias'][i]['nombre'];
+
+      //print(insignia.length);
+
+      if (insignia != '') {
+        insigniasWidgets.add(
+          pw.Container(
+            //color: PdfColors.red,
+            child: pw.Text(
+              '\n· $insignia',
+              style: const pw.TextStyle(
+                //decoration: pw.TextDecoration.underline,
+                fontSize: 12,
+                color: PdfColors.grey900,
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+    widgets.add(
+      pw.Wrap(
+        runSpacing: 10,
+        spacing: 10,
+        children: insigniasWidgets,
+      ),
+    );
+
+    //print(insignias);
 
     //6. PROYECTOS
 
@@ -247,8 +297,8 @@ class PDF {
       if (projectLabels!.length != 0) {
         projectLabelsWidgets.add(
           pw.Text(
-            'Tecnologias usadas para realizar este proyecto:',
-            style: pw.TextStyle(
+            'Tecnologías usadas para realizar este proyecto:',
+            style: const pw.TextStyle(
               fontSize: 11,
               color: PdfColors.grey900,
             ),
@@ -314,7 +364,7 @@ class PDF {
 
     widgets.add(
       pw.Text(
-        'CERTIFICADOS',
+        'EDUCACIÓN & CERTIFICADOS',
         style: pw.TextStyle(
           fontSize: 15,
           fontWeight: pw.FontWeight.bold,
@@ -325,83 +375,105 @@ class PDF {
     widgets.add(divider);
 
     List<pw.Widget> certificadosWidgets = [];
-    List<pw.Widget> certificadosLabelsWidgets = [];
-
 
     for (var i = 0; i < certificados!.length; i++) {
-      
-        certificadosWidgets.add(
+      List<pw.Widget> certificadosLabelsWidgets = [];
+
+      for (var n = 0; n < certificados[i]['labels'].length; n++) {
+        certificadosLabelsWidgets.add(
           pw.Container(
             decoration: const pw.BoxDecoration(
-              color: PdfColors.cyan50,
+              //border: pw.Border.all(color: PdfColors.black),
+              color: PdfColors.lightBlue100,
               borderRadius: pw.BorderRadius.all(pw.Radius.circular(6)),
             ),
-            margin: const pw.EdgeInsets.only(top: 10),
-            padding: const pw.EdgeInsets.fromLTRB(15, 5, 15, 5),
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Text(
-                  '${certificados[i]['title']}',
-                  style: pw.TextStyle(
-                    fontSize: 13,
-                    color: PdfColors.grey900,
-                    fontWeight: pw.FontWeight.bold,
-                  ),
-                ),
-                pw.Text(
-                  '${certificados[i]['description']}',
-                  style: const pw.TextStyle(
-                    fontSize: 11,
-                    color: PdfColors.grey900,
-                  ),
-                ),
-                pw.Row(
-                  children: certificadosLabelsWidgets,
-                ),
-              ],
+            margin: pw.EdgeInsets.only(right: 5),
+            padding: const pw.EdgeInsets.fromLTRB(5, 2, 5, 2),
+            child: pw.Text(
+              '${certificados[i]['labels'][n]}',
+              style: pw.TextStyle(
+                fontSize: 9,
+                color: PdfColors.grey900,
+                fontWeight: pw.FontWeight.bold,
+              ),
             ),
           ),
         );
+      }
 
-        certificadosWidgets.add(
-          pw.SizedBox(
-            height: 5,
+      certificadosWidgets.add(
+        pw.Container(
+          decoration: const pw.BoxDecoration(
+            color: PdfColors.blue50,
+            borderRadius: pw.BorderRadius.all(pw.Radius.circular(6)),
           ),
-        );
-        
-      print(certificados[i]['labels']);
-
-      if (certificados[i] != 0) {
-        
-        for (var i = 0; i < certificados[i]['labels'].length; i++) {
-          certificadosWidgets.add(
-            pw.Container(
-              decoration: pw.BoxDecoration(
-                color: PdfColors.cyan100,
-                borderRadius: pw.BorderRadius.all(pw.Radius.circular(11)),
+          margin: const pw.EdgeInsets.only(top: 10),
+          padding: const pw.EdgeInsets.fromLTRB(15, 10, 15, 10),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Expanded(
+                    child: pw.Text(
+                      '${certificados[i]['title']}',
+                      style: pw.TextStyle(
+                        fontSize: 13,
+                        color: PdfColors.grey900,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  pw.Row(
+                    children: certificadosLabelsWidgets,
+                  ),
+                ],
               ),
-              margin: pw.EdgeInsets.only(right: 10),
-              padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
-              child: pw.Text(
-                '${certificados[i]['labels'][0]}',
-                style: pw.TextStyle(
-                  fontWeight: pw.FontWeight.bold,
+              pw.SizedBox(
+                height: 5,
+              ),
+              pw.Text(
+                '${certificados[i]['description']}',
+                style: const pw.TextStyle(
                   fontSize: 11,
                   color: PdfColors.grey900,
                 ),
               ),
-            ),
-          );
-        }
-
-      }
+              pw.SizedBox(
+                height: 5,
+              ),
+              certificados[i]['Url'] != ''
+                  ? pw.Container(
+                      decoration: const pw.BoxDecoration(
+                        color: PdfColors.blue100,
+                        borderRadius:
+                            pw.BorderRadius.all(pw.Radius.circular(11)),
+                      ),
+                      margin: pw.EdgeInsets.only(right: 10),
+                      padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
+                      child: pw.UrlLink(
+                        destination: '${certificados[i]['url']}',
+                        child: pw.Text(
+                          'Ver certificado digital',
+                          style: pw.TextStyle(
+                            fontWeight: pw.FontWeight.bold,
+                            fontSize: 11,
+                            color: PdfColors.grey900,
+                          ),
+                        ),
+                      ),
+                    )
+                  : pw.Container()
+            ],
+          ),
+        ),
+      );
     }
 
     widgets.add(
       pw.Wrap(
-        spacing: 7,
-        runSpacing: 7,
+        spacing: 15,
         children: certificadosWidgets,
       ),
     );
@@ -433,7 +505,7 @@ class PDF {
             alignment: pw.Alignment.centerRight,
             margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
             child: pw.Text(
-              'Página ${context.pageNumber} de ${context.pagesCount}',
+              '${context.pageNumber} / ${context.pagesCount}',
               style: pw.Theme.of(context).defaultTextStyle.copyWith(
                     color: PdfColors.grey800,
                     fontSize: 10,
@@ -446,14 +518,37 @@ class PDF {
 
     final bytes = await pdf.save();
 
-    final blob = html.Blob([bytes]);
-    final url = html.Url.createObjectUrlFromBlob(blob);
+    switch (saveMethod) {
+      case 'web':
+        final blob = html.Blob([bytes]);
+        final url = html.Url.createObjectUrlFromBlob(blob);
 
-    html.AnchorElement(href: url)
-      ..target = '_blank'
-      ..download = 'example.pdf' // Nombre del archivo
-      ..click();
+        html.AnchorElement(href: url)
+          ..target = '_blank'
+          ..download =
+              'Hoja de vida - Santiago Rodriguez Morales.pdf' // Nombre del archivo
+          ..click();
 
-    html.Url.revokeObjectUrl(url);
+        html.Url.revokeObjectUrl(url);
+        break;
+
+      case 'mobile':
+        try {
+          final Dir = await getDownloadsDirectory();
+          final filePath = '${Dir!.path}/Hoja de vida - Santiago Rodriguez Morales.pdf';
+          final file = File(filePath);
+
+          await file.writeAsBytes(bytes);
+
+          print('ruta: $filePath');
+
+          await OpenFilex.open(filePath);
+
+          print('Archivo guardado correctamente en $filePath');
+        } catch (e) {
+          print('Error al abrir el archivo: $e');
+        }
+        break;
+    }
   }
 }
