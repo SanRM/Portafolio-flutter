@@ -89,7 +89,7 @@ class InitialInformation extends StatelessWidget {
                       top: height / 80,
                       bottom: height / 20),
                   child: FilledButton.icon(
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                         Color.fromARGB(255, 32, 231, 238),
                       ),

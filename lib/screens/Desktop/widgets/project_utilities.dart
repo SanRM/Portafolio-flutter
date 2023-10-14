@@ -136,7 +136,7 @@ class _ProjectManagerState extends State<ProjectManager> {
     });
   }
 
-  Color projectHoverColor = Color.fromARGB(255, 8, 8, 8);
+  Color projectHoverColor = const Color.fromARGB(255, 8, 8, 8);
   bool projectIsHover = false;
 
   @override
@@ -346,7 +346,7 @@ class _ProjectManagerState extends State<ProjectManager> {
           if (value == true) {
             projectHoverColor = cardColor;
           } else {
-            projectHoverColor = Color.fromARGB(255, 8, 8, 8);
+            projectHoverColor = const Color.fromARGB(255, 8, 8, 8);
           }
         },
       );
@@ -373,7 +373,7 @@ class _ProjectManagerState extends State<ProjectManager> {
               BoxShadow(
                 color: projectHoverColor,
                 blurRadius: projectIsHover == true ? 0 : 5,
-                offset: Offset(7, 7), // Shadow position
+                offset: const Offset(7, 7), // Shadow position
               ),
             ],
           ),

@@ -70,11 +70,11 @@ class PDF {
       pw.Row(
         children: [
           pw.Container(
-            decoration: pw.BoxDecoration(
+            decoration: const pw.BoxDecoration(
               color: PdfColors.blue100,
               borderRadius: pw.BorderRadius.all(pw.Radius.circular(11)),
             ),
-            margin: pw.EdgeInsets.only(right: 10),
+            margin: const pw.EdgeInsets.only(right: 10),
             padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
             child: pw.UrlLink(
               destination: 'https://github.com/SanRM',
@@ -89,11 +89,11 @@ class PDF {
             ),
           ),
           pw.Container(
-            decoration: pw.BoxDecoration(
+            decoration: const pw.BoxDecoration(
               color: PdfColors.purple100,
               borderRadius: pw.BorderRadius.all(pw.Radius.circular(11)),
             ),
-            margin: pw.EdgeInsets.only(right: 10),
+            margin: const pw.EdgeInsets.only(right: 10),
             padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
             child: pw.UrlLink(
               destination:
@@ -109,11 +109,11 @@ class PDF {
             ),
           ),
           pw.Container(
-            decoration: pw.BoxDecoration(
+            decoration: const pw.BoxDecoration(
               color: PdfColors.pink100,
               borderRadius: pw.BorderRadius.all(pw.Radius.circular(11)),
             ),
-            margin: pw.EdgeInsets.only(right: 10),
+            margin: const pw.EdgeInsets.only(right: 10),
             padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
             child: pw.Text(
               'Santiagoromom@hotmail.com',
@@ -294,7 +294,7 @@ class PDF {
         ),
       );
 
-      if (projectLabels!.length != 0) {
+      if (projectLabels!.isNotEmpty) {
         projectLabelsWidgets.add(
           pw.Text(
             'Tecnologías usadas para realizar este proyecto:',
@@ -307,15 +307,15 @@ class PDF {
       }
 
       for (var i = 0; i < projectLabels.length; i++) {
-        if (projectLabels.length != 0) {
+        if (projectLabels.isNotEmpty) {
           projectLabelsWidgets.add(
             pw.Container(
-              decoration: pw.BoxDecoration(
+              decoration: const pw.BoxDecoration(
                 //border: pw.Border.all(color: PdfColors.black),
                 color: PdfColors.blue100,
                 borderRadius: pw.BorderRadius.all(pw.Radius.circular(6)),
               ),
-              margin: pw.EdgeInsets.symmetric(horizontal: 3),
+              margin: const pw.EdgeInsets.symmetric(horizontal: 3),
               padding: const pw.EdgeInsets.fromLTRB(2, 2, 2, 2),
               child: pw.Text(
                 ' ${projectLabels[i]} ',
@@ -333,11 +333,11 @@ class PDF {
         if (projectLinks[i] != 0) {
           projectLinksWidgets.add(
             pw.Container(
-              decoration: pw.BoxDecoration(
+              decoration: const pw.BoxDecoration(
                 color: PdfColors.cyan100,
                 borderRadius: pw.BorderRadius.all(pw.Radius.circular(11)),
               ),
-              margin: pw.EdgeInsets.only(right: 10),
+              margin: const pw.EdgeInsets.only(right: 10),
               padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
               child: pw.UrlLink(
                 destination: '${projectLinks[i]['url']}',
@@ -387,7 +387,7 @@ class PDF {
               color: PdfColors.lightBlue100,
               borderRadius: pw.BorderRadius.all(pw.Radius.circular(6)),
             ),
-            margin: pw.EdgeInsets.only(right: 5),
+            margin: const pw.EdgeInsets.only(right: 5),
             padding: const pw.EdgeInsets.fromLTRB(5, 2, 5, 2),
             child: pw.Text(
               '${certificados[i]['labels'][n]}',
@@ -450,7 +450,7 @@ class PDF {
                         borderRadius:
                             pw.BorderRadius.all(pw.Radius.circular(11)),
                       ),
-                      margin: pw.EdgeInsets.only(right: 10),
+                      margin: const pw.EdgeInsets.only(right: 10),
                       padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
                       child: pw.UrlLink(
                         destination: '${certificados[i]['url']}',
@@ -534,19 +534,19 @@ class PDF {
 
       case 'mobile':
         try {
-          final Dir = await getDownloadsDirectory();
-          final filePath = '${Dir!.path}/Hoja de vida - Santiago Rodriguez Morales.pdf';
+          final dir = await getDownloadsDirectory();
+          final filePath = '${dir!.path}/Hoja de vida - Santiago Rodriguez Morales.pdf';
           final file = File(filePath);
 
           await file.writeAsBytes(bytes);
 
-          print('ruta: $filePath');
+          //print('ruta: $filePath');
 
           await OpenFilex.open(filePath);
 
-          print('Archivo guardado correctamente en $filePath');
+          //print('Archivo guardado correctamente en $filePath');
         } catch (e) {
-          print('Error al abrir el archivo: $e');
+          //print('Error al abrir el archivo: $e');
         }
         break;
     }

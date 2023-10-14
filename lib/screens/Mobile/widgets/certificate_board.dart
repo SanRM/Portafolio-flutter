@@ -143,7 +143,7 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                                   child: Icon(
                                     Icons.filter_alt_rounded,
                                     size: widget.width / 15,
-                                    color: Color.fromARGB(255, 167, 250, 253),
+                                    color: const Color.fromARGB(255, 167, 250, 253),
                                   ),
                                 ),
                                 Expanded(
@@ -295,7 +295,7 @@ class _CertificatesBoardState extends State<CertificatesBoard> {
                                   Icon(
                                     Icons.star_rate_rounded,
                                     size: widget.width / 15,
-                                    color: Color.fromARGB(255, 255, 125, 147),
+                                    color: const Color.fromARGB(255, 255, 125, 147),
                                   ),
                                   Expanded(
                                     child: Padding(

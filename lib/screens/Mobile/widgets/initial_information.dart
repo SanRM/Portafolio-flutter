@@ -29,7 +29,7 @@ class InitialInformationState extends State<InitialInformation> {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return SizedBox(
       key: globalKeyInitialInformation,
       height: widget.height - (widget.height / 5),
       //color: Colors.red,
@@ -52,7 +52,7 @@ class InitialInformationState extends State<InitialInformation> {
                   color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
-          Container(
+          SizedBox(
             //margin: const EdgeInsets.all(15),
             height: widget.height / 4,
             width: widget.width,

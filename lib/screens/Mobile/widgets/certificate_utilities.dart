@@ -111,7 +111,7 @@ class _CertificateManagerState extends State<CertificateManager> {
   final dynamic title;
   final dynamic url;
 
-  Color certificateColor = Color.fromARGB(255, 8, 8, 8);
+  Color certificateColor = const Color.fromARGB(255, 8, 8, 8);
   bool certificateIsHover = false;
 
   hoverColor(value) {
@@ -120,9 +120,9 @@ class _CertificateManagerState extends State<CertificateManager> {
         certificateIsHover = value;
 
         if (value == true) {
-          certificateColor = Color.fromARGB(255, 126, 236, 255);
+          certificateColor = const Color.fromARGB(255, 126, 236, 255);
         } else {
-          certificateColor = Color.fromARGB(255, 8, 8, 8);
+          certificateColor = const Color.fromARGB(255, 8, 8, 8);
         }
       },
     );
@@ -159,7 +159,7 @@ class _CertificateManagerState extends State<CertificateManager> {
                   BoxShadow(
                     color: certificateColor,
                     blurRadius: certificateIsHover == true ? 0 : 5,
-                    offset: Offset(7, 7), // Shadow position
+                    offset: const Offset(7, 7), // Shadow position
                   ),
                 ],
               ),
@@ -205,7 +205,7 @@ class _CertificateManagerState extends State<CertificateManager> {
                               ),
                               Icon(
                                 Icons.verified,
-                                color: Color.fromARGB(255, 37, 212, 224),
+                                color: const Color.fromARGB(255, 37, 212, 224),
                                 size: width / 5,
                               ),
                             ],
