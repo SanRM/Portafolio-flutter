@@ -7,6 +7,7 @@ import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 GlobalKey globalKeyInitialInformation = GlobalKey();
 
@@ -94,7 +95,11 @@ class InitialInformation extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                      PDF().createPDF(saveMethod: 'web');
+                      if (kIsWeb) {
+                        PDF().createPDF(saveMethod: 'web');
+                      } else {
+                        PDF().createPDF(saveMethod: 'mobile');
+                      }
                     },
                     icon: Icon(
                       Icons.download,

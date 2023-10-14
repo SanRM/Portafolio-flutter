@@ -29,43 +29,49 @@ class MobileState extends State<Mobile> {
   bool _backgroundColorSelected4 = false;
 
   scrollTo(widget) {
-    Scrollable.ensureVisible(widget.currentContext!,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOutCubicEmphasized);
+    Scrollable.ensureVisible(
+      widget.currentContext!,
+      duration: const Duration(
+        seconds: 1,
+      ),
+      curve: Curves.easeInOutCubicEmphasized,
+    );
   }
 
   buttonSelected(buttonName) {
-    setState(() {
-      switch (buttonName) {
-        case 'Inicio':
-          _backgroundColorSelected1 = true;
-          _backgroundColorSelected2 = false;
-          _backgroundColorSelected3 = false;
-          _backgroundColorSelected4 = false;
-          break;
+    setState(
+      () {
+        switch (buttonName) {
+          case 'Inicio':
+            _backgroundColorSelected1 = true;
+            _backgroundColorSelected2 = false;
+            _backgroundColorSelected3 = false;
+            _backgroundColorSelected4 = false;
+            break;
 
-        case 'Proyectos':
-          _backgroundColorSelected1 = false;
-          _backgroundColorSelected2 = true;
-          _backgroundColorSelected3 = false;
-          _backgroundColorSelected4 = false;
-          break;
+          case 'Proyectos':
+            _backgroundColorSelected1 = false;
+            _backgroundColorSelected2 = true;
+            _backgroundColorSelected3 = false;
+            _backgroundColorSelected4 = false;
+            break;
 
-        case 'Certificados':
-          _backgroundColorSelected1 = false;
-          _backgroundColorSelected2 = false;
-          _backgroundColorSelected4 = true;
-          _backgroundColorSelected3 = false;
-          break;
+          case 'Sobre mi':
+            _backgroundColorSelected1 = false;
+            _backgroundColorSelected2 = false;
+            _backgroundColorSelected4 = false;
+            _backgroundColorSelected3 = true;
+            break;
 
-        case 'Sobre mi':
-          _backgroundColorSelected1 = false;
-          _backgroundColorSelected2 = false;
-          _backgroundColorSelected4 = false;
-          _backgroundColorSelected3 = true;
-          break;
-      }
-    });
+          case 'Certificados':
+            _backgroundColorSelected1 = false;
+            _backgroundColorSelected2 = false;
+            _backgroundColorSelected4 = true;
+            _backgroundColorSelected3 = false;
+            break;
+        }
+      },
+    );
   }
 
   AppBar buildAppBar() {
@@ -189,13 +195,19 @@ class MobileState extends State<Mobile> {
           children: [
             Column(
               children: [
-                InitialInformation(width: width, height: height),
+                InitialInformation(
+                  width: width,
+                  height: height,
+                ),
                 FutureBuilder(
                   future: getSection("Lista de proyectos"),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ProjectBoard(
-                          snapshot: snapshot, width: width, height: height);
+                        snapshot: snapshot,
+                        width: width,
+                        height: height,
+                      );
                     } else {
                       return Padding(
                         padding: EdgeInsets.only(bottom: height / 20),
@@ -211,7 +223,10 @@ class MobileState extends State<Mobile> {
                     }
                   },
                 ),
-                AboutMe(width: width, height: height),
+                AboutMe(
+                  width: width,
+                  height: height,
+                ),
                 FutureBuilder(
                   future: getSection("Certificados"),
                   builder: (context, snapshot) {
@@ -244,14 +259,15 @@ class MobileState extends State<Mobile> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
-                width: Responsive(context: context).getDeviceWidth() *
-                    sizedBoxWidth),
+              width:
+                  Responsive(context: context).getDeviceWidth() * sizedBoxWidth,
+            ),
             buildBottomAppBarButton(
               label: 'Inicio',
               iconSelected: Icons.home_filled,
               onPressed: () {
-                scrollTo(globalKeyInitialInformation);
                 buttonSelected('Inicio');
+                scrollTo(globalKeyInitialInformation);
               },
               isSelected: _backgroundColorSelected1,
             ),
@@ -259,8 +275,8 @@ class MobileState extends State<Mobile> {
               label: 'Proyectos',
               iconSelected: Icons.handyman_rounded,
               onPressed: () {
-                scrollTo(globalKeyProjectBoard);
                 buttonSelected('Proyectos');
+                scrollTo(globalKeyProjectBoard);
               },
               isSelected: _backgroundColorSelected2,
             ),
@@ -268,8 +284,8 @@ class MobileState extends State<Mobile> {
               label: 'Sobre mi',
               iconSelected: Icons.person,
               onPressed: () {
-                scrollTo(globalKeyAboutMe);
                 buttonSelected('Sobre mi');
+                scrollTo(globalKeyAboutMe);
               },
               isSelected: _backgroundColorSelected3,
             ),
@@ -277,8 +293,8 @@ class MobileState extends State<Mobile> {
               label: 'Certificados',
               iconSelected: Icons.verified,
               onPressed: () {
-                scrollTo(globalKeyCertificatesBoard);
                 buttonSelected('Certificados');
+                scrollTo(globalKeyCertificatesBoard);
               },
               isSelected: _backgroundColorSelected4,
             ),
@@ -309,17 +325,6 @@ class MobileState extends State<Mobile> {
           padding: EdgeInsets.symmetric(
               horizontal: Responsive(context: context).getDeviceWidth() / 50),
           alignment: Alignment.center,
-          //height: Responsive(context: context).getDeviceHeight() / 20,
-          // child: Text(
-          //   label,
-          //   style: TextStyle(
-          //     fontFamily: principalFontFamily,
-          //     fontSize: Responsive(context: context).getDeviceWidth() / 25,
-          //     color: isSelected
-          //         ? primaryBlack
-          //         : Theme.of(context).colorScheme.onPrimary,
-          //   ),
-          // ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -327,8 +332,8 @@ class MobileState extends State<Mobile> {
                 iconSelected,
                 size: 20,
                 color: isSelected
-                      ? primaryBlack
-                      : Theme.of(context).colorScheme.onPrimary,
+                    ? primaryBlack
+                    : Theme.of(context).colorScheme.onPrimary,
               ),
               Text(
                 label,

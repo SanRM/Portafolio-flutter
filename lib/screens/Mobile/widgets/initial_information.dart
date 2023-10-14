@@ -7,6 +7,7 @@ import 'package:portafolio/styles/styles.dart';
 // ignore: depend_on_referenced_packages
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 GlobalKey globalKeyInitialInformation = GlobalKey();
 
@@ -27,6 +28,7 @@ class InitialInformation extends StatefulWidget {
 class InitialInformationState extends State<InitialInformation> {
   @override
   Widget build(BuildContext context) {
+
     return Container(
       key: globalKeyInitialInformation,
       height: widget.height - (widget.height / 5),
@@ -117,9 +119,14 @@ class InitialInformationState extends State<InitialInformation> {
                 ),
               ),
               onPressed: () async {
-                PDF().createPDF(saveMethod: 'mobile');
+                if (kIsWeb) {
+                  PDF().createPDF(saveMethod: 'web');
+                } else {
+                  PDF().createPDF(saveMethod: 'mobile');
+                }
               },
-              icon: const Icon(Icons.file_download_outlined, color: primaryBlack),
+              icon:
+                  const Icon(Icons.file_download_outlined, color: primaryBlack),
               label: Container(
                 padding: EdgeInsets.all(widget.height / 100),
                 alignment: Alignment.center,

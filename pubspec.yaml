@@ -51,6 +51,8 @@ dependencies:
   
   url_launcher: ^6.1.12
 
+  visibility_detector: ^0.4.0+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
