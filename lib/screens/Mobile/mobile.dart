@@ -22,11 +22,7 @@ class Mobile extends StatefulWidget {
 
 class MobileState extends State<Mobile> {
   final ScrollController _scrollController = ScrollController();
-
-  bool _backgroundColorSelected1 = true;
-  bool _backgroundColorSelected2 = false;
-  bool _backgroundColorSelected3 = false;
-  bool _backgroundColorSelected4 = false;
+  int selectedIndex = 0;
 
   scrollTo(widget) {
     Scrollable.ensureVisible(
@@ -35,42 +31,6 @@ class MobileState extends State<Mobile> {
         seconds: 1,
       ),
       curve: Curves.easeInOutCubicEmphasized,
-    );
-  }
-
-  buttonSelected(buttonName) {
-    setState(
-      () {
-        switch (buttonName) {
-          case 'Inicio':
-            _backgroundColorSelected1 = true;
-            _backgroundColorSelected2 = false;
-            _backgroundColorSelected3 = false;
-            _backgroundColorSelected4 = false;
-            break;
-
-          case 'Proyectos':
-            _backgroundColorSelected1 = false;
-            _backgroundColorSelected2 = true;
-            _backgroundColorSelected3 = false;
-            _backgroundColorSelected4 = false;
-            break;
-
-          case 'Sobre mi':
-            _backgroundColorSelected1 = false;
-            _backgroundColorSelected2 = false;
-            _backgroundColorSelected4 = false;
-            _backgroundColorSelected3 = true;
-            break;
-
-          case 'Certificados':
-            _backgroundColorSelected1 = false;
-            _backgroundColorSelected2 = false;
-            _backgroundColorSelected4 = true;
-            _backgroundColorSelected3 = false;
-            break;
-        }
-      },
     );
   }
 
@@ -252,56 +212,57 @@ class MobileState extends State<Mobile> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        height: Responsive(context: context).getDeviceHeight() / 10,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              width:
-                  Responsive(context: context).getDeviceWidth() * sizedBoxWidth,
-            ),
-            buildBottomAppBarButton(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          selectedFontSize: 15,
+          unselectedFontSize: 12,
+          iconSize: 30,
+          currentIndex: selectedIndex,
+          elevation: 0,
+          unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
+          selectedItemColor: Theme.of(context).colorScheme.onSurface,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_filled),
               label: 'Inicio',
-              iconSelected: Icons.home_filled,
-              onPressed: () {
-                buttonSelected('Inicio');
-                scrollTo(globalKeyInitialInformation);
-              },
-              isSelected: _backgroundColorSelected1,
             ),
-            buildBottomAppBarButton(
+            BottomNavigationBarItem(
+              icon: Icon(Icons.handyman_rounded),
               label: 'Proyectos',
-              iconSelected: Icons.handyman_rounded,
-              onPressed: () {
-                buttonSelected('Proyectos');
-                scrollTo(globalKeyProjectBoard);
-              },
-              isSelected: _backgroundColorSelected2,
             ),
-            buildBottomAppBarButton(
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
               label: 'Sobre mi',
-              iconSelected: Icons.person,
-              onPressed: () {
-                buttonSelected('Sobre mi');
-                scrollTo(globalKeyAboutMe);
-              },
-              isSelected: _backgroundColorSelected3,
             ),
-            buildBottomAppBarButton(
+            BottomNavigationBarItem(
+              icon: Icon(Icons.verified),
               label: 'Certificados',
-              iconSelected: Icons.verified,
-              onPressed: () {
-                buttonSelected('Certificados');
-                scrollTo(globalKeyCertificatesBoard);
-              },
-              isSelected: _backgroundColorSelected4,
             ),
-            SizedBox(
-                width: Responsive(context: context).getDeviceWidth() *
-                    sizedBoxWidth)
           ],
+          onTap: (int newIndex) {
+            setState(
+              () {
+                selectedIndex = newIndex;
+              },
+            );
+            switch (selectedIndex) {
+              case 0:
+                scrollTo(globalKeyInitialInformation);
+                break;
+              case 1:
+                scrollTo(globalKeyProjectBoard);
+                break;
+              case 2:
+                scrollTo(globalKeyAboutMe);
+                break;
+              case 3:
+                scrollTo(globalKeyCertificatesBoard);
+                break;
+            }
+          },
         ),
       ),
     );

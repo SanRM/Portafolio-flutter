@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart';
 import 'package:portafolio/services/firebase_service.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:universal_html/html.dart' as html;
@@ -24,6 +26,7 @@ class PDF {
   }
 
   Future<void> createPDF({required String saveMethod}) async {
+
     List? sobreMi = await getSobreMi();
     List? proyectos = await getProyectos();
     List? certificados = await getCertificados();
@@ -130,7 +133,7 @@ class PDF {
 
     widgets.add(
       pw.SizedBox(
-        height: 30,
+        height: 25,
       ),
     );
 
@@ -168,13 +171,41 @@ class PDF {
     );
 
     widgets.add(
+      pw.SizedBox(
+        height: 25,
+      ),
+    );
+
+    widgets.add(
       pw.Text(
-        '\nCuento con habilidades y conocimientos en:',
-        style: const pw.TextStyle(
-          fontSize: 12,
-          color: PdfColors.grey900,
+        'HABILIDADES',
+        style: pw.TextStyle(
+          fontSize: 15,
+          fontWeight: pw.FontWeight.bold,
         ),
       ),
+    );
+
+    widgets.add(divider);
+
+    widgets.add(
+      pw.SizedBox(
+        height: 5,
+      ),
+    );
+
+    widgets.add(
+      pw.Container(
+        color: PdfColors.grey50,
+        child: pw.Text(
+          'Cuento con habilidades y conocimientos en:',
+          style: const pw.TextStyle(
+            fontSize: 12,
+            color: PdfColors.grey900,
+          ),
+        ),
+      ),
+     
     );
 
     List<pw.Widget> insigniasWidgets = [];
@@ -205,7 +236,7 @@ class PDF {
 
     widgets.add(
       pw.Wrap(
-        runSpacing: 10,
+        runSpacing: 0,
         spacing: 10,
         children: insigniasWidgets,
       ),
@@ -217,7 +248,7 @@ class PDF {
 
     widgets.add(
       pw.SizedBox(
-        height: 30,
+        height: 25,
       ),
     );
 
@@ -233,6 +264,8 @@ class PDF {
 
     widgets.add(divider);
 
+    List<pw.Widget> projectsWidgets = [];
+
     for (var i = 0; i < proyectos!.length; i++) {
       List<pw.Widget> projectLinksWidgets = [];
       List<pw.Widget> projectLabelsWidgets = [];
@@ -242,7 +275,7 @@ class PDF {
       List? projectLabels = proyectos[i]['projectLabels'];
       List? projectLinks = proyectos[i]['projectLinks'];
 
-      widgets.add(
+      projectsWidgets.add(
         pw.Container(
           decoration: const pw.BoxDecoration(
             color: PdfColors.cyan50,
@@ -357,8 +390,14 @@ class PDF {
     }
 
     widgets.add(
+      pw.Wrap(
+        children: projectsWidgets,
+      ),
+    );
+
+    widgets.add(
       pw.SizedBox(
-        height: 30,
+        height: 25,
       ),
     );
 
@@ -412,23 +451,24 @@ class PDF {
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
-                  pw.Expanded(
-                    child: pw.Text(
-                      '${certificados[i]['title']}',
-                      style: pw.TextStyle(
-                        fontSize: 13,
-                        color: PdfColors.grey900,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  pw.Row(
-                    children: certificadosLabelsWidgets,
-                  ),
-                ],
+              pw.SizedBox(
+                height: 10,
+              ),
+              pw.Text(
+                '${certificados[i]['title']}',
+                style: pw.TextStyle(
+                  fontSize: 13,
+                  color: PdfColors.grey900,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(
+                height: 5,
+              ),
+              pw.Wrap(
+                runSpacing: 5,
+                spacing: 5,
+                children: certificadosLabelsWidgets,
               ),
               pw.SizedBox(
                 height: 5,
@@ -453,9 +493,9 @@ class PDF {
                       margin: const pw.EdgeInsets.only(right: 10),
                       padding: const pw.EdgeInsets.fromLTRB(7, 5, 7, 5),
                       child: pw.UrlLink(
-                        destination: '${certificados[i]['url']}',
+                        destination: '${certificados[i]['Url']}',
                         child: pw.Text(
-                          'Ver certificado digital',
+                          'Ver certificados digitales',
                           style: pw.TextStyle(
                             fontWeight: pw.FontWeight.bold,
                             fontSize: 11,
@@ -464,7 +504,10 @@ class PDF {
                         ),
                       ),
                     )
-                  : pw.Container()
+                  : pw.Container(),
+              pw.SizedBox(
+                height: 10,
+              ),
             ],
           ),
         ),
@@ -480,6 +523,8 @@ class PDF {
 
     //pdf document
     final pdf = pw.Document(creator: 'Santiago Rodriguez Morales');
+    final fontFamily = Font.ttf(await rootBundle.load("assets/fonts/DMSans-Regular.ttf"));
+    final fontFamilyBold = Font.ttf(await rootBundle.load("assets/fonts/DMSans-Bold.ttf"));
 
     pdf.addPage(
       pw.MultiPage(
@@ -487,7 +532,7 @@ class PDF {
           if (context.pageNumber <= 1) {
             return pw.Center(
               child: pw.Text(
-                'Santiago Rodriguez Morales',
+                'SANTIAGO RODRIGUEZ MORALES',
                 style: pw.TextStyle(
                   fontSize: 20,
                   fontWeight: pw.FontWeight.bold,
@@ -499,11 +544,12 @@ class PDF {
           }
         },
         pageFormat: PdfPageFormat.a4,
+        theme: pw.ThemeData.withFont(base: fontFamily, bold: fontFamilyBold),
         build: (context) => widgets,
         footer: (pw.Context context) {
           return pw.Container(
             alignment: pw.Alignment.centerRight,
-            margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
+            margin: const pw.EdgeInsets.only(bottom: -10),
             child: pw.Text(
               '${context.pageNumber} / ${context.pagesCount}',
               style: pw.Theme.of(context).defaultTextStyle.copyWith(
@@ -535,7 +581,8 @@ class PDF {
       case 'mobile':
         try {
           final dir = await getDownloadsDirectory();
-          final filePath = '${dir!.path}/Hoja de vida - Santiago Rodriguez Morales.pdf';
+          final filePath =
+              '${dir!.path}/Hoja de vida - Santiago Rodriguez Morales.pdf';
           final file = File(filePath);
 
           await file.writeAsBytes(bytes);

@@ -98,6 +98,7 @@ flutter:
     - family: DMSans
       fonts:
         - asset: assets/fonts/DMSans-Regular.ttf
+        - asset: assets/fonts/DMSans-Bold.ttf
 
     # - family: Trajan Pro
     #   fonts:

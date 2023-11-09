@@ -141,7 +141,7 @@ class LightTheme {
       background: Color.fromRGBO(27, 33, 48, 100),
       onBackground: Color.fromRGBO(27, 33, 48, 100),
       surface: Color.fromARGB(255, 9, 224, 81),
-      onSurface: Color.fromRGBO(0, 77, 112, 100),
+      onSurface: Color.fromRGBO(13, 16, 24, 1),
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(232, 232, 232, 1),
       inversePrimary: Color.fromRGBO(0, 217, 255, 0.158)
@@ -214,7 +214,7 @@ class DarkTheme {
       background: Color.fromRGBO(27, 33, 48, 100),
       onBackground: Color.fromRGBO(27, 33, 48, 100),
       surface: Color.fromARGB(255, 32, 238, 159),
-      onSurface: Color.fromRGBO(0, 77, 112, 100),
+      onSurface: tertiary,
       outline: Color.fromRGBO(27, 33, 48, 1),
       primaryContainer: Color.fromRGBO(27, 33, 48, 1),
       inversePrimary: Color.fromRGBO(2, 225, 255, 0.176)
