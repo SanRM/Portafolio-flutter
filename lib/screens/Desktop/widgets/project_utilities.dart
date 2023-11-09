@@ -245,7 +245,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                             data: Theme.of(context).copyWith(
                               scrollbarTheme: ScrollbarThemeData(
                                 thumbColor: MaterialStateProperty.all(Colors.white),
-                                thumbVisibility: MaterialStatePropertyAll(true),
+                                thumbVisibility: const MaterialStatePropertyAll(true),
                               ),
                             ),
                             child: SingleChildScrollView(
@@ -279,7 +279,7 @@ class _ProjectManagerState extends State<ProjectManager> {
                                 scrollbarTheme: ScrollbarThemeData(
                                   thumbColor:
                                     MaterialStateProperty.all(Colors.white),
-                                    thumbVisibility: MaterialStatePropertyAll(true),
+                                    thumbVisibility: const MaterialStatePropertyAll(true),
                                 ),
                               ),
                               child: SingleChildScrollView(
